@@ -220,7 +220,11 @@ public function updateProduct(Request $request) {
             $data['cfeatured'] = 'no';
         }
         $data['status'] = $request->ai;
+        $parentname = brandModel::where('id',$id)->first();
         $brand = brandModel::where('id',$id)->update($data);
+        $forChild = array();
+        $forChild['parent'] = $request->cname;
+        $childUpdate = brandModel::where('parent',$parentname->cname)->update($forChild);
 
         if ( $brand ) {
             return redirect()->route('category')->with('status','Category Updated successfully');
@@ -311,7 +315,7 @@ public function updateProduct(Request $request) {
     //client home 
     public function home(){
         $all_products = products::where('pstatus','active')->join('brands','products.category','=','brands.id')->select('products.*','brands.cname','brands.parent')->get();
-        $f_products = products::where('pstatus','active')->where('featured','yes')->get();
+        $f_products = products::where('pstatus','active')->get();
         return view('home',['allProducts'=> $all_products,'featuredProducts'=> $f_products]);
     }
 

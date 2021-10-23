@@ -124,7 +124,7 @@
                         Shipping Charge
                         <input type="number" name="shipPrice" id="shipPrice" value="{{$product->shipping_charge}}" class="form-control">
                     </label>
-                    <div class="status_wrapping">
+                    {{-- <div class="status_wrapping">
                         <div class="status" style="font-weight:bold;">Featured</div>
                         <div class="check_wrapping" style="display: flex;grid-column-gap:10px;">
                             <div class="form-check">
@@ -140,7 +140,7 @@
                                 </label>
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
                     <div class="status_wrapping">
                         <div class="status" style="font-weight:bold;">Status</div>
                         <div class="check_wrapping" style="display: flex;grid-column-gap:10px;">
@@ -159,7 +159,7 @@
                         </div>
                     </div>
                     <div class="status_wrapping">
-                        <div class="status" style="font-weight:bold;">IMEI Available?</div>
+                        <div class="status" style="font-weight:bold;">EMI Available?</div>
                         <div class="check_wrapping" style="display: flex;grid-column-gap:10px;">
                             <div class="form-check">
                                 <input class="form-check-input" type="radio" name="ia" value="yes" id="imei1" <?php if($product->pimei == 'yes') echo 'checked'?>>
@@ -268,9 +268,12 @@
         for (let index = 0; index < productImages.length; index++) {
             const element = productImages[index];
             all += `
-            <label for="${index}"><p id="${'a'+index}" contenteditable="true" class="forquery" style="width:300px;border:1px solid black;">${element}</p>
-            <input type="file" onchange="imgobjarray(this,${index})" id="${index}" style="display: none;"></label> <span class="spanimg" onclick="deleteimage(${index})">-</span><br>
+            <label for="${index}">
+            <img style="width:50px; object-fit:contain;" src="${'/laraecomm'+element}">  
+            <p id="${'a'+index}" contenteditable="true" class="forquery" style="width:300px;border:1px solid black;">${element}</p>
+            <input type="file" onchange="imgobjarray(this,${index})" id="${index}" style="display: none;"></label> <span class="spanimg" onclick="deleteimage(${index})">-</span><br> 
             `;
+            // laraecomm remove korte hobe server e daoar somoy
         }
         document.getElementById('showimg').innerHTML = all;
     }
@@ -312,7 +315,7 @@ document.getElementById('forsubmit').addEventListener('submit',async function (e
     let productd = myform.bdescription.value;
     let productq = myform.quantity.value;
     let price = myform.price.value;
-    let productf = myform.fy.value;
+    // let productf = myform.fy.value;
     let active = myform.sactive.value;
     let ia = myform.ia.value;
     let ai = myform.ai.value;
@@ -336,7 +339,7 @@ document.getElementById('forsubmit').addEventListener('submit',async function (e
     formdata.append('quantity',productq);
     formdata.append('price',price);
     formdata.append('discount_price',discount_p);
-    formdata.append('productf',productf);
+    // formdata.append('productf',productf);
     formdata.append('isActive',active);
     formdata.append('IMEI',ia);
     formdata.append('shippingCost',shipPrice);
@@ -356,7 +359,7 @@ document.getElementById('forsubmit').addEventListener('submit',async function (e
     formdata.append('id',productId);
     axios.post('/laraecomm/admin/product/update',formdata).then(res=>{
         alert(res.data);
-        location.reload();
+        window.location.href= "{{route('allproducts')}}";
     });
 });
 // form submit end
