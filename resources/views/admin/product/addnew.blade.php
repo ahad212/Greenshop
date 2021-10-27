@@ -278,7 +278,7 @@ document.getElementById('forsubmit').addEventListener('submit',async function (e
     let shipPrice = myform.shipPrice.value;
     let variant = myform.variant.value;
     let size = myform.size.value;
-    let slug = productName.toLowerCase().replace(/ /g,'-');
+    let slug = productName.toLowerCase().replace(/[\w]/g,'-');
     if ( ai == 'yes' ) {
         warranty = myform.wamount.value;
     } else {

@@ -454,7 +454,13 @@
     </div>
 </div>
 
-
+<style>
+    /* slider product photo */
+    .owl-carousel img {
+        height:150px;
+        object-fit: contain;
+    }
+</style>
 
 <h1 class="h1shop">Shop By Brands</h1>
 <div class="best_sell5">
