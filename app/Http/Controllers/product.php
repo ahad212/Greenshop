@@ -234,7 +234,7 @@ public function updateProduct(Request $request) {
     }
 
     public function brandIndex () {
-        $category = brandModel::all();
+        $category = brandModel::orderBy('id','DESC')->get();
         return view('admin/product/category',['category' => $category]);
     }
 

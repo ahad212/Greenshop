@@ -3,7 +3,7 @@
         $('#owl-carousel').owlCarousel({
             rtl:false,
             loop:true,
-            autoplay : true,
+            // autoplay : true,
             margin:0,
             nav:true,
             responsive:{
@@ -18,10 +18,10 @@
                     items:3
                 },
                 1200:{
-                    items:6
+                    items:5
                 },
-                1400:{
-                    items:8
+                1350:{
+                    items:6
                 }
             }
         });
@@ -46,14 +46,14 @@
                     items:5
                 },
                 1400:{
-                    items:8
+                    items:6
                 }
             }
         });
         $('.owl-carousel').owlCarousel({
             rtl:true,
             loop:true,
-            autoplay : true,
+            // autoplay : true,
             margin:-2,
             nav:true,
             responsive:{

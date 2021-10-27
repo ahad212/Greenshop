@@ -157,6 +157,18 @@ footer{
         display:block !important;
     }
 }
+@media (max-width:1271px) {
+    .cathead{
+        display: none;
+    }
+    .menupart ul{
+        grid-column-gap:50px;
+    }
+    .menupart{
+        width:100% !important;
+        justify-content: center;
+    }
+}
 @media (max-width:1200px){
     header{
         display:none;
@@ -443,18 +455,11 @@ footer{
         text-decoration:none;
     }
     header{
-        height:130px;
         width:100%;
         display:none;
     }
-    .first{
-        height:80px;
-        padding-top:15px;
-    }
-    .second{
-        height: 50px;
-        background:#818A91;
-    }
+
+
      .logo img{
         max-height:80px;
         max-width:152px;
@@ -499,6 +504,10 @@ footer{
         color:#FF6407;
         font-size:18px;
     }
+    .searchIcon i{
+        color:#FF6407;
+
+    }
     .cart .taka{
         color:#FF6407;
         font-weight:500;
@@ -531,28 +540,12 @@ footer{
         cursor:pointer;
         color:#0769D5;
     }
-    .menupart{
-        display:flex;
-        align-items:center;
-        justify-content: center;
-        padding-top:13px;
+    .first{
+        height:80px;
+        padding-top:15px;
+        background:#d1d1f1;
     }
-    .menupart ul{
-        list-style:none;
-        display:flex;
-        grid-column-gap: 80px;
-    }
-    .menupart ul li{
-        display:inline;
-    }
-    .menupart ul li a{
-        text-decoration:none;
-        color:black;
-        padding:13px 20px;
-        border-radius:7px;
-        color:white;
-        font-size:18px;
-    }
+    
     .fa-color {
         font-size:24px
     }
@@ -574,7 +567,7 @@ footer{
         z-index:100;
         box-shadow:1px 1px 20px rgba(0,0,0,0.4);
         display:none;
-        }
+    }
         .menu_icon{
             width:30px;
             margin-left:10px;

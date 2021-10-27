@@ -342,7 +342,138 @@
 .con-cover-checkout .container{
     padding-top:10px !important;
 }
+
+
+/*head part menu*/
+.second{
+    height: 55px;
+    background:rgb(255, 255, 255);
+    display: flex;
+    border-bottom:1px solid rgb(212, 210, 210);
+}
+.smain{
+    width:28%;
+}
+.cathead{
+    width:68.5%;
+    height:100%;
+    position: relative;
+    margin-left:auto;
+    margin-right:10.3%;
+}
+.covercat{
+    height:400px;
+    background:red;
+}
+.corg{
+    height:100%;
+    background:#FF3C20;
+    margin-left:auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color:white;
+    cursor:pointer;
+}
+.catdetails{
+    height:400px;
+    width:100%;
+    background:white; 
+    position:absolute;
+    top:130px;
+    z-index:300;
+    box-shadow:1px 1px 7px rgb(172, 170, 170);
+    transition: .5s;
+    visibility: hidden;
+    opacity:0;
+}
+.cathead:hover .catdetails{
+    visibility: visible;
+    top:53px;
+    opacity:1;
+}
+.catdetails ul{
+    list-style:none;
+    overflow:hidden;
+    border:1px solid #D7D7D7;
+    padding-top:2px;
+    padding-left:0px;
+}
+.catdetails ul li{
+    width:100%;
+    padding:10px 0px;
+    padding-left:30px;
+    border-bottom:1px solid #D7D7D7;
+}
+.catdetails a{
+    text-decoration:none;
+    color:black;
+}
+.catdetails a:hover{
+    text-decoration:none;
+    color:var(--orange);
+
+}
+.menupart{
+    width:72%;
+    display:flex;
+    align-items:center;
+    padding-top:20px;
+}
+.menupart ul{
+    list-style:none;
+    display:flex;
+    grid-column-gap:30px;
+}
+.menupart ul li{
+    display:inline;
+}
+.menupart ul li a{
+    text-decoration:none;
+    color:rgb(230, 56, 56);
+    padding:13px 10px;
+    border-radius:7px;
+    font-size:18px;
+}
+
+
+
 </style>
+
+
+<div class="second">
+    <div class="smain">
+        <div class="cathead">
+            <div class="corg">
+                <span><i class="fa fa-bars" aria-hidden="true"></i> </span> <strong style="margin-left:10px;"> ALL CATEGORIES</strong>
+            </div>
+            <div class="catdetails">
+                <ul>
+                    <a href="javascript:void(0)"><li><i  class="fas fa-mobile-alt category_icon3"></i>Mobile</li></a>
+                    <a href="javascript:void(0)"><li><i  class="fas fa-headphones-alt category_icon"></i> Mobile Accessories</li></a>
+                    <a href="javascript:void(0)"><li><i  class="fas fa-laptop category_icon2"></i> Laptop</li></a>
+                    <a href="javascript:void(0)"><li><i  class="fas fa-mouse category_icon"></i> Laptop Accessories</li></a>
+                    <a href="javascript:void(0)"><li><i  class="far fa-lightbulb category_icon"></i> Electronic</li></a>
+                    <a href="javascript:void(0)"><li><i  class="fab fa-uncharted category_icon"></i> Software</li></a>
+                    <a href="javascript:void(0)"><li><i  class="fas fa-shield-virus category_icon2"></i> Antivirus</li></a>
+                    <a href="javascript:void(0)"><li><i  class="fas fa-shield-virus category_icon2"></i> More</li></a>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="menupart">
+        <ul>
+            <li><a href=""><i class="fas fa-home"></i> Home</a></li>
+            <li><a href=""><i class="fas fa-store-alt"></i> Shop</a></li>
+            <li><a href=""><i class="fab fa-buffer"></i> Special Offer</a></li>
+            <li><a href=""><i class="fas fa-info-circle"></i> Support(Live chat)</a></li>
+            <li><a href=""><i class="fas fa-phone-alt"></i> 01778543921 (9am-11pm)</a></li>
+        </ul>
+    </div>
+</div>
+
+
+
 <div class="con-cover-checkout">
 <div class="container checkoutc">
     <div class="row row-cols-1 row-cols-sm-1 row-cols-lg-2">

@@ -2,6 +2,39 @@
 @section('content')
 <link rel="stylesheet" href="{{asset('laraecomm/allcss/category.css')}}">
 
+<div class="second">
+    <div class="smain">
+        <div class="cathead">
+            <div class="corg">
+                <span><i class="fa fa-bars" aria-hidden="true"></i> </span> <strong style="margin-left:10px;"> ALL CATEGORIES</strong>
+            </div>
+            <div class="catdetails">
+                <ul>
+                    <a href="javascript:void(0)"><li><i  class="fas fa-mobile-alt category_icon3"></i>Mobile</li></a>
+                    <a href="javascript:void(0)"><li><i  class="fas fa-headphones-alt category_icon"></i> Mobile Accessories</li></a>
+                    <a href="javascript:void(0)"><li><i  class="fas fa-laptop category_icon2"></i> Laptop</li></a>
+                    <a href="javascript:void(0)"><li><i  class="fas fa-mouse category_icon"></i> Laptop Accessories</li></a>
+                    <a href="javascript:void(0)"><li><i  class="far fa-lightbulb category_icon"></i> Electronic</li></a>
+                    <a href="javascript:void(0)"><li><i  class="fab fa-uncharted category_icon"></i> Software</li></a>
+                    <a href="javascript:void(0)"><li><i  class="fas fa-shield-virus category_icon2"></i> Antivirus</li></a>
+                    <a href="javascript:void(0)"><li><i  class="fas fa-shield-virus category_icon2"></i> More</li></a>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="menupart">
+        <ul>
+            <li><a href=""><i class="fas fa-home"></i> Home</a></li>
+            <li><a href=""><i class="fas fa-store-alt"></i> Shop</a></li>
+            <li><a href=""><i class="fab fa-buffer"></i> Special Offer</a></li>
+            <li><a href=""><i class="fas fa-info-circle"></i> Support(Live chat)</a></li>
+            <li><a href=""><i class="fas fa-phone-alt"></i> 01778543921 (9am-11pm)</a></li>
+        </ul>
+    </div>
+</div>
+
+
+
 <div class="page_wrap">
     <div class="container">
         <div class="row">

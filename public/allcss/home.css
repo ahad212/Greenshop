@@ -1,3 +1,97 @@
+
+/*head part menu*/
+.second{
+    height: 55px;
+    background:rgb(255, 255, 255);
+    display: flex;
+    border-bottom:1px solid rgb(212, 210, 210);
+}
+.smain{
+    width:28%;
+}
+.cathead{
+    width:68.5%;
+    height:100%;
+    position: relative;
+    margin-left:auto;
+    margin-right:10.3%;
+}
+.covercat{
+    height:400px;
+    background:red;
+}
+.corg{
+    height:100%;
+    background:#FF3C20;
+    margin-left:auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color:white;
+    cursor:pointer;
+}
+.catdetails{
+    height:400px;
+    width:100%;
+    background:white; 
+    position:absolute;
+    top:130px;
+    z-index:300;
+    box-shadow:1px 1px 7px rgb(172, 170, 170);
+    transition: .5s;
+    visibility: hidden;
+    opacity:0;
+}
+/* .cathead:hover .catdetails{
+    visibility: visible;
+    top:53px;
+    opacity:1;
+} */
+.catdetails ul{
+    list-style:none;
+    overflow:hidden;
+    border:1px solid #D7D7D7;
+    padding-top:2px;
+    padding-left:0px;
+}
+.catdetails ul li{
+    width:100%;
+    padding:10px 0px;
+    padding-left:30px;
+    border-bottom:1px solid #D7D7D7;
+}
+.catdetails a{
+    text-decoration:none;
+    color:black;
+}
+.catdetails a:hover{
+    text-decoration:none;
+    color:var(--orange);
+
+}
+.menupart{
+    width:72%;
+    display:flex;
+    align-items:center;
+    padding-top:20px;
+}
+.menupart ul{
+    list-style:none;
+    display:flex;
+    grid-column-gap:30px;
+}
+.menupart ul li{
+    display:inline;
+}
+.menupart ul li a{
+    text-decoration:none;
+    color:rgb(230, 56, 56);
+    padding:13px 10px;
+    border-radius:7px;
+    font-size:18px;
+}
+
+
 /* css for top line */
 h1 {
     overflow: hidden;
@@ -36,40 +130,42 @@ h1 {
     }
 .sidebar_all{
     width:91.5%;
-    height:300px;
+    height:430px;
     margin:auto;
 }
 .slide{
-    width:85%;
-    margin-top:5px;
+    width:75%;
+    margin-top:20px;
     float:right;
 }
 .slider{
     width:97.7%;
 }
 .left_bar{
-    width:15%;
+    width:21%;
     min-height:262px;
-    margin-top:5px;
     float:left;
     font-size:15px;
+    margin-left:23px;
+    margin-top:4px;
 }
 
 .menupartLeft{
-    width:87%;
     margin-left:auto;
 }    
 .menupartLeft ul{
     list-style:none;
-    height:283px;
+    height:430px;
     overflow:hidden;
-    box-shadow:1px 1px 4px rgba(0,0,0,0.3);
-    padding-top:13px;
-    padding-left:17px;
+    border:1px solid #D7D7D7;
+    padding-top:2px;
+    padding-left:0px;
 }
 .menupartLeft ul li{
     width:100%;
-    padding:7px 0px;
+    padding:10px 0px;
+    padding-left:30px;
+    border-bottom:1px solid #D7D7D7;
 }
 .menupartLeft a{
     text-decoration:none;
@@ -107,6 +203,10 @@ h1 {
 
 .uk-slideshow{
     position:relative;
+}
+.uk-dotnav>*>*{
+    height:9px;
+    width:9px;
 }
 .uk-dotnav>.uk-active>*{
     background-color:var(--orange);
@@ -175,11 +275,11 @@ background: linear-gradient(to right, #d6ae7b, #eacda3); /* W3C, IE 10+/ Edge, F
     transform: scale(1.10);
 }
 /* flash for clean image hover */
-@keyframes flash {
+/* @keyframes flash {
     0%   { opacity: 1; }
     50% { opacity: 0.5; }
     100% { opacity: 1; }
-}
+} */
 
 .flasher{
 animation: flash 300ms infinite;
@@ -614,7 +714,7 @@ animation: flash 300ms infinite;
             padding-top:0px;
         }
         .sidebar_all{
-            height:310px;
+            height:420px;
         }
         *+.uk-margin{
             width:100%;
@@ -642,14 +742,12 @@ animation: flash 300ms infinite;
         .con_cat_res .container{
             padding-top:0px;
         }
-        .sidebar_all{
-            height:300px;
-        }
         .cat_item_con_res .container{
             padding-top:20px;
         }
 
     }
+
     @media (max-width:800px)
     {
         .banner_img_1{
@@ -659,7 +757,7 @@ animation: flash 300ms infinite;
             padding-top:0px;
         }
         .sidebar_all{
-            height:230px;
+            height:340px;
         }
         .con_cover_extend .container{
             padding-top:0px !important;
@@ -686,15 +784,23 @@ animation: flash 300ms infinite;
             flex: 0 0 auto;
             width: 48.5%;
         } */
-
+        .sidebar_all{
+            height:310px;
+        }
         .con_cat_res .container{
             padding-top:0px;
+        }
+    }
+    @media (max-width:700px)
+    {
+        .sidebar_all{
+            height:280px;
         }
     }
     @media (max-width:600px)
     {
         .sidebar_all{
-            height:180px;
+            height:250px;
         }
     }
 
@@ -708,7 +814,6 @@ animation: flash 300ms infinite;
         .view_all{
             right:-110px !important;
             font-size:14px;
-            bottom:7px !important;
         }
         .endlint_text{
             font-size:15px;
@@ -745,22 +850,22 @@ animation: flash 300ms infinite;
         
         .sell-slider .one{
             width:168px;
+            height:250px;
         }
         .sold_out {
             height:35px !important;
             font-size:14px !important;
         }
-        /* .sell-slider{
-            width:100%;
-            margin:auto;
-        } */
+        .sell-slider{
+            height:280px;
+        }
         .best_sell, .best_sell2,
         .best_sell3, .best_sell4,
         .best_sell5, .best_sell6{
             width:93% !important;
         }
         .best_sell5{
-            height:140px !important;
+            height:160px !important;
         }
         .best_sell5 figure{
             height:40px !important;
@@ -796,7 +901,7 @@ animation: flash 300ms infinite;
 
         #owl-carousel .one{
             width:90% !important;
-            height:80px !important;
+            height:100px !important;
             margin:0px !important;    
             border-radius:4px !important;
         }
@@ -906,14 +1011,18 @@ animation: flash 300ms infinite;
         }
         .sidebar_all{
             width:100%;
-            height:118px !important;
+            height:160px !important;
         }
         figure{
             width:70px;
             height:70px;
             margin:auto;
             margin-top:50px;
-            cursor:pointer;
+        }
+        figure img{
+            height:100px !important;
+            width:100px !important;
+            margin:auto;
         }
         figcaption{
             font-size:13px;

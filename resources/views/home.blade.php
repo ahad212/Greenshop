@@ -2,6 +2,38 @@
 @section('content')
 <link rel="stylesheet" href="{{asset('laraecomm/allcss/home.css')}}">
 
+<div class="second">
+    <div class="smain">
+        <div class="cathead">
+            <div class="corg">
+                <span><i class="fa fa-bars" aria-hidden="true"></i> </span> <strong style="margin-left:10px;"> ALL CATEGORIES</strong>
+            </div>
+            <div class="catdetails">
+                <ul>
+                    <a href="javascript:void(0)"><li><i  class="fas fa-mobile-alt category_icon3"></i>Mobile</li></a>
+                    <a href="javascript:void(0)"><li><i  class="fas fa-headphones-alt category_icon"></i> Mobile Accessories</li></a>
+                    <a href="javascript:void(0)"><li><i  class="fas fa-laptop category_icon2"></i> Laptop</li></a>
+                    <a href="javascript:void(0)"><li><i  class="fas fa-mouse category_icon"></i> Laptop Accessories</li></a>
+                    <a href="javascript:void(0)"><li><i  class="far fa-lightbulb category_icon"></i> Electronic</li></a>
+                    <a href="javascript:void(0)"><li><i  class="fab fa-uncharted category_icon"></i> Software</li></a>
+                    <a href="javascript:void(0)"><li><i  class="fas fa-shield-virus category_icon2"></i> Antivirus</li></a>
+                    <a href="javascript:void(0)"><li><i  class="fas fa-shield-virus category_icon2"></i> More</li></a>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="menupart">
+        <ul>
+            <li><a href=""><i class="fas fa-home"></i> Home</a></li>
+            <li><a href=""><i class="fas fa-store-alt"></i> Shop</a></li>
+            <li><a href=""><i class="fab fa-buffer"></i> Special Offer</a></li>
+            <li><a href=""><i class="fas fa-info-circle"></i> Support(Live chat)</a></li>
+            <li><a href=""><i class="fas fa-phone-alt"></i> 01778543921 (9am-11pm)</a></li>
+        </ul>
+    </div>
+</div>
+
+
 <div class="con_cover_extend">
 <div class="sidebar_all">
     <div class="left_bar">
@@ -19,14 +51,17 @@
     </div>
     <div class="slide">
         <div class="slider">
-            <div uk-slideshow="max-height:283;ratio: 16:5; autoplay: true;animation: fade">
+            <div uk-slideshow=" max-height:409;ratio: 11:5; autoplay: true;animation: fade">
                 <div class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1">
                     <ul class="uk-slideshow-items">
                         <li>
-                            <img src="https://greenshopbd.com/wp-content/uploads/2021/07/2021-04-12_214327-1.jpg" alt="" uk-cover>
+                            <img src="https://opencart.opencartworks.com/themes/so_emarket/layout5/image/cache/catalog/slideshow/home5/slide3-870x408.jpg" alt="" uk-cover>
                         </li>
                         <li>
-                            <img src="https://greenshopbd.com/wp-content/uploads/2021/07/c-1.jpg" alt="" uk-cover>
+                            <img src="https://st4.depositphotos.com/1083585/20688/i/600/depositphotos_206885066-stock-photo-paris-france-aug-2018-woman.jpg" alt="" uk-cover>
+                        </li>
+                        <li>
+                            <img src="https://st4.depositphotos.com/1083585/20855/i/600/depositphotos_208550782-stock-photo-paris-france-aug-2018-man.jpg" alt="" uk-cover>
                         </li>
                     </ul>
                     <a class="uk-position-center-left uk-position-small uk-hidden-hover" href="#" uk-slidenav-previous uk-slideshow-item="previous"></a>

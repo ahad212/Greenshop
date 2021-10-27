@@ -6,6 +6,41 @@
 <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
 <link rel="stylesheet" href="{{asset('laraecomm/allcss/product_view.css')}}">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/css/iziToast.min.css" integrity="sha512-O03ntXoVqaGUTAeAmvQ2YSzkCvclZEcPQu1eqloPaHfJ5RuNGiS4l+3duaidD801P50J28EHyonCV06CUlTSag==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+<div class="second">
+    <div class="smain">
+        <div class="cathead">
+            <div class="corg">
+                <span><i class="fa fa-bars" aria-hidden="true"></i> </span> <strong style="margin-left:10px;"> ALL CATEGORIES</strong>
+            </div>
+            <div class="catdetails">
+                <ul>
+                    <a href="javascript:void(0)"><li><i  class="fas fa-mobile-alt category_icon3"></i>Mobile</li></a>
+                    <a href="javascript:void(0)"><li><i  class="fas fa-headphones-alt category_icon"></i> Mobile Accessories</li></a>
+                    <a href="javascript:void(0)"><li><i  class="fas fa-laptop category_icon2"></i> Laptop</li></a>
+                    <a href="javascript:void(0)"><li><i  class="fas fa-mouse category_icon"></i> Laptop Accessories</li></a>
+                    <a href="javascript:void(0)"><li><i  class="far fa-lightbulb category_icon"></i> Electronic</li></a>
+                    <a href="javascript:void(0)"><li><i  class="fab fa-uncharted category_icon"></i> Software</li></a>
+                    <a href="javascript:void(0)"><li><i  class="fas fa-shield-virus category_icon2"></i> Antivirus</li></a>
+                    <a href="javascript:void(0)"><li><i  class="fas fa-shield-virus category_icon2"></i> More</li></a>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="menupart">
+        <ul>
+            <li><a href=""><i class="fas fa-home"></i> Home</a></li>
+            <li><a href=""><i class="fas fa-store-alt"></i> Shop</a></li>
+            <li><a href=""><i class="fab fa-buffer"></i> Special Offer</a></li>
+            <li><a href=""><i class="fas fa-info-circle"></i> Support(Live chat)</a></li>
+            <li><a href=""><i class="fas fa-phone-alt"></i> 01778543921 (9am-11pm)</a></li>
+        </ul>
+    </div>
+</div>
+
+
+
+
 <div class="top_fixed_for_pc_only" id="fixed_show">
     <div class="row">
         <div class="col sticky_custom_col">
