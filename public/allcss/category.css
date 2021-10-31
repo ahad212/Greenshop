@@ -621,6 +621,9 @@
               top:60px;
               left:82px;
               }
+              .second{
+                display: none;
+              }
           }
           @media (max-width: 768px){
               .icon_group{

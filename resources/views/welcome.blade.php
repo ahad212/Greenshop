@@ -18,7 +18,8 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css" integrity="sha512-sMXtMNL1zRzolHYKEujM2AqCLUR9F2C4/05cdbxjjLSRvMQIciEPCQZo++nk7go3BtSuK9kfa/s+a4f4i5pLkw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" integrity="sha512-aOG0c6nPNzGk+5zjwyJaoRUgCdOrfSDhmMID2u4+OIslr0GjpLKo7Xm0Ao3xmpM4T8AmIouRkqwj1nrdVsLKEQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         <link rel="stylesheet" href="{{asset('laraecomm/allcss/welcome.css')}}">
-
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
 
     </head>
 
@@ -48,6 +49,65 @@
     {{-- <div id="loader">
         <img src="{{asset('laraecomm/images/loader.gif')}}" alt="">
     </div> --}}
+
+
+    {{-- login modal start --}}
+    <style>
+        .is-focused{
+            border-color:red;
+        }
+        .custom-check:checked{
+            background: var(--orange);
+        }
+        .checkcus{
+            margin-top:10px;
+        }
+    </style>    
+    <div class="backshadow">
+
+    </div>
+    <div class="model">
+        <div class="modal_close" onclick="closediv()" ></div>
+        <div class="crosposition" onclick="closediv()">x</div>
+        <div id="loginform">
+            <div class="headlog">Log in</div>
+            <div class="subtitlelog">Become a part of our community!</div>
+            <div class="formdiv">
+                <div class="form-floating mb-3">
+                    <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+                    <label for="floatingInput">Phone or Email</label>
+                </div>
+                <div class="form-floating">
+                    <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+                    <label for="floatingPassword">Password</label>
+                </div>
+                <div class="form-check checkcus">
+                    <input class="form-check-input custom-check" type="checkbox" value="" id="flexCheckChecked">
+                    <label class="form-check-label fw-bold" for="flexCheckChecked" style="color:white">
+                    Remember Me
+                    </label>
+                </div>
+                <div class="loginbtnn">LOGIN</div>
+                <a href="#" class="loganchor">Forget your password?</a>
+            </div>
+            <div class="logfooter">
+            </div>
+            <div class="afterlogfooter">
+                Not a member? <span class="signbutton" onclick="showsignup()">sign up</span>
+            </div>
+        </div>
+
+
+        <div id="signupform">
+
+        </div>
+    </div>
+
+
+    {{-- login modal end --}}
+
+
+<div id="main_warp">
     <header>
         <div class="first">
             <div class="left">
@@ -62,9 +122,48 @@
                 <div class="searchIcon"><i class="fas fa-search"></i></div>
             </div>
             <div class="rightpart">
-            <a href="{{route('account')}}"><div class="cart">
-                    <i class="far fa-user fa-color"></i>
-                </div></a>
+                {{-- <a href="{{route('account')}}"> --}}
+                    <div class="cart" title="icon">
+                        <i class="far fa-user fa-color"></i>
+                    </div>
+                {{-- </a> --}}
+
+                <script>
+                    let accoutnbtn = document.getElementsByClassName('cart')[0];
+                    let background = document.getElementsByClassName('backshadow')[0];
+                    let model = document.getElementsByClassName('model')[0];
+                    accoutnbtn.addEventListener('click',function(){
+                        background.classList.add('shadowopen');
+                        model.classList.add('shadowopen');
+                        document.body.classList.add('bodyblur');
+                        document.getElementById('main_warp').classList.add('main-warp');
+                    });
+                    background.addEventListener('click',function(){
+                        background.classList.remove('shadowopen');
+                        model.classList.remove('shadowopen');
+                        document.body.classList.remove('bodyblur');
+                        document.getElementById('main_warp').classList.remove('main-warp');
+            
+                    });
+                    function closediv() {
+                        background.classList.remove('shadowopen');
+                        model.classList.remove('shadowopen');
+                        document.body.classList.remove('bodyblur');
+                        document.getElementById('main_warp').classList.remove('main-warp');                    
+                    }
+
+                    function showsignup() {
+                        let loginform = document.getElementById('loginform');
+                        loginform.style.display = 'none';
+                    }
+                </script>
+
+
+
+
+
+
+
                 <a href="{{route('wich')}}">
                     <div class="cart">
                         <i class="far fa-heart fa-color"></i>
@@ -443,7 +542,7 @@
         </div>
     </div>
     </div>
-
+</div>
 
 <!-- end-canvas -->
 
@@ -453,5 +552,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js" integrity="sha512-bPs7Ae6pVvhOSiIcyUClR7/q2OAsRiovw4vAkX+zJbw3ShAeeqezq50RIIcIURq7Oa20rW2n2q+fyXBNcU9lrw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" integrity="sha512-uto9mlQzrs59VwILcLiRYeLKPPbS/bT71da/OEBYEwcdNUk8jYIy+D176RYoop1Da+f9mvkYrmj5MCLZWEtQuA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="{{asset('laraecomm/alljs/welcome.js')}}"></script>
+    <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+
     </body>
 </html>

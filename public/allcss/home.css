@@ -745,7 +745,9 @@ animation: flash 300ms infinite;
         .cat_item_con_res .container{
             padding-top:20px;
         }
-
+        .second{
+            display: none;
+        }
     }
 
     @media (max-width:800px)
@@ -777,6 +779,7 @@ animation: flash 300ms infinite;
         /* .owl-theme .owl-dots .owl-dot:hover span{
             pointer-events:none;
         } */
+
     }
     @media (max-width:768px)
     {

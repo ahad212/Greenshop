@@ -94,6 +94,12 @@
     .update_cart:hover{
         color:var(--orange);
     } */
+
+    @media (max-width:1026px) {
+        .second{
+            display: none;
+        }
+    }
     @media (max-width:414px)
     {
         

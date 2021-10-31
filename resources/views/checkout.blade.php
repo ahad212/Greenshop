@@ -887,6 +887,11 @@
                             padding-top:50px !important;
                         }
                     }
+                    @media (max-width:1026px) {
+                        .second{
+                            display: none;
+                        }
+                    }
                     @media (max-width:414px)
                     {
                         .c_p_final{
