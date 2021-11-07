@@ -52,7 +52,8 @@
                             <th>Image</th>
                             <th>Sold</th>
                             <th>Price</th>
-                            <th>Featured</th>
+                            <th>Discount Price</th>
+                            {{-- <th>Featured</th> --}}
                             <th>Status</th>
                             <th>EMI</th>
                             <th>Warranty</th>
@@ -69,7 +70,8 @@
                                 <td><img style="height:50px;width:50px;object-fit:contain;" src="{{($all->pimage === null || substr($all->pimage,0,1) === '[')? asset('laraecomm/images/default.png') : asset('laraecomm/public/'.$all->pimage)}}" alt=""></td>
                                 <td>{{$all->sold}}</td>
                                 <td>{{$all->price}}</td>
-                                <td>{{$all->featured}}</td>
+                                <td>{{$all->discount_price}}</td>
+                                {{-- <td>{{$all->featured}}</td> --}}
                                 <td>{{$all->pstatus}}</td>
                                 <td>{{$all->pimei}}</td>
                                 <td>{{$all->pwarranty}}</td>

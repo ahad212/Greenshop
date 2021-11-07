@@ -119,3 +119,243 @@ window.onscroll = function(){
     //     });
 
     // });
+
+
+    function orderplace() {
+        let tokenExist = localStorage.getItem('usertoken');
+        if (!tokenExist) {
+            iziToast.error({
+                title: 'Error',
+                message: 'Please Login First',
+                position: 'topRight',
+            });
+            return;       
+        }
+        let colorId = document.getElementById('coloring');
+        let sizeId = document.getElementById('sizing');
+        if(colorId || sizeId) {
+            if (!colorId.value) {
+                iziToast.error({
+                    title: 'Error',
+                    message: 'Select Color is required',
+                    position: 'topRight',
+                });
+                return;
+            }
+            if (!sizeId.value) {
+                iziToast.error({
+                    title: 'Error',
+                    message: 'Select Size is required',
+                    position: 'topRight',
+                });
+                return;
+            } 
+        } else {
+            console.log('color or size is missing');
+        }
+
+        if (!shipcost) {
+            iziToast.error({
+                title: 'Error',
+                message: 'Select Your City',
+                position: 'topRight',
+            });
+            return;
+        } else {
+            let quantity = document.getElementById('quantitynum').value;
+            let price = '';
+            if (currentProduct.discount_price > 0) {
+                price = currentProduct.discount_price;
+            } else {
+                price = currentProduct.price;
+            }
+            let orderObj = {id: currentProduct.id, name: currentProduct.name, quantity: quantity, price: price ,pimage : currentProduct.pimage, shipping: totalShippingCost};
+            if (colorId) {
+                orderObj.color = colorId.value; 
+            } 
+            if (sizeId) {
+                orderObj.size = sizeId.value;
+            }
+            let cartExist = localStorage.getItem('cart');
+            let findingind = '';
+
+
+            if (cartExist) { 
+                let jsonArray = JSON.parse(cartExist);
+                findingind = jsonArray.findIndex(x => x.id == currentProduct.id);
+            }
+
+
+            if (!cartExist) {
+                let cartArray = [];
+                cartArray.push(orderObj);
+                localStorage.setItem('cart',JSON.stringify(cartArray));
+                iziToast.success({
+                    title: 'Success',
+                    message: 'Product add to cart',
+                    position: 'topRight',
+                });
+                document.getElementById('lblCartCount2').innerHTML = 1;
+                let total = 0;
+                for (let index = 0; index < cartArray.length; index++) {
+                    const element = cartArray[index];
+                    let totalwithquan = parseInt(element.quantity) * parseInt(element.price);
+                    total += totalwithquan;
+                }
+                let formatValue = new Intl.NumberFormat('en-IN').format(total);
+                document.getElementById('totalCart').innerHTML = formatValue;
+                document.getElementById('sub_amounRight').innerHTML = formatValue;
+
+                let totalcart = '';
+                for (let caring = 0; caring < cartArray.length; caring++) {
+                    const element = cartArray[caring];
+                    const imageFirst = JSON.parse(element.pimage);
+                    let totalwithquanRight = parseInt(element.quantity) * parseInt(element.price);
+                    let formatValueRight = new Intl.NumberFormat('en-IN').format(totalwithquanRight);
+                    totalcart += `
+                    <div class="cart_item_list">
+                        <div class="car_item_image">
+                            <img src="${'/laraecomm'+imageFirst[0]}" alt="">
+                        </div>
+                        <div class="item_all_info">
+                            <div class="info_name">
+                                ${element.name}
+                            </div>
+                            <div class="count_which">${element.quantity}x <span>৳ ${formatValueRight}</span></div>
+                        </div>
+                        <div class="action_items" onclick="splititem(${element.id})">
+                            <i class="far fa-trash-alt"></i>
+                        </div>
+                    </div>
+                    `;
+                }
+                document.getElementById('cartItemList').innerHTML = totalcart;
+
+                
+            } else if (findingind != -1) {
+                let jsonArray = JSON.parse(cartExist);
+                jsonArray.splice(findingind,1,orderObj);
+                localStorage.setItem('cart',JSON.stringify(jsonArray));
+                iziToast.success({
+                    title: 'Success',
+                    message: 'Cart Updated',
+                    position: 'topRight',
+                });
+                document.getElementById('lblCartCount2').innerHTML = jsonArray.length;
+                let total = 0;
+                for (let index = 0; index < jsonArray.length; index++) {
+                    const element = jsonArray[index];
+                    let totalwithquan = parseInt(element.quantity) * parseInt(element.price);
+                    total += totalwithquan;
+                }
+                let formatValue = new Intl.NumberFormat('en-IN').format(total);
+                document.getElementById('totalCart').innerHTML = formatValue;
+                document.getElementById('sub_amounRight').innerHTML = formatValue;
+
+                let totalcart = '';
+                for (let caring = 0; caring < jsonArray.length; caring++) {
+                    const element = jsonArray[caring];
+                    const imageFirst = JSON.parse(element.pimage);
+                    let totalwithquanRight = parseInt(element.quantity) * parseInt(element.price);
+                    let formatValueRight = new Intl.NumberFormat('en-IN').format(totalwithquanRight);
+                    totalcart += `
+                    <div class="cart_item_list">
+                        <div class="car_item_image">
+                            <img src="${'/laraecomm'+imageFirst[0]}" alt="">
+                        </div>
+                        <div class="item_all_info">
+                            <div class="info_name">
+                                ${element.name}
+                            </div>
+                            <div class="count_which">${element.quantity}x <span>৳ ${formatValueRight}</span></div>
+                        </div>
+                        <div class="action_items" onclick="splititem(${element.id})">
+                            <i class="far fa-trash-alt"></i>
+                        </div>
+                    </div>
+                    `;
+                }
+                document.getElementById('cartItemList').innerHTML = totalcart;
+
+            } else {
+                let jsonArray = JSON.parse(cartExist);
+                jsonArray.push(orderObj);
+                localStorage.setItem('cart',JSON.stringify(jsonArray));
+                iziToast.success({
+                    title: 'Success',
+                    message: 'Product add to cart',
+                    position: 'topRight',
+                });
+                document.getElementById('lblCartCount2').innerHTML = jsonArray.length;
+                let total = 0;
+                for (let index = 0; index < jsonArray.length; index++) {
+                    const element = jsonArray[index];
+                    let totalwithquan = parseInt(element.quantity) * parseInt(element.price);
+                    total += totalwithquan;
+                }
+                let formatValue = new Intl.NumberFormat('en-IN').format(total);
+                document.getElementById('totalCart').innerHTML = formatValue;
+                document.getElementById('sub_amounRight').innerHTML = formatValue;
+
+                let totalcart = '';
+                for (let caring = 0; caring < jsonArray.length; caring++) {
+                    const element = jsonArray[caring];
+                    const imageFirst = JSON.parse(element.pimage);
+                    let totalwithquanRight = parseInt(element.quantity) * parseInt(element.price);
+                    let formatValueRight = new Intl.NumberFormat('en-IN').format(totalwithquanRight);
+                    totalcart += `
+                    <div class="cart_item_list">
+                        <div class="car_item_image">
+                            <img src="${'/laraecomm'+imageFirst[0]}" alt="">
+                        </div>
+                        <div class="item_all_info">
+                            <div class="info_name">
+                                ${element.name}
+                            </div>
+                            <div class="count_which">${element.quantity}x <span>৳ ${formatValueRight}</span></div>
+                        </div>
+                        <div class="action_items" onclick="splititem(${element.id})">
+                            <i class="far fa-trash-alt"></i>
+                        </div>
+                    </div>
+                    `;
+                }
+                document.getElementById('cartItemList').innerHTML = totalcart;
+                
+            }
+        }
+
+    }
+
+
+    function splititem(splId) {
+        let cartForRight = JSON.parse(localStorage.getItem('cart'));
+        let getSpid = cartForRight.findIndex(x => x.id == splId);
+        cartForRight.splice(getSpid,1);
+        localStorage.setItem('cart',JSON.stringify(cartForRight));
+        let totalcart = '';
+        for (let caring = 0; caring < cartForRight.length; caring++) {
+            const element = cartForRight[caring];
+            const imageFirst = JSON.parse(element.pimage);
+            let totalwithquanRight = parseInt(element.quantity) * parseInt(element.price);
+            let formatValueRight = new Intl.NumberFormat('en-IN').format(totalwithquanRight);
+            totalcart += `
+            <div class="cart_item_list">
+                <div class="car_item_image">
+                    <img src="${'/laraecomm'+imageFirst[0]}" alt="">
+                </div>
+                <div class="item_all_info">
+                    <div class="info_name">
+                        ${element.name}
+                    </div>
+                    <div class="count_which">${element.quantity}x <span>৳ ${formatValueRight}</span></div>
+                </div>
+                <div class="action_items" onclick="splititem(${element.id})">
+                    <i class="far fa-trash-alt"></i>
+                </div>
+            </div>
+            `;
+        }
+        document.getElementById('cartItemList').innerHTML = totalcart;
+        document.getElementById('lblCartCount2').innerHTML = cartForRight.length;
+    }

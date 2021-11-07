@@ -264,17 +264,28 @@
             </ul>
         </div>
     </div>
-    
+    @php
+
+@endphp
 
     <div class="sell-slider">
         <div class="owl-carousel owl-theme">
             @foreach ($featuredProducts as $k => $products)
             @php
-            $image = json_decode($products->pimage)[0];
+                $image = json_decode($products->pimage)[0];
+
+                //discount percentage calculation
+                $price = $products->price;
+                $dis_price = $products->discount_price;
+                $subtruct = $price - $dis_price;
+                $parcentage = ($subtruct*100)/$price;
             @endphp
                 <div class="one">
                     @if (!$products->quantity)
                         <div class="sold_out">Out Of Stock</div>
+                    @endif
+                    @if ($products->discount_price)
+                        <div class="discountsticker"><span style="margin-left:4px;">off </span>{{round($parcentage).'%'}}</div>
                     @endif
                     <div class="icon_group">
                         <div class="heart"><i class="far fa-eye"></i></div>
@@ -282,6 +293,14 @@
                     </div>
                     <a href="{{route('product_details', $products->slug)}}"><figure><img src="{{asset('laraecomm'.$image)}}" alt=""></figure></a> 
                     <a href="{{route('product_details', $products->slug)}}"><figcaption>{{$products->name}}</figcaption></a>
+                    @if ($products->discount_price)
+                        <div class="taka">{{number_format($products->discount_price)}} <span>৳</span></div>
+                    @else
+                        <div class="taka">{{number_format($products->price)}} <span>৳</span></div>
+                    @endif
+                    @if ($products->discount_price)
+                        <div class="mainprice" style="text-align:center;"> <span style="font-size:12px;"> {{round($parcentage)}}%- </span><del>{{number_format($products->price)}}</del> </div>
+                    @endif
                     <div class="rating">
                         <span class="spanrating">(0)</span>
                         <span class="far fa-star checked"></span>
@@ -290,7 +309,9 @@
                         <span class="far fa-star checked"></span>
                         <span class="far fa-star checked"></span>
                     </div>
-                    <div class="taka">{{$products->price}} <span>&#2547;</span></div>
+                    @if (!$products->discount_price)
+                        <br>
+                    @endif
                     <div class="add_to_cart">Add to cart</div>
                 </div>
             @endforeach

@@ -441,7 +441,7 @@
 </style>
 
 
-<div class="second">
+{{-- <div class="second">
     <div class="smain">
         <div class="cathead">
             <div class="corg">
@@ -470,7 +470,7 @@
             <li><a href=""><i class="fas fa-phone-alt"></i> 01778543921 (9am-11pm)</a></li>
         </ul>
     </div>
-</div>
+</div> --}}
 
 
 

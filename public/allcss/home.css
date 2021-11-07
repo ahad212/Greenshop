@@ -534,6 +534,7 @@ animation: flash 300ms infinite;
     .rating{
         text-align:center;
         color:#FFD37E;
+        font-size: 11px;
     }
     .taka{
         text-align:center;
@@ -542,7 +543,7 @@ animation: flash 300ms infinite;
         font-size:17px;
     }
     .best_sell .taka span, .best_sell2 .taka span, .best_sell3 .taka span{
-        font-size:25px;
+        font-size:17px !important;
         font-weight:bold;
     }
     .add_to_cart{
@@ -560,6 +561,22 @@ animation: flash 300ms infinite;
         cursor:pointer;
         transition:.3s;
         display:none;
+    }
+    .mainprice del{
+        opacity:.6
+    }
+    .discountsticker{
+        position:absolute;
+        left:10px;
+        top:10px;
+        height:25px;
+        width:60px;
+        background:linear-gradient(to right,rgb(238, 89, 63),rgb(238, 238, 127));
+        border-radius: 0 5px 5px 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 1px 1px 6px rgba(0,0,0,0.4);
     }
     /* .one:hover .add_to_cart{
         display:block;

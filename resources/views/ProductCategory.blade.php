@@ -2,7 +2,7 @@
 @section('content')
 <link rel="stylesheet" href="{{asset('laraecomm/allcss/category.css')}}">
 
-<div class="second">
+{{-- <div class="second">
     <div class="smain">
         <div class="cathead">
             <div class="corg">
@@ -31,7 +31,7 @@
             <li><a href=""><i class="fas fa-phone-alt"></i> 01778543921 (9am-11pm)</a></li>
         </ul>
     </div>
-</div>
+</div> --}}
 
 
 

@@ -7,7 +7,7 @@
 <link rel="stylesheet" href="{{asset('laraecomm/allcss/product_view.css')}}">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/css/iziToast.min.css" integrity="sha512-O03ntXoVqaGUTAeAmvQ2YSzkCvclZEcPQu1eqloPaHfJ5RuNGiS4l+3duaidD801P50J28EHyonCV06CUlTSag==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-<div class="second">
+{{-- <div class="second">
     <div class="smain">
         <div class="cathead">
             <div class="corg">
@@ -36,7 +36,7 @@
             <li><a href=""><i class="fas fa-phone-alt"></i> 01778543921 (9am-11pm)</a></li>
         </ul>
     </div>
-</div>
+</div> --}}
 
 
 
@@ -65,7 +65,11 @@
         </div>
         <div class="col">
             <div class="product_price_sticky">
-                <div class="taka price_sticky">৳ {{number_format($single_product->price)}}</div>
+                @if ($single_product->discount_price)
+                    <div class="taka price_sticky">৳ {{number_format($single_product->discount_price)}}</div>
+                @else
+                    <div class="taka price_sticky">৳ {{number_format($single_product->price)}}</div>
+                @endif
                 <div class="cart_button_sticky">Add to cart</div>
             </div>
         </div>
@@ -83,7 +87,7 @@
                     <img class="img_res_p"  src="{{asset('laraecomm/assets/images/xiaomi-redmi-note10-pro.jpg')}}" alt="">
                 </a>
             </div> --}}
-            <div class="fotorama " data-nav="thumbs" data-allowfullscreen="true" data-ratio="10/9">
+            <div class="fotorama " data-nav="thumbs" data-navposition="bottom" data-allowfullscreen="true" data-ratio="10/9">
                 @foreach ($image as $imgg)
                 <img src="{{asset('laraecomm'.$imgg)}}"/>
               @endforeach
@@ -102,10 +106,14 @@
                     <span class="far fa-star checked"></span><span class="spanrating2">(0 Reviews)</span><span class="spancolmargin"><span class="spancol3">sold:</span> 0</span>
                 </div>
             </li>
-            <li class="taka">৳ {{number_format($single_product->price)}}</li>
-            @foreach (explode(';',$single_product->pdescription) as $des)
+            @if ($single_product->discount_price)
+                <li class="taka">৳ {{number_format($single_product->discount_price)}}</li>
+            @else
+                <li class="taka">৳ {{number_format($single_product->price)}}</li>
+            @endif
+            {{-- @foreach (explode(';',$single_product->pdescription) as $des)
                 <li>{{$des}}</li>
-            @endforeach
+            @endforeach --}}
             {{-- <li>OS: Android 10</li>
             <li>Chipset: Qualcomm SDM450 Snapdragon 450 (14 nm)</li>
             <li>CPU: Octa-core 1.8 GHz Cortex-A53</li>
@@ -118,30 +126,33 @@
 
             <li>
             
-            <div class="center">
-                <div class="input-group">
-                    <span class="input-group-btn">
-                        <button type="button" id="btn" class="btn-number"  data-type="minus" data-field="quant[2]">
-                            -
-                        </button>
-                    </span>
-                    <input type="text" name="quant[2]" class="form-control input-number" value="1" min="1" max="{{$single_product->quantity}}">
-                    <span class="input-group-btn">
-                        <button type="button" id="btn2" class=" btn-number" data-type="plus" data-field="quant[2]">
-                            +
-                        </button>
-                    </span>
+                <div class="conli"  style="display:flex;">
+                    <div class="center">
+                        <div class="input-group">
+                            <span class="input-group-btn">
+                                <button type="button" id="btn" class="btn-number"  data-type="minus" data-field="quant[2]">
+                                    -
+                                </button>
+                            </span>
+                            <input type="text" name="quant[2]" class="form-control input-number" value="1" min="1" max="{{$single_product->quantity}}" id="quantitynum">
+                            <span class="input-group-btn">
+                                <button type="button" id="btn2" class=" btn-number" data-type="plus" data-field="quant[2]">
+                                    +
+                                </button>
+                            </span>
+                        </div>
+        
+                    </div>
+                    <p style="margin-left:10px;margin-top:15px;"><strong>In Stock : @php
+                        if ($single_product->quantity > 499 ) {
+                            echo 'Unlimited';
+                        } else {
+                            echo $single_product->quantity;
+                        }
+                    @endphp</strong></p>
                 </div>
-                <p><strong>Available Quantity : @php
-                    if ($single_product->quantity > 499 ) {
-                        echo 'Unlimited';
-                    } else {
-                        echo $single_product->quantity;
-                    }
-                @endphp</strong></p>
-            </div> 
             </li>
-            <li>
+            <li style="display: flex;grid-column-gap:3px;">
                 {{-- <div class="color"><strong>Color Variant:</strong><span class="spanfont3"> Black</span></div>
                 <div class="select_color">
                     <label>
@@ -167,13 +178,15 @@
                     $colors = explode(',',$single_product->color);
                 @endphp
                 @if ($single_product->color)
-                    <label for="" style="font-weight:bold;">Color Available</label>
-                    <select name="" id="coloring" class="form-select" style="width:200px;">
-                        <option value="" hidden>select Color</option>
-                        @foreach ($colors as $color)
-                        <option value="{{$color}}">{{$color}}</option>
-                        @endforeach
-                    </select>
+                    <div class="colorr">
+                        <label for="" style="font-weight:bold;">Color Available</label>
+                        <select name="" id="coloring" class="form-select" style="width:140px;">
+                            <option value="" hidden>select Color</option>
+                            @foreach ($colors as $color)
+                            <option value="{{$color}}">{{$color}}</option>
+                            @endforeach
+                        </select>
+                    </div>
                     <br>                    
                 @endif
                 {{-- @if ((count($colors) == 1) && $single_product->color != null)
@@ -183,13 +196,15 @@
                     $size = explode(',',$single_product->size);
                 @endphp
                 @if ($single_product->size)
-                    <label for="" style="font-weight:bold;">Size Available</label>
-                    <select name="" id="sizing" class="form-select" style="width:200px;" >
-                        <option value="" hidden>select Size</option>
-                        @foreach ($size as $size)
-                        <option value="{{$size}}">{{$size}}</option>
-                        @endforeach
-                    </select>
+                    <div class="sizee">
+                        <label for="" style="font-weight:bold;">Size Available</label>
+                        <select name="" id="sizing" class="form-select" style="width:140px" >
+                            <option value="" hidden>select Size</option>
+                            @foreach ($size as $size)
+                            <option value="{{$size}}">{{$size}}</option>
+                            @endforeach
+                        </select>
+                    </div>
                     <br>                    
                 @endif
 
@@ -334,19 +349,20 @@
                     }
                     .formcolf {
                         display:inline-block;
+                        margin-top:5px;
                     }
                     .labavail {
                         cursor:pointer;user-select:none;
                     }
                 </style>
             
-                <div class="form-check formcolf">
-                    <input class="form-check-input custom_checkbar" type="checkbox" value="" id="flexCheckemi">
-                    <label class="form-check-label labavail" for="flexCheckemi">
-                        Available EMI offer
+                <div class=" formcolf">
+                    {{-- <input class="form-check-input custom_checkbar" type="checkbox" value="" id="flexCheckemi"> --}}
+                    <label class="" for="">
+                        EMI offer
                     </label>
                 </div>
-                <span class="emi_ahref" id="popup-btn">View plans</span>
+                <span class="emi_ahref" id="popup-btn"> View plans</span>
 
 
 
@@ -499,7 +515,7 @@
                     <div class="wish_icon"><i class="far fa-heart"></i></div>
                 </div>
             </li>
-            <li><br>
+            <li style="margin-top:5px;">
                 Categories:  @php
                     if ($single_product->parent != 'parent') {
                         echo $single_product->parent.',';
@@ -573,9 +589,9 @@
                             </span>
                         </div>
                     @endif
-                    <!-- <div class="note_if_have">
-                        <strong class="link_warranty" data-bs-toggle="modal" data-bs-target="#staticBackdrop1">Note</strong>
-                    </div> -->
+                    <div class="note_if_have"> <i class="fas fa-shield-alt markc"></i>
+                        <strong class="link_warranty" style="margin-left:5px;" data-bs-toggle="modal" data-bs-target="#staticBackdrop1">Note</strong>
+                    </div>
                 </div>
             </div>                              
         </div>
@@ -1032,6 +1048,7 @@
 <script>
 
     const slug = window.location.pathname.substr(19);
+    let totalShippingCost;
     let productShipping;
     let currentProduct;
     let loc ='';
@@ -1043,16 +1060,13 @@
             productShipping = res.data.shipping_charge;
             currentProduct = res.data;
         });
-        console.log(currentProduct);
 
         axios.get('/laraecomm/api/V1/location').then(res=>{
-        console.log(res.data.data);
         let location = res.data.data;
         loc = location;
         let all;
         for (let index = 0; index < location.length; index++) {
             const element = location[index];
-            console.log(parseInt(element.shippingcost));
             all += `
             <option value="${element.name}">${(parseInt(element.shippingcost)+ parseInt(productShipping))+'Taka'}</option>
             `;
@@ -1074,46 +1088,12 @@
     function setamount( name ) {
         let search = loc.findIndex((item)=>item.name == name);
         let getitem = loc[search].shippingcost;
+        totalShippingCost = parseInt(getitem,10) + parseInt(productShipping,10);
         shipchar.innerText = (parseInt(getitem,10) + parseInt(productShipping,10))+' Taka';
         shipcost = (parseInt(getitem,10) + parseInt(productShipping,10))+' Taka';
     }
 
-    function orderplace() {
-        let colorId = document.getElementById('coloring');
-        let sizeId = document.getElementById('sizing');
-        if(colorId || sizeId) {
-            if (!sizeId.value) {
-                iziToast.error({
-                    title: 'Error',
-                    message: 'Select Size is required',
-                    position: 'topRight',
-                });
-            } else {
-                //
-            }
-            if (!colorId.value) {
-                iziToast.error({
-                    title: 'Error',
-                    message: 'Select Color is required',
-                    position: 'topRight',
-                });
-            } else {
-                //
-            }
-        } else {
-            console.log('color is missing');
-        }
-
-        if (!shipcost) {
-            iziToast.error({
-                title: 'Error',
-                message: 'Select Your City',
-                position: 'topRight',
-            });
-        } else {
-            //
-        }
-    }
+    
 
 </script>
 @endsection

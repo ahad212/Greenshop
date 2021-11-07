@@ -20,7 +20,7 @@
         <link rel="stylesheet" href="{{asset('laraecomm/allcss/welcome.css')}}">
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
         <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
-
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/css/iziToast.min.css" integrity="sha512-O03ntXoVqaGUTAeAmvQ2YSzkCvclZEcPQu1eqloPaHfJ5RuNGiS4l+3duaidD801P50J28EHyonCV06CUlTSag==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     </head>
 
     <style>
@@ -66,6 +66,7 @@
     <div class="backshadow">
 
     </div>
+
     <div class="model">
         <div class="modal_close" onclick="closediv()" ></div>
         <div class="crosposition" onclick="closediv()">x</div>
@@ -75,11 +76,11 @@
             <div class="formdiv">
                 <div class="form-floating mb-3">
                     <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
-                    <label for="floatingInput">Phone or Email</label>
+                    <label for="floatingInput">Phone or Email*</label>
                 </div>
                 <div class="form-floating">
                     <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
-                    <label for="floatingPassword">Password</label>
+                    <label for="floatingPassword">Password*</label>
                 </div>
                 <div class="form-check checkcus">
                     <input class="form-check-input custom-check" type="checkbox" value="" id="flexCheckChecked">
@@ -87,8 +88,8 @@
                     Remember Me
                     </label>
                 </div>
-                <div class="loginbtnn">LOGIN</div>
-                <a href="#" class="loganchor">Forget your password?</a>
+                <div class="loginbtnn" id="loginbtn">LOGIN</div>
+                <a href="javascript:void(0)" class="loganchor">Forget your password?</a>
             </div>
             <div class="logfooter">
             </div>
@@ -99,7 +100,43 @@
 
 
         <div id="signupform">
-
+            <div class="headsignin">Create an account</div>
+            <div class="subtitlelog">Welcome! Register for an account</div>
+            <div class="formdiv2">
+                <div class="form-floating mb-2">
+                    <input type="text" class="form-control" id="floatingInput0" placeholder="Username">
+                    <label for="floatingInput0">Username*</label>
+                </div>
+                <div class="form-floating mb-2">
+                    <input type="email" class="form-control" id="floatingInput1"  placeholder="Email">
+                    <label for="floatingInput1">Email*</label>
+                </div>
+                <div class="form-floating mb-2">
+                    <input type="text" class="form-control" id="floatingInput2" placeholder="Phone">
+                    <label for="floatingInput2">Phone*</label>
+                </div>
+                <div class="form-floating  mb-2 passwordeye">
+                    <input type="password" class="form-control" id="floatingPassword0" placeholder="Password">
+                    <label for="floatingPassword0">Password*</label>
+                    <div id="eye-open"><i class="far fa-eye"></i></div>
+                    <div id="eyeclose"><i class="fas fa-eye-slash"></i></div>
+                </div>
+                <div class="form-floating">
+                    <input type="password" class="form-control" id="floatingPassword1" placeholder="Password">
+                    <label for="floatingPassword1">Confirm Password*</label>
+                </div>
+                {{-- <div class="form-check checkcus">
+                    <input class="form-check-input custom-check" type="checkbox" value="" id="flexCheckChecked">
+                    <label class="form-check-label fw-bold" for="flexCheckChecked" style="color:white">
+                    Remember Me
+                    </label>
+                </div> --}}
+                <div class="loginbtnn" id="signupbtn">SIGNUP</div>
+                {{-- <a href="#" class="loganchor">Forget your password?</a> --}}
+            </div>
+            <div class="afterlogfooter">
+                Already a member? <span class="signbutton" onclick="showlogin()">sign in</span>
+            </div>
         </div>
     </div>
 
@@ -123,40 +160,97 @@
             </div>
             <div class="rightpart">
                 {{-- <a href="{{route('account')}}"> --}}
-                    <div class="cart" title="icon">
-                        <i class="far fa-user fa-color"></i>
+                    <div class="accountbtn">
+                        <div class="cart" title="icon">
+                            <i class="far fa-user fa-color"></i>
+                        </div>
+                        <div class="afterlogin" id="afterlogin">
+                            <div class="logoutbtn">Log Out</div>
+                        </div>
                     </div>
+
                 {{-- </a> --}}
 
-                <script>
-                    let accoutnbtn = document.getElementsByClassName('cart')[0];
-                    let background = document.getElementsByClassName('backshadow')[0];
-                    let model = document.getElementsByClassName('model')[0];
-                    accoutnbtn.addEventListener('click',function(){
-                        background.classList.add('shadowopen');
-                        model.classList.add('shadowopen');
-                        document.body.classList.add('bodyblur');
-                        document.getElementById('main_warp').classList.add('main-warp');
-                    });
-                    background.addEventListener('click',function(){
-                        background.classList.remove('shadowopen');
-                        model.classList.remove('shadowopen');
-                        document.body.classList.remove('bodyblur');
-                        document.getElementById('main_warp').classList.remove('main-warp');
-            
-                    });
-                    function closediv() {
-                        background.classList.remove('shadowopen');
-                        model.classList.remove('shadowopen');
-                        document.body.classList.remove('bodyblur');
-                        document.getElementById('main_warp').classList.remove('main-warp');                    
-                    }
+<script>
+    let signup = document.getElementById('signupform');
+    let loginform = document.getElementById('loginform');
+    let eyeOpen = document.getElementById('eye-open');
+    let eyeClose = document.getElementById('eyeclose');
+    let passnum = document.getElementById('floatingPassword0');
+    eyeOpen.addEventListener('click',function() {
+        eyeOpen.style.display = 'none';
+        eyeClose.style.display = 'block';
+        passnum.type = 'text';
+    });
+    eyeClose.addEventListener('click',function() {
+        eyeClose.style.display = 'none';
+        eyeOpen.style.display = 'block';
+        passnum.type = 'password';
+    });
+    eyeClose.style.display = 'none';
+    signup.style.display = 'none';
+    let accoutnbtn = document.getElementsByClassName('cart')[0];
+    let background = document.getElementsByClassName('backshadow')[0];
+    let model = document.getElementsByClassName('model')[0];
+    accoutnbtn.addEventListener('click',function(){
+        let tokencheck = localStorage.getItem('usertoken');
+        if (!tokencheck) {
+            background.classList.add('shadowopen');
+            model.classList.add('shadowopen');
+            document.body.classList.add('bodyblur');
+            document.getElementById('main_warp').classList.add('main-warp');
+        } else {
+            let logout = document.getElementById('afterlogin');
+            logout.classList.toggle('afterloginvisible');
+            let logoutbtn = document.getElementsByClassName('logoutbtn')[0];
+            logoutbtn.addEventListener('click',function() {
+                iziToast.success({
+                    title: 'Success',
+                    message: 'Loged Out',
+                    position: 'topRight',
+                });
+                logout.classList.remove('afterloginvisible');
+                localStorage.removeItem('usertoken');
+                localStorage.removeItem('cart');
+                document.getElementById('lblCartCount2').innerHTML = '';
+                document.getElementById('totalCart').innerHTML = 0;
+                document.getElementById('cartItemList').innerHTML = '';
+                document.getElementById('sub_amounRight').innerHTML = 00;
+            });
 
-                    function showsignup() {
-                        let loginform = document.getElementById('loginform');
-                        loginform.style.display = 'none';
-                    }
-                </script>
+        }
+    });
+    function modalOpen() {
+        background.classList.add('shadowopen');
+        model.classList.add('shadowopen');
+        document.body.classList.add('bodyblur');
+        document.getElementById('main_warp').classList.add('main-warp');
+    }
+    background.addEventListener('click',function(){
+        background.classList.remove('shadowopen');
+        model.classList.remove('shadowopen');
+        document.body.classList.remove('bodyblur');
+        document.getElementById('main_warp').classList.remove('main-warp');
+
+    });
+    function closediv() {
+        background.classList.remove('shadowopen');
+        model.classList.remove('shadowopen');
+        document.body.classList.remove('bodyblur');
+        document.getElementById('main_warp').classList.remove('main-warp');                 
+    }
+
+    function showsignup() {
+        loginform.style.display = 'none';
+        signup.style.display = 'block';
+    }
+
+    function showlogin() {
+        loginform.style.display = 'block';
+        signup.style.display = 'none';
+    }
+</script>
+
 
 
 
@@ -167,15 +261,22 @@
                 <a href="{{route('wich')}}">
                     <div class="cart">
                         <i class="far fa-heart fa-color"></i>
-                        <span class='badge badge-warning' id='lblCartCount'> 5 </span>
+                        <span class='badge badge-warning lblCartCount' id='lblCartCount1'> 5 </span>
                     </div>
                 </a>
                 <div class="cart cart_offcanvas"   data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight" >
                     <svg  xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-bag" viewBox="0 0 16 16">
                     <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5zM2 5h12v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V5z"/>
                     </svg>
-                    <span class='badge badge-warning badge-cart' id='lblCartCount'> 1 </span>
-                    <span class="taka">৳&nbsp;0.00</span>
+                    <span class='badge badge-warning badge-cart lblCartCount' id='lblCartCount2'> </span>
+                    <script>
+                        let cart = JSON.parse(localStorage.getItem('cart'));
+                        document.getElementById('lblCartCount2').innerHTML = cart.length;
+                    </script>
+                    <span class="taka1" style="color:var(--orange)">৳&nbsp;<span  id="totalCart">00</span></span>
+                    <script>
+
+                    </script>
                 </div>
             </div>
         </div>
@@ -208,7 +309,7 @@
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-bag" viewBox="0 0 16 16">
                             <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5zM2 5h12v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V5z"/>
                             </svg>
-                            <span class='badge badge-warning' id='lblCartCount'>1</span>
+                            <span class='badge badge-warning lblCartCount' id='lblCartCount3'>1</span>
                         </div>
                     </div>
                 </div>
@@ -410,9 +511,9 @@
                     </a>
                 </div>
                 <div class="col"  title="Account">
-                    <a href="{{route('account')}}">
-                        <div class="icon44 {{'laraecomm/account'== request()->path()?'active_icon':''}}">
-                            <div class="account">
+                    <a href="javascript:void(0)">
+                        <div class="icon44">
+                            <div class="account" onclick="modalOpen()">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
                                 <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/>
                                 </svg>
@@ -428,7 +529,7 @@
                                 <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-cart" viewBox="0 0 16 16">
                                 <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
                                 </svg>
-                                <span class='badge badge-warning' id='lblCartCount'>1</span>
+                                <span class='badge badge-warning lblCartCount' id='lblCartCount4'>1</span>
                             </div>
                             <span class="cartspan">Cart</span>
                         </div>
@@ -517,26 +618,107 @@
     </div>
     <div class="offcanvas-body">
         <hr>
-        <div class="cart_item_list">
-            <div class="car_item_image">
-                <img src="{{asset('laraecomm/assets/images/xiaomi-redmi-note10-pro.jpg')}}" alt="">
-            </div>
-            <div class="item_all_info">
-                <div class="info_name">
-                    Xiaomi redmi note10 pro 4GB/64GB
+        <div class="cartlist-warpper" id="cartItemList">
+            {{-- <div class="cart_item_list">
+                <div class="car_item_image">
+                    <img src="{{asset('laraecomm/assets/images/xiaomi-redmi-note10-pro.jpg')}}" alt="">
                 </div>
-                <div class="count_which">2x <span>৳ 14,499.00</span></div>
-            </div>
-            <div class="action_items">
-                <i class="far fa-trash-alt"></i>
-            </div>
+                <div class="item_all_info">
+                    <div class="info_name">
+                        Xiaomi redmi note10 pro 4GB/64GB
+                    </div>
+                    <div class="count_which">2x <span>৳ 14,499.00</span></div>
+                </div>
+                <div class="action_items">
+                    <i class="far fa-trash-alt"></i>
+                </div>
+            </div> --}}
         </div>
+
         <hr>
         
         <div class="cart_footer">
             <div class="sub_total">
-                Subtotal: <div class="sub_amount">৳ 28,998.00</div>
+                Subtotal: <div class="sub_amount">৳ <span id="sub_amounRight">00</span></div>
             </div>
+            <script>
+                function totalcartvalue() {
+                    let totalcost = JSON.parse(localStorage.getItem('cart'));
+                    let total = 0;
+                    for (let index = 0; index < totalcost.length; index++) {
+                        const element = totalcost[index];
+                        let totalwithquan = parseInt(element.quantity) * parseInt(element.price);
+                        total += totalwithquan;
+                    }
+                    let formatValue = new Intl.NumberFormat('en-IN').format(total);
+                    document.getElementById('totalCart').innerHTML = formatValue;
+                    document.getElementById('sub_amounRight').innerHTML = formatValue;
+                }
+                totalcartvalue();
+            </script>
+            {{-- right cart --}}
+            <script>
+                function autocart() {
+                    let cartForRight = JSON.parse(localStorage.getItem('cart'));
+                    let totalcart = '';
+                    for (let caring = 0; caring < cartForRight.length; caring++) {
+                        const element = cartForRight[caring];
+                        const imageFirst = JSON.parse(element.pimage);
+                        let totalwithquanRight = parseInt(element.quantity) * parseInt(element.price);
+                        let formatValueRight = new Intl.NumberFormat('en-IN').format(totalwithquanRight);
+                        totalcart += `
+                        <div class="cart_item_list">
+                            <div class="car_item_image">
+                                <img src="${'/laraecomm'+imageFirst[0]}" alt="">
+                            </div>
+                            <div class="item_all_info">
+                                <div class="info_name">
+                                    ${element.name}
+                                </div>
+                                <div class="count_which">${element.quantity}x <span>৳ ${formatValueRight}</span></div>
+                            </div>
+                            <div class="action_items" onclick="splititem(${element.id})">
+                                <i class="far fa-trash-alt"></i>
+                            </div>
+                        </div>
+                        `;
+                    }
+                    document.getElementById('cartItemList').innerHTML = totalcart;
+                }
+                autocart();
+
+                function splititem(splId) {
+                    let cartForRight = JSON.parse(localStorage.getItem('cart'));
+                    let getSpid = cartForRight.findIndex(x => x.id == splId);
+                    cartForRight.splice(getSpid,1);
+                    localStorage.setItem('cart',JSON.stringify(cartForRight));
+                    let totalcart = '';
+                    for (let caring = 0; caring < cartForRight.length; caring++) {
+                        const element = cartForRight[caring];
+                        const imageFirst = JSON.parse(element.pimage);
+                        let totalwithquanRight = parseInt(element.quantity) * parseInt(element.price);
+                        let formatValueRight = new Intl.NumberFormat('en-IN').format(totalwithquanRight);
+                        totalcart += `
+                        <div class="cart_item_list">
+                            <div class="car_item_image">
+                                <img src="${'/laraecomm'+imageFirst[0]}" alt="">
+                            </div>
+                            <div class="item_all_info">
+                                <div class="info_name">
+                                    ${element.name}
+                                </div>
+                                <div class="count_which">${element.quantity}x <span>৳ ${formatValueRight}</span></div>
+                            </div>
+                            <div class="action_items" onclick="splititem(${element.id})">
+                                <i class="far fa-trash-alt"></i>
+                            </div>
+                        </div>
+                        `;
+                    }
+                    document.getElementById('cartItemList').innerHTML = totalcart;
+                    document.getElementById('lblCartCount2').innerHTML = cartForRight.length;
+                }
+            </script>
             <a href="{{route('cart')}}"><div class="view_cart_but">View Cart</div></a>
             <a href="{{route('checkout')}}"><div class="view_checkout_but">Checkout</div></a>
         </div>
@@ -546,13 +728,112 @@
 
 <!-- end-canvas -->
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/uikit@3.7.1/dist/js/uikit.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js" integrity="sha512-bPs7Ae6pVvhOSiIcyUClR7/q2OAsRiovw4vAkX+zJbw3ShAeeqezq50RIIcIURq7Oa20rW2n2q+fyXBNcU9lrw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" integrity="sha512-uto9mlQzrs59VwILcLiRYeLKPPbS/bT71da/OEBYEwcdNUk8jYIy+D176RYoop1Da+f9mvkYrmj5MCLZWEtQuA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="{{asset('laraecomm/alljs/welcome.js')}}"></script>
-    <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/uikit@3.7.1/dist/js/uikit.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js" integrity="sha512-bPs7Ae6pVvhOSiIcyUClR7/q2OAsRiovw4vAkX+zJbw3ShAeeqezq50RIIcIURq7Oa20rW2n2q+fyXBNcU9lrw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" integrity="sha512-uto9mlQzrs59VwILcLiRYeLKPPbS/bT71da/OEBYEwcdNUk8jYIy+D176RYoop1Da+f9mvkYrmj5MCLZWEtQuA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script src="{{asset('laraecomm/alljs/welcome.js')}}"></script>
+        <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/js/iziToast.min.js" integrity="sha512-Zq9o+E00xhhR/7vJ49mxFNJ0KQw1E1TMWkPTxrWcnpfEFDEXgUiwJHIKit93EW/XxE31HSI5GEOW06G6BF1AtA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
+        <script>
+            let signupbtn = document.getElementById('signupbtn');
+            signupbtn.addEventListener('click',function () {
+                let username = document.getElementById('floatingInput0').value;
+                let email = document.getElementById('floatingInput1').value;
+                let phone = document.getElementById('floatingInput2').value;
+                let pass = document.getElementById('floatingPassword0').value;
+                let conpass = document.getElementById('floatingPassword1').value;
+                if (pass != conpass) {
+                    // regform.pass.style.border = '1px solid red';
+                    // regform.cpass.style.border = '1px solid red';
+                    // cpasserror.style.display = 'block';
+                    // cpasserror.innerHTML = 'Password is not match';
+                    iziToast.error({
+                        title: 'Error',
+                        message: 'Password & Confirm password must be same',
+                        position: 'topRight',
+                    });
+                } else if (username == '' || email == '' || phone == '' || pass == '' || conpass == '') {
+                    iziToast.error({
+                        title: 'Error',
+                        message: 'Please fill required field',
+                        position: 'topRight',
+                    });                    
+                } else {
+                    // regform.pass.style.border = '1px solid #CED4DA';
+                    // regform.cpass.style.border = '1px solid #CED4DA';
+                    // cpasserror.innerHTML = 'Password is not match';
+                    // cpasserror.style.display = 'none';
+                    let formdata = new FormData();
+                    formdata.append('name',username);
+                    formdata.append('email',email);
+                    formdata.append('phone',phone);
+                    formdata.append('pass',pass);
+                    formdata.append('conpass',conpass);
+                    axios.post('/laraecomm/api/user/create',formdata).then(res=>{
+                        if (res.data.error) {
+                            iziToast.error({
+                                title: 'Error',
+                                message: res.data.message,
+                                position: 'topRight',
+                            });
+                        } else {
+                            iziToast.success({
+                                title: 'Success',
+                                message: res.data.message,
+                                position: 'topRight',
+                            });
+                            background.classList.remove('shadowopen');
+                            model.classList.remove('shadowopen');
+                            document.body.classList.remove('bodyblur');
+                            document.getElementById('main_warp').classList.remove('main-warp');
+                        }
+                    });
+                }
+        
+            });
+            let logform = document.getElementById('loginbtn');
+            logform.addEventListener('click',function () {
+                let email = document.getElementById('floatingInput').value;
+                let pass = document.getElementById('floatingPassword').value;
+            
+                let formdata = new FormData();
+                    formdata.append('email',email);
+                    formdata.append('pass',pass);
+            
+                if (email == '' || pass == '') {
+                    iziToast.error({
+                        title: 'Error',
+                        message: 'Please fill required field',
+                        position: 'topRight',
+                    });    
+                } else {
+                    axios.post('/laraecomm/api/user/login',formdata).then(res=>{
+                        if (res.data.error) {
+                            iziToast.error({
+                                title: 'Error',
+                                message: res.data.message,
+                                position: 'topRight',
+                            });                        
+                        } else {
+                            localStorage.clear();
+                            localStorage.setItem('usertoken',res.data.token);
+                            iziToast.success({
+                                title: 'Success',
+                                message: res.data.message,
+                                position: 'topRight',
+                            });
+                            background.classList.remove('shadowopen');
+                            model.classList.remove('shadowopen');
+                            document.body.classList.remove('bodyblur');
+                            document.getElementById('main_warp').classList.remove('main-warp');  
+                        }
+                    });
+                }
+            });
+        </script>
     </body>
 </html>

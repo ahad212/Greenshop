@@ -182,7 +182,7 @@ footer{
     .responsive_footer{
         display:block;
     }
-    #lblCartCount {
+    .lblCartCount {
         background-color: var(--green) !important;
         }
     .foot_end{
@@ -353,6 +353,7 @@ footer{
         display:flex;
         flex-flow:row-wrap;
         margin-left:10px;
+        margin-bottom:5px;
     }
     .item_all_info{
         margin-left:20px;
@@ -364,7 +365,8 @@ footer{
         color:var(--orange);
     }
     .action_items{
-        margin-left:40px;
+        margin-left:auto;
+        margin-right:20px;
         font-size:22px;
         margin-top:10px;
         cursor:pointer;
@@ -527,7 +529,7 @@ footer{
     .badge-warning[href] {
     background-color: #c67605;
     }
-    #lblCartCount {
+    .lblCartCount {
         font-size: 12px;
         background: #ff0000;
         color: #fff;
@@ -809,7 +811,7 @@ footer{
     .model{
         position:fixed;
         z-index: 120;
-        min-height:520px;
+        max-height:520px;
         width:420px;
         background:linear-gradient(to top, rgb(218, 226, 149),#ec705c,rgb(230, 114, 114));
         border-radius:15px;
@@ -935,9 +937,58 @@ footer{
     .signbutton:hover{
         box-shadow: 2px 2px 10px rgba(0,0,0,0.4);
     }
+    .formdiv2{
+        margin-top:10px;
+        padding:0px 45px;
+    }
+    .headsignin{
+        display: block;
+        font-size:30px;
+        color:white;
+        text-align: center;
+        text-transform: capitalize;
+        margin-top:10px;
+        margin-left:40px;
+    }
+    .passwordeye{
+        position: relative;
+    }
+    #eye-open, #eyeclose{
+        position:absolute;
+        top:17px;
+        right:10px;
+        cursor: pointer;
+    }
  /* this is for welcome page content blur, body blur is not possible */
 
     .main-warp{
         filter:blur(10px);
+    }
+    .accountbtn{
+        position: relative;
+    }
+    .afterlogin{
+        min-height:30px;
+        width:100px;
+        background:white;
+        position:absolute;
+        top:25px;
+        left:-25px;
+        box-shadow: 1px 1px 5px rgba(0,0,0,0.4);
+        border-radius:7px;
+        display: none;
+    }
+    .afterloginvisible{
+        display: block;
+    }
+    .logoutbtn{
+        height:26px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor:pointer;
+        user-select: none;
+        -webkit-user-select:none;
+        -moz-user-select: none;
     }
     /* login modal end */
