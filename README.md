@@ -1,13 +1,5 @@
 ## Install
 composer update | composer install
-composer dump-autoload
-php artisan migrate
-php artisan db:seed (also manually import dbx.sql table for location)
-php artisan key:generate (if app key missing)
-php artisan apikey:generate name_of_key
-php artisan jwt:secret (if jwt secret not present)
-php artisan serve
-header attr X-Authorization and token type: bearer
 
 ## About Laravel
 
