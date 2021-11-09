@@ -1,4 +1,4 @@
-Install
+## Install
 composer update | composer install
 composer dump-autoload
 php artisan migrate
