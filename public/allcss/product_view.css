@@ -418,7 +418,7 @@
     text-align:left;
     font-weight:bold;
     font-size:22px;
-    margin-top:10px;
+    /* margin-top:10px; */
     color:var(--orange);
     padding-top:10px;
 }
@@ -650,13 +650,15 @@
 
         /* view imei plan modal  */
 
-
+        .note_if_have{
+            margin-top:5px;
+        }
         :root{
             --text:#6A7180;
         }
         .delivery_options{
             width:100%;
-            min-height:420px;
+            min-height:405px;
             background:#FBF9F9;
             padding:15px;
         }
@@ -710,7 +712,7 @@
             padding-left:7px;
         }
         .deli_time{
-            font-size:12px;
+            font-size:14px;
             color:var(--text);
         }
         .font-12{
@@ -721,7 +723,7 @@
             margin-top:5px;
         }
         .del_warranty{
-            margin-top:10px;
+            margin-top:5px;
         }
 
         .link_warranty{

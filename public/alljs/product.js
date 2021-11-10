@@ -154,7 +154,7 @@ window.onscroll = function(){
             console.log('color or size is missing');
         }
 
-        if (!shipcost) {
+        if (shipcost == 'abc') {
             iziToast.error({
                 title: 'Error',
                 message: 'Select Your City',
@@ -210,7 +210,7 @@ window.onscroll = function(){
                 for (let caring = 0; caring < cartArray.length; caring++) {
                     const element = cartArray[caring];
                     const imageFirst = JSON.parse(element.pimage);
-                    let totalwithquanRight = parseInt(element.quantity) * parseInt(element.price);
+                    let totalwithquanRight = parseInt(element.price);
                     let formatValueRight = new Intl.NumberFormat('en-IN').format(totalwithquanRight);
                     totalcart += `
                     <div class="cart_item_list">
@@ -234,6 +234,19 @@ window.onscroll = function(){
                 
             } else if (findingind != -1) {
                 let jsonArray = JSON.parse(cartExist);
+                let oldQuantity = jsonArray[findingind].quantity;
+                let totalQuantityNow = parseInt(orderObj.quantity) + parseInt(oldQuantity);
+                if ( totalQuantityNow > currentProduct.quantity ) {
+                    orderObj.quantity = parseInt(oldQuantity);
+                    iziToast.error({
+                        title: 'Failed',
+                        message: 'Exceed available quantity',
+                        position: 'topRight',
+                    });  
+                    return;
+                } else {
+                    orderObj.quantity = totalQuantityNow;
+                }
                 jsonArray.splice(findingind,1,orderObj);
                 localStorage.setItem('cart',JSON.stringify(jsonArray));
                 iziToast.success({
@@ -256,7 +269,7 @@ window.onscroll = function(){
                 for (let caring = 0; caring < jsonArray.length; caring++) {
                     const element = jsonArray[caring];
                     const imageFirst = JSON.parse(element.pimage);
-                    let totalwithquanRight = parseInt(element.quantity) * parseInt(element.price);
+                    let totalwithquanRight = parseInt(element.price);
                     let formatValueRight = new Intl.NumberFormat('en-IN').format(totalwithquanRight);
                     totalcart += `
                     <div class="cart_item_list">
@@ -301,7 +314,7 @@ window.onscroll = function(){
                 for (let caring = 0; caring < jsonArray.length; caring++) {
                     const element = jsonArray[caring];
                     const imageFirst = JSON.parse(element.pimage);
-                    let totalwithquanRight = parseInt(element.quantity) * parseInt(element.price);
+                    let totalwithquanRight = parseInt(element.price);
                     let formatValueRight = new Intl.NumberFormat('en-IN').format(totalwithquanRight);
                     totalcart += `
                     <div class="cart_item_list">
@@ -337,7 +350,7 @@ window.onscroll = function(){
         for (let caring = 0; caring < cartForRight.length; caring++) {
             const element = cartForRight[caring];
             const imageFirst = JSON.parse(element.pimage);
-            let totalwithquanRight = parseInt(element.quantity) * parseInt(element.price);
+            let totalwithquanRight = parseInt(element.price);
             let formatValueRight = new Intl.NumberFormat('en-IN').format(totalwithquanRight);
             totalcart += `
             <div class="cart_item_list">

@@ -30,10 +30,10 @@ a{
     margin:auto;
     margin-top:50px;
 }
-.wishlist .owl-stage-outer{
-    /* border-left:1px solid #E5E5E5;
-    border-right:1px solid #E5E5E5; */
-}
+/* .wishlist .owl-stage-outer{
+    border-left:1px solid #E5E5E5;
+    border-right:1px solid #E5E5E5;
+} */
 .wishlist .sell-slider .one{
     width:225px;
     border-right:1px solid #E5E5E5;

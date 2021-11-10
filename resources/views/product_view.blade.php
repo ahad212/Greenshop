@@ -107,9 +107,9 @@
                 </div>
             </li>
             @if ($single_product->discount_price)
-                <li class="taka">৳ {{number_format($single_product->discount_price)}}</li>
+                <li class="taka" style="margin-top:0px !important;">৳ {{number_format($single_product->discount_price)}}</li>
             @else
-                <li class="taka">৳ {{number_format($single_product->price)}}</li>
+                <li class="taka"  style="margin-top:0px; !important">৳ {{number_format($single_product->price)}}</li>
             @endif
             {{-- @foreach (explode(';',$single_product->pdescription) as $des)
                 <li>{{$des}}</li>
@@ -123,10 +123,182 @@
             <li>Back Camera: 13MP+2MP+2MP</li>
             <li>Front Camera: 5MP</li>
             <li>Display Size: 6.5” (PLS IPS Display)</li> --}}
+            <li>
+                <style>
+                    .custom_checkbar:checked{
+                        background-color:var(--orange);
+                        border-color:var(--orange);
+                    }
+                    .emi_ahref{
+                        color:var(--orange);
+                        cursor:pointer;
+                    }
+                    .emi_ahref:hover{
+                        text-decoration:underline;
+                    }
+                    .formcolf {
+                        display:inline-block;
+                        margin-top:5px;
+                    }
+                    .labavail {
+                        cursor:pointer;user-select:none;
+                    }
+                </style>
+            
+                <div class=" formcolf">
+                    {{-- <input class="form-check-input custom_checkbar" type="checkbox" value="" id="flexCheckemi"> --}}
+                    <label class="" for="">
+                        Available EMI Plan
+                    </label>
+                </div>
+                <span class="emi_ahref" id="popup-btn"> View plans</span>
 
+
+
+                <!-- popup for view plans -->
+                <div id="popup-wrapper" class="popup-container">
+                <div class="popup-content">
+                    <span id="close">&times;</span>
+                    <p>
+                        <!--EMI modal content start from here -->
+                            <style>
+                            .custom_checkbar:checked{
+                                background-color:var(--orange);
+                                border-color:var(--orange);
+                            }
+                            .imei{
+                                padding:0px 20px;
+                                background:white;
+                                width:350px;
+                                border:1px solid #DDDDDD;
+                                overflow:hidden;
+                                transition:.5s;
+                                height:490px;
+                                margin:auto;
+                                margin-top:-73px;
+                            }
+                            .imei_show{
+                                height:630px;
+                            }
+                            .imei_options{
+                                padding-left:15px;
+                            }
+                        </style>
+                        <div class="imei" id="imei">
+                            <!-- <div class="form-check">
+                                <input class="form-check-input custom_checkbar" type="checkbox" value="" id="flexCheckDefaultimi">
+                                <label class="form-check-label" for="flexCheckDefaultimi" style="cursor:pointer;user-select:none;">
+                                    Payment EMI
+                                </label>
+                            </div> -->
+                            <div class="imei_options">
+                                <!-- <p>You Can Pay With Equated Monthly Installment (EMI) using your credit card</p> -->
+
+                                
+
+                                <style>
+                                    .radio_group label {display: block; padding:5px 0px;}
+                                    .radio_group label input {display: none;}
+                                    .radio_group label .span {
+                                        border: 1px solid #ccc;
+                                        width: 300px; 
+                                        height: 55px;
+                                        border-radius:8px; 
+                                        line-height: 1;
+                                        font-size: 10pt;
+                                        margin-top: -7.5px;
+                                        display:flex;
+                                        flex-flow:row-wrap;
+                                        padding-top:10px;
+                                        cursor:pointer;
+                                    }
+                                    .left_p{
+                                        text-align:left;
+                                    }
+                                    .right_p{
+                                        text-align:right;
+                                        margin-left:auto;
+                                    }
+                                    .radio_group input:checked + .span {background: #5562EB; border-color: #ccf;color:white;}
+                                    .leftp_marbot {
+                                        margin-bottom:5px;
+                                    }
+                                </style>
+                                <div class="radio_group" id="rad_group">
+                                    <label>
+                                        <input type="radio" name="select" />
+                                        <div class="span">
+                                            <div class="left_p">
+                                                <div class="left_p_1 leftp_marbot">৩ কিস্তি</div>
+                                                <div class="left_p_2">মোট পরিশোধ ৳ ৩৭২৩৬</div>
+                                            </div>
+                                            <div class="right_p">
+                                                ৳ ১২৪১২/মাস
+                                            </div>
+                                        </div>
+                                    </label>
+                                    <label>
+                                        <input type="radio" name="select" />
+                                        <div class="span">
+                                            <div class="left_p">
+                                                <div class="left_p_1 leftp_marbot">৩ কিস্তি</div>
+                                                <div class="left_p_2">মোট পরিশোধ ৳ ৩৭২৩৬</div>
+                                            </div>
+                                            <div class="right_p">
+                                                ৳ ১২৪১২/মাস
+                                            </div>
+                                        </div>
+                                    </label>
+                                    <label>
+                                        <input type="radio" name="select" />
+                                        <div class="span">
+                                            <div class="left_p">
+                                                <div class="left_p_1 leftp_marbot">৩ কিস্তি</div>
+                                                <div class="left_p_2">মোট পরিশোধ ৳ ৩৭২৩৬</div>
+                                            </div>
+                                            <div class="right_p">
+                                                ৳ ১২৪১২/মাস
+                                            </div>
+                                        </div>
+                                    </label>
+                                    <label>
+                                        <input type="radio" name="select" />
+                                        <div class="span">
+                                            <div class="left_p">
+                                                <div class="left_p_1 leftp_marbot">৩ কিস্তি</div>
+                                                <div class="left_p_2">মোট পরিশোধ ৳ ৩৭২৩৬</div>
+                                            </div>
+                                            <div class="right_p">
+                                                ৳ ১২৪১২/মাস
+                                            </div>
+                                        </div>
+                                    </label>
+                                    <label>
+                                        <input type="radio" name="select" />
+                                        <div class="span">
+                                            <div class="left_p">
+                                                <div class="left_p_1 leftp_marbot">৩ কিস্তি</div>
+                                                <div class="left_p_2">মোট পরিশোধ ৳ ৩৭২৩৬</div>
+                                            </div>
+                                            <div class="right_p">
+                                                ৳ ১২৪১২/মাস
+                                            </div>
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
+                            <img src="https://greenshopbd.com/wp-content/plugins/smanager-emi/assets/img/emi-available.jpg" alt="">
+                        </div>
+                    </p>
+                </div>
+                </div>
+                <div class="emi_start_amount">
+                    EMI starts form Tk ১২৪১২/মাস
+                </div>
+            </li>
             <li>
             
-                <div class="conli"  style="display:flex;">
+                <div class="conli"  style="display:flex;margin-top:-10px;">
                     <div class="center">
                         <div class="input-group">
                             <span class="input-group-btn">
@@ -152,7 +324,7 @@
                     @endphp</strong></p>
                 </div>
             </li>
-            <li style="display: flex;grid-column-gap:3px;">
+            <li style="display: flex;grid-column-gap:3px;margin-bottom:10px;">
                 {{-- <div class="color"><strong>Color Variant:</strong><span class="spanfont3"> Black</span></div>
                 <div class="select_color">
                     <label>
@@ -334,180 +506,7 @@
 
                 <br>
             </li> -->
-            <li>
-                <style>
-                    .custom_checkbar:checked{
-                        background-color:var(--orange);
-                        border-color:var(--orange);
-                    }
-                    .emi_ahref{
-                        color:var(--orange);
-                        cursor:pointer;
-                    }
-                    .emi_ahref:hover{
-                        text-decoration:underline;
-                    }
-                    .formcolf {
-                        display:inline-block;
-                        margin-top:5px;
-                    }
-                    .labavail {
-                        cursor:pointer;user-select:none;
-                    }
-                </style>
-            
-                <div class=" formcolf">
-                    {{-- <input class="form-check-input custom_checkbar" type="checkbox" value="" id="flexCheckemi"> --}}
-                    <label class="" for="">
-                        EMI offer
-                    </label>
-                </div>
-                <span class="emi_ahref" id="popup-btn"> View plans</span>
 
-
-
-                <!-- popup for view plans -->
-                <div id="popup-wrapper" class="popup-container">
-                <div class="popup-content">
-                    <span id="close">&times;</span>
-                    <p>
-                        <!--EMI modal content start from here -->
-                            <style>
-                            .custom_checkbar:checked{
-                                background-color:var(--orange);
-                                border-color:var(--orange);
-                            }
-                            .imei{
-                                padding:0px 20px;
-                                background:white;
-                                width:350px;
-                                border:1px solid #DDDDDD;
-                                overflow:hidden;
-                                transition:.5s;
-                                height:490px;
-                                margin:auto;
-                                margin-top:-73px;
-                            }
-                            .imei_show{
-                                height:630px;
-                            }
-                            .imei_options{
-                                padding-left:15px;
-                            }
-                        </style>
-                        <div class="imei" id="imei">
-                            <!-- <div class="form-check">
-                                <input class="form-check-input custom_checkbar" type="checkbox" value="" id="flexCheckDefaultimi">
-                                <label class="form-check-label" for="flexCheckDefaultimi" style="cursor:pointer;user-select:none;">
-                                    Payment EMI
-                                </label>
-                            </div> -->
-                            <br>
-                            <div class="imei_options">
-                                <!-- <p>You Can Pay With Equated Monthly Installment (EMI) using your credit card</p> -->
-
-                                
-
-                                <style>
-                                    .radio_group label {display: block; padding:5px 0px;}
-                                    .radio_group label input {display: none;}
-                                    .radio_group label .span {
-                                        border: 1px solid #ccc;
-                                        width: 300px; 
-                                        height: 55px;
-                                        border-radius:8px; 
-                                        line-height: 1;
-                                        font-size: 10pt;
-                                        margin-top: -7.5px;
-                                        display:flex;
-                                        flex-flow:row-wrap;
-                                        padding-top:10px;
-                                        cursor:pointer;
-                                    }
-                                    .left_p{
-                                        text-align:left;
-                                    }
-                                    .right_p{
-                                        text-align:right;
-                                        margin-left:auto;
-                                    }
-                                    .radio_group input:checked + .span {background: #5562EB; border-color: #ccf;color:white;}
-                                    .leftp_marbot {
-                                        margin-bottom:5px;
-                                    }
-                                </style>
-                                <div class="radio_group" id="rad_group">
-                                    <label>
-                                        <input type="radio" name="select" />
-                                        <div class="span">
-                                            <div class="left_p">
-                                                <div class="left_p_1 leftp_marbot">৩ কিস্তি</div>
-                                                <div class="left_p_2">মোট পরিশোধ ৳ ৩৭২৩৬</div>
-                                            </div>
-                                            <div class="right_p">
-                                                ৳ ১২৪১২/মাস
-                                            </div>
-                                        </div>
-                                    </label>
-                                    <label>
-                                        <input type="radio" name="select" />
-                                        <div class="span">
-                                            <div class="left_p">
-                                                <div class="left_p_1 leftp_marbot">৩ কিস্তি</div>
-                                                <div class="left_p_2">মোট পরিশোধ ৳ ৩৭২৩৬</div>
-                                            </div>
-                                            <div class="right_p">
-                                                ৳ ১২৪১২/মাস
-                                            </div>
-                                        </div>
-                                    </label>
-                                    <label>
-                                        <input type="radio" name="select" />
-                                        <div class="span">
-                                            <div class="left_p">
-                                                <div class="left_p_1 leftp_marbot">৩ কিস্তি</div>
-                                                <div class="left_p_2">মোট পরিশোধ ৳ ৩৭২৩৬</div>
-                                            </div>
-                                            <div class="right_p">
-                                                ৳ ১২৪১২/মাস
-                                            </div>
-                                        </div>
-                                    </label>
-                                    <label>
-                                        <input type="radio" name="select" />
-                                        <div class="span">
-                                            <div class="left_p">
-                                                <div class="left_p_1 leftp_marbot">৩ কিস্তি</div>
-                                                <div class="left_p_2">মোট পরিশোধ ৳ ৩৭২৩৬</div>
-                                            </div>
-                                            <div class="right_p">
-                                                ৳ ১২৪১২/মাস
-                                            </div>
-                                        </div>
-                                    </label>
-                                    <label>
-                                        <input type="radio" name="select" />
-                                        <div class="span">
-                                            <div class="left_p">
-                                                <div class="left_p_1 leftp_marbot">৩ কিস্তি</div>
-                                                <div class="left_p_2">মোট পরিশোধ ৳ ৩৭২৩৬</div>
-                                            </div>
-                                            <div class="right_p">
-                                                ৳ ১২৪১২/মাস
-                                            </div>
-                                        </div>
-                                    </label>
-                                </div>
-                            </div>
-                            <img src="https://greenshopbd.com/wp-content/plugins/smanager-emi/assets/img/emi-available.jpg" alt="">
-                        </div>
-                    </p>
-                </div>
-                </div>
-                <div class="emi_start_amount">
-                    EMI starts form Tk ১২৪১২/মাস
-                </div>
-            </li>
             <li>
                 <div class="add_buy_but">
                     <div class="add_but" onclick="orderplace()">Add to cart</div>
@@ -561,6 +560,9 @@
                             </div>
                         </div>
                     </div>
+                    <div class="dele" style="margin-top:5px;">
+                        <i class="far fa-money-bill-alt" style="color:var(--orange)"></i> Cash on Delivery Available
+                    </div>
                     <style>
                         .colicolor {
                             color:var(--orange);
@@ -581,16 +583,32 @@
                     <div class="jenuin mari">
                         <i class="fab fa-guilded colicolor"></i><span class="marspan">100% genuine product</span>
                     </div>
-                    @if ($single_product->pwarranty != 'no')
-                        <div class="del_warranty">
-                            <i class="fas fa-shield-alt markc"></i>
-                            <span class="sppad">Warranty Available : 
-                                <strong class="link_warranty" data-bs-toggle="modal" data-bs-target="#staticBackdrop">{{$single_product->warrantytime}}</strong>
-                            </span>
+                    <div class="title_del_info">
+                        <i class="fas fa-shield-alt markc"></i>
+                        <div class="title_del_with">
+                            <div class="title_del_tex">Return & Warranty</div>
+                            <div class="deli_time">
+                                Delivery Time : 1-4 working days
+                            </div>
+                            @if ($single_product->pwarranty != 'no')
+                                <div class="del_warranty">
+                                    {{-- <i class="fas fa-shield-alt markc"></i> --}}
+                                    <span class="deli_time">Warranty Available : 
+                                        <strong class="link_warranty" data-bs-toggle="modal" data-bs-target="#staticBackdrop">{{$single_product->warrantytime}}</strong>
+                                    </span>
+                                </div>
+                            @else
+                                <div class="del_warranty">
+                                    {{-- <i class="fas fa-shield-alt markc"></i> --}}
+                                    <span class="deli_time">Warranty Unavailable 
+                                        {{-- <strong class="link_warranty" data-bs-toggle="modal" data-bs-target="#staticBackdrop">{{$single_product->warrantytime}}</strong> --}}
+                                    </span>
+                                </div>
+                            @endif
                         </div>
-                    @endif
-                    <div class="note_if_have"> <i class="fas fa-shield-alt markc"></i>
-                        <strong class="link_warranty" style="margin-left:5px;" data-bs-toggle="modal" data-bs-target="#staticBackdrop1">Note</strong>
+                    </div>
+                    <div class="note_if_have"> <i class="fas fa-book-open markc"></i>
+                        <strong class="link_warranty" style="margin-left:5px;" data-bs-toggle="modal" data-bs-target="#staticBackdrop1">See Notebook</strong>
                     </div>
                 </div>
             </div>                              

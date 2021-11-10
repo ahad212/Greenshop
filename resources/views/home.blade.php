@@ -285,7 +285,11 @@
                         <div class="sold_out">Out Of Stock</div>
                     @endif
                     @if ($products->discount_price)
-                        <div class="discountsticker"><span style="margin-left:4px;">off </span>{{round($parcentage).'%'}}</div>
+                        <div class="discountsticker">
+                            {{-- <span style="margin-left:4px;">-</span> --}}
+                            {{-- <div class="triangle-left"></div> --}}
+                            {{round($parcentage).'%'.'-'}}
+                        </div>
                     @endif
                     <div class="icon_group">
                         <div class="heart"><i class="far fa-eye"></i></div>
@@ -299,7 +303,10 @@
                         <div class="taka">{{number_format($products->price)}} <span>৳</span></div>
                     @endif
                     @if ($products->discount_price)
-                        <div class="mainprice" style="text-align:center;"> <span style="font-size:12px;"> {{round($parcentage)}}%- </span><del>{{number_format($products->price)}}</del> </div>
+                        <div class="mainprice" style="text-align:center;">
+                            {{-- <span style="font-size:12px;"> {{round($parcentage)}}%- </span> --}}
+                            <del>{{number_format($products->price)}}</del> 
+                        </div>
                     @endif
                     <div class="rating">
                         <span class="spanrating">(0)</span>

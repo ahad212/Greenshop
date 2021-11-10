@@ -213,9 +213,9 @@
                 localStorage.removeItem('usertoken');
                 localStorage.removeItem('cart');
                 document.getElementById('lblCartCount2').innerHTML = '';
-                document.getElementById('totalCart').innerHTML = 0;
+                document.getElementById('totalCart').innerHTML = '00';
                 document.getElementById('cartItemList').innerHTML = '';
-                document.getElementById('sub_amounRight').innerHTML = 00;
+                document.getElementById('sub_amounRight').innerHTML = '00';
             });
 
         }
@@ -657,6 +657,7 @@
                 totalcartvalue();
             </script>
             {{-- right cart --}}
+            {{-- split item korle 0 hoa jabe only apatoto coz aita programmaticly --}}
             <script>
                 function autocart() {
                     let cartForRight = JSON.parse(localStorage.getItem('cart'));
@@ -664,7 +665,7 @@
                     for (let caring = 0; caring < cartForRight.length; caring++) {
                         const element = cartForRight[caring];
                         const imageFirst = JSON.parse(element.pimage);
-                        let totalwithquanRight = parseInt(element.quantity) * parseInt(element.price);
+                        let totalwithquanRight = parseInt(element.price);
                         let formatValueRight = new Intl.NumberFormat('en-IN').format(totalwithquanRight);
                         totalcart += `
                         <div class="cart_item_list">
@@ -696,7 +697,7 @@
                     for (let caring = 0; caring < cartForRight.length; caring++) {
                         const element = cartForRight[caring];
                         const imageFirst = JSON.parse(element.pimage);
-                        let totalwithquanRight = parseInt(element.quantity) * parseInt(element.price);
+                        let totalwithquanRight = parseInt(element.price);
                         let formatValueRight = new Intl.NumberFormat('en-IN').format(totalwithquanRight);
                         totalcart += `
                         <div class="cart_item_list">
@@ -717,6 +718,16 @@
                     }
                     document.getElementById('cartItemList').innerHTML = totalcart;
                     document.getElementById('lblCartCount2').innerHTML = cartForRight.length;
+                    let totalcost = JSON.parse(localStorage.getItem('cart'));
+                    let total = 0;
+                    for (let index = 0; index < totalcost.length; index++) {
+                        const element = totalcost[index];
+                        let totalwithquan = parseInt(element.quantity) * parseInt(element.price);
+                        total += totalwithquan;
+                    }
+                    let formatValue = new Intl.NumberFormat('en-IN').format(total);
+                    document.getElementById('totalCart').innerHTML = formatValue;
+                    document.getElementById('sub_amounRight').innerHTML = formatValue;
                 }
             </script>
             <a href="{{route('cart')}}"><div class="view_cart_but">View Cart</div></a>
