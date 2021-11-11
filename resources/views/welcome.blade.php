@@ -207,7 +207,7 @@
                 iziToast.success({
                     title: 'Success',
                     message: 'Loged Out',
-                    position: 'topRight',
+                    position: 'topCenter',
                 });
                 logout.classList.remove('afterloginvisible');
                 localStorage.removeItem('usertoken');
@@ -765,13 +765,13 @@
                     iziToast.error({
                         title: 'Error',
                         message: 'Password & Confirm password must be same',
-                        position: 'topRight',
+                        position: 'topCenter',
                     });
                 } else if (username == '' || email == '' || phone == '' || pass == '' || conpass == '') {
                     iziToast.error({
                         title: 'Error',
                         message: 'Please fill required field',
-                        position: 'topRight',
+                        position: 'topCenter',
                     });                    
                 } else {
                     // regform.pass.style.border = '1px solid #CED4DA';
@@ -789,13 +789,13 @@
                             iziToast.error({
                                 title: 'Error',
                                 message: res.data.message,
-                                position: 'topRight',
+                                position: 'topCenter',
                             });
                         } else {
                             iziToast.success({
                                 title: 'Success',
                                 message: res.data.message,
-                                position: 'topRight',
+                                position: 'topCenter',
                             });
                             background.classList.remove('shadowopen');
                             model.classList.remove('shadowopen');
@@ -819,7 +819,7 @@
                     iziToast.error({
                         title: 'Error',
                         message: 'Please fill required field',
-                        position: 'topRight',
+                        position: 'topCenter',
                     });    
                 } else {
                     axios.post('/laraecomm/api/user/login',formdata).then(res=>{
@@ -827,7 +827,7 @@
                             iziToast.error({
                                 title: 'Error',
                                 message: res.data.message,
-                                position: 'topRight',
+                                position: 'topCenter',
                             });                        
                         } else {
                             localStorage.clear();
@@ -835,7 +835,7 @@
                             iziToast.success({
                                 title: 'Success',
                                 message: res.data.message,
-                                position: 'topRight',
+                                position: 'topCenter',
                             });
                             background.classList.remove('shadowopen');
                             model.classList.remove('shadowopen');

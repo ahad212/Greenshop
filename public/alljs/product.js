@@ -127,7 +127,7 @@ window.onscroll = function(){
             iziToast.error({
                 title: 'Error',
                 message: 'Please Login First',
-                position: 'topRight',
+                position: 'topCenter',
             });
             return;       
         }
@@ -138,7 +138,7 @@ window.onscroll = function(){
                 iziToast.error({
                     title: 'Error',
                     message: 'Select Color is required',
-                    position: 'topRight',
+                    position: 'topCenter',
                 });
                 return;
             }
@@ -146,7 +146,7 @@ window.onscroll = function(){
                 iziToast.error({
                     title: 'Error',
                     message: 'Select Size is required',
-                    position: 'topRight',
+                    position: 'topCenter',
                 });
                 return;
             } 
@@ -158,7 +158,7 @@ window.onscroll = function(){
             iziToast.error({
                 title: 'Error',
                 message: 'Select Your City',
-                position: 'topRight',
+                position: 'topCenter',
             });
             return;
         } else {
@@ -169,7 +169,7 @@ window.onscroll = function(){
             } else {
                 price = currentProduct.price;
             }
-            let orderObj = {id: currentProduct.id, name: currentProduct.name, quantity: quantity, price: price ,pimage : currentProduct.pimage, shipping: totalShippingCost};
+            let orderObj = {id: currentProduct.id, name: currentProduct.name, quantity: quantity, price: price ,pimage : currentProduct.pimage, shipping: totalShippingCost,shipping: currentProduct.shipping_charge,totalQuantity:currentProduct.quantity};
             if (colorId) {
                 orderObj.color = colorId.value; 
             } 
@@ -193,7 +193,7 @@ window.onscroll = function(){
                 iziToast.success({
                     title: 'Success',
                     message: 'Product add to cart',
-                    position: 'topRight',
+                    position: 'topCenter',
                 });
                 document.getElementById('lblCartCount2').innerHTML = 1;
                 let total = 0;
@@ -241,7 +241,7 @@ window.onscroll = function(){
                     iziToast.error({
                         title: 'Failed',
                         message: 'Exceed available quantity',
-                        position: 'topRight',
+                        position: 'topCenter',
                     });  
                     return;
                 } else {
@@ -252,7 +252,7 @@ window.onscroll = function(){
                 iziToast.success({
                     title: 'Success',
                     message: 'Cart Updated',
-                    position: 'topRight',
+                    position: 'topCenter',
                 });
                 document.getElementById('lblCartCount2').innerHTML = jsonArray.length;
                 let total = 0;
@@ -297,7 +297,7 @@ window.onscroll = function(){
                 iziToast.success({
                     title: 'Success',
                     message: 'Product add to cart',
-                    position: 'topRight',
+                    position: 'topCenter',
                 });
                 document.getElementById('lblCartCount2').innerHTML = jsonArray.length;
                 let total = 0;
