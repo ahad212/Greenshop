@@ -66,9 +66,9 @@
         <div class="col">
             <div class="product_price_sticky">
                 @if ($single_product->discount_price)
-                    <div class="taka price_sticky">৳ {{number_format($single_product->discount_price)}}</div>
+                    <div class="taka price_sticky" style="margin-top:10px;">৳ {{number_format($single_product->discount_price)}}</div>
                 @else
-                    <div class="taka price_sticky">৳ {{number_format($single_product->price)}}</div>
+                    <div class="taka price_sticky" style="margin-top:10px;">৳ {{number_format($single_product->price)}}</div>
                 @endif
                 <div class="cart_button_sticky">Add to cart</div>
             </div>
