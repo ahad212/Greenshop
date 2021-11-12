@@ -3,7 +3,7 @@
 
 @section('content')
 <link rel="stylesheet" href="{{asset('laraecomm/allcss/cart.css')}}">
-
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 {{-- <div class="second">
     <div class="smain">
         <div class="cathead">
@@ -37,95 +37,43 @@
 
 
 
-
 <div class="container">
     <div class="row row-cols-1 row-cols-md-1 row-cols-lg-2">
         <div class="col col-lg-8">
             <div class="cart_heading">Cart</div>
-            <table>
+            <br>
+            <br>
+            <div class="selectobx">
+                <div class="selecItm">
+                    <label for="checking" style="cursor: pointer">
+                        <span  id="labelId2">
+                            {{-- input fied auto injected from js file --}}
+                        </span>
+                        <span id="lebelId"> SELECT ALL (0 ITEM(S))</span>
+                    </label>
+                </div>
+            </div>
+            <style>
+                .fiTable tr th:nth-child(1){
+                    width:515px;
+                }
+                .fiTable tr th:nth-child(2){
+                    width:170px;
+                }
+            </style>
+            <table class="fiTable">
                 <tr style="border-bottom:1px solid rgba(0,0,0,0.2);height:50px;">
-                    <th colspan="2">Product</th>
+                    <th>Product</th>
                     <th>Qty</th>
                     <th>Total</th>
                 </tr>
+                {{-- <tr>
+                    <th colspan="3">select</th>
+                    <th>d</th>
+                </tr> --}}
             </table>
             <table id="cartBoard">
-
-                    <script>
-                        function renderCart() {
-                            let cartDetails = JSON.parse(localStorage.getItem('cart'));
-                            // console.log(JSON.parse(cartDetails[0].pimage)[0]);
-                            let totcart = '';
-                            for (let cartDet = 0; cartDet < cartDetails.length; cartDet++) {
-                                const element = cartDetails[cartDet];
-                                const img = JSON.parse(element.pimage)[0];
-                                let total1 = parseInt(element.quantity,10) * parseInt(element.price,10);
-                                let formatValue1 = new Intl.NumberFormat('en-IN').format(total1);
-
-                                totcart +=`
-                                <tr style="border-bottom:1px solid rgba(0,0,0,0.2);height:100px;">
-                                    <td style="width:60px;">
-                                        <img class="cart_img" src="${'/laraecomm'+img}" alt="">
-                                    </td>
-                                    <td style="width:300px;">
-                                        <div class="naming_p">
-                                            ${element.name}
-                                        </div>
-                                        <div class="cart_t_p">
-                                        ৳ ${element.price}
-                                        </div>
-                                    </td>
-                                    <td  style="width:180px;">
-                                        <div class="center">
-                                            <div class="input-group total_pm">
-                                                <span class="input-group-btn minuss">
-                                                    <div type="button" id="${'btnn'+element.id}" class="btn-number" onclick="minus(${element.id})">
-                                                        -
-                                                    </div>
-                                                </span>
-                                                <input type="text" name="quant[2]" class="form-control input-number" value="${element.quantity}" min="1" max="${element.totalQuantity}">
-                                                <span class="input-group-btn pluss">
-                                                    <div id="${'btnn2'+element.id}" class="btn-number" onclick="plus(${element.id},${element.totalQuantity})">
-                                                        +
-                                                    </div>
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="totall">
-                                        ৳ ${formatValue1}
-                                        </div>
-                                        <span class="icon_del" onclick="delCartItem(${element.id})">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
-                                            <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
-                                            <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
-                                            </svg>
-                                        </span>
-                                    </td>
-                                </tr>
-                                `;
-                                
-                            }
-                            document.getElementById('cartBoard').innerHTML = totcart;
-                        }
-                        renderCart();
-                        function delCartItem(id) {
-                            let cartDetails = JSON.parse(localStorage.getItem('cart'));
-                            let getIndex = cartDetails.findIndex(item=> item.id == id);
-                            if (getIndex != -1) {
-                                cartDetails.splice(getIndex,1);
-                                console.log(cartDetails);
-                                localStorage.setItem('cart',JSON.stringify(cartDetails));
-                                document.getElementById('lblCartCount2').innerHTML = cartDetails.length;
-                                renderCart();
-                                totalcartvalue();
-                                autocart();
-                            }
-                        }
-
-
-                    </script>
+                {{-- all details will be auto injected --}}
             </table>
             <br>
             <br>
@@ -133,6 +81,10 @@
                 <div class="continue_shop">
                     &#8592;<span> Continue shoping</span>
                 </div>
+                <br>
+                <br>
+                <br>
+                <br>
             </a>
             <div class="update_cart">
             <i class="fas fa-redo-alt"></i> <span> Update cart</span>
@@ -152,15 +104,18 @@
                                 Subtotal
                             </div>
                             <div class="r_tak" id="r_tak">
+                                ৳ 00
                             </div>
                         </div>
                         <div class="r_ship_p">
                             <div class="s_t2">
-                                Shipping
+                                Shipping Area
                             </div>
                             <div class="r_tak2">
                                 <span>
-                                    Flat rate: ৳ 99.00
+                                    <select onchange="takeValue(this)" class="js-example-basic-single" name="state" id="sss">
+                                        <option value="">Add Any First</option>
+                                    </select>
                                 </span> {{-- 
                                 <div class="ship_o_w">
                                     Shipping options will be
@@ -169,6 +124,16 @@
                                     updated during checkout.
                                 </div> --}}
 
+                            </div>
+                        </div>
+                        <div class="r_ship_p">
+                            <div class="s_t2">
+                                Shipping Cost
+                            </div>
+                            <div class="r_tak2">
+                                <span style="color:var(--orange);font-size: 13px;" id="shipCharge">
+                                    ৳ 00
+                                </span>
                             </div>
                         </div>
                     </div>
@@ -208,8 +173,8 @@
                         <div class="t_head_t">
                             Total
                         </div>
-                        <div class="t_head_taka">
-                            ৳ 29,097.00
+                        <div class="t_head_taka" id="t_head_taka">
+                            ৳ 00
                         </div>
                     </div>
                 </div>
@@ -224,23 +189,9 @@
 
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script src="{{asset('laraecomm/alljs/cart.js')}}"></script>
-
-<script>
-function totalcartvalue() {
-    let totalcost = JSON.parse(localStorage.getItem('cart'));
-    let total = 0;
-    for (let index = 0; index < totalcost.length; index++) {
-        const element = totalcost[index];
-        let totalwithquan = parseInt(element.quantity) * parseInt(element.price);
-        total += totalwithquan;
-    }
-    let formatValue = new Intl.NumberFormat('en-IN').format(total);
-    document.getElementById('r_tak').innerHTML = '৳ '+formatValue;
-}
-totalcartvalue();
-</script>
 
 
 @endsection

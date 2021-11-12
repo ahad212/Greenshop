@@ -46,9 +46,9 @@
         }
     </style>
     <body>
-    {{-- <div id="loader">
+    <div id="loader">
         <img src="{{asset('laraecomm/images/loader.gif')}}" alt="">
-    </div> --}}
+    </div>
 
 
     {{-- login modal start --}}
@@ -270,8 +270,17 @@
                     </svg>
                     <span class='badge badge-warning badge-cart lblCartCount' id='lblCartCount2'> </span>
                     <script>
-                        let cart = JSON.parse(localStorage.getItem('cart'));
-                        document.getElementById('lblCartCount2').innerHTML = cart.length;
+                        function cartLength() {
+                            let totalcost = JSON.parse(localStorage.getItem('cart'));
+                            let allQuantity = 0;
+                            for (let index = 0; index < totalcost.length; index++) {
+                                const element = totalcost[index];
+                                allQuantity += parseInt(element.quantity);
+                            }
+                            document.getElementById('lblCartCount2').innerHTML = allQuantity;
+                            
+                        }
+                        cartLength();
                     </script>
                     <span class="taka1" style="color:var(--orange)">৳&nbsp;<span  id="totalCart">00</span></span>
                     <script>
@@ -717,7 +726,7 @@
                         `;
                     }
                     document.getElementById('cartItemList').innerHTML = totalcart;
-                    document.getElementById('lblCartCount2').innerHTML = cartForRight.length;
+                    cartLength();
                     let totalcost = JSON.parse(localStorage.getItem('cart'));
                     let total = 0;
                     for (let index = 0; index < totalcost.length; index++) {
@@ -728,6 +737,7 @@
                     let formatValue = new Intl.NumberFormat('en-IN').format(total);
                     document.getElementById('totalCart').innerHTML = formatValue;
                     document.getElementById('sub_amounRight').innerHTML = formatValue;
+                    renderCart();
                 }
             </script>
             <a href="{{route('cart')}}"><div class="view_cart_but">View Cart</div></a>

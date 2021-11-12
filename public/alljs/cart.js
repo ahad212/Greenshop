@@ -272,29 +272,336 @@ $(".input-number").keydown(function (e) {
 // datalist1.create();
 // datalist1.addListeners(datalist1);
 
+// dynamic js start from here 
+
+
+function renderCart() {
+    let cartDetails = JSON.parse(localStorage.getItem('cart'));
+    // console.log(JSON.parse(cartDetails[0].pimage)[0]);
+    let totcart = '';
+    for (let cartDet = 0; cartDet < cartDetails.length; cartDet++) {
+        const element = cartDetails[cartDet];
+        const img = JSON.parse(element.pimage)[0];
+        let total1 = parseInt(element.quantity,10) * parseInt(element.price,10);
+        let formatValue1 = new Intl.NumberFormat('en-IN').format(total1);
+        let checkedd = (element.checked == true) ? 'checked':'';
+        totcart +=`
+        <tr style="border-bottom:1px solid rgba(0,0,0,0.2);height:100px;">
+            <td style="width:60px; display:flex;align-items:center;padding-top:20px;">
+                <input type="checkbox" id="${element.id}" style="cursor:pointer;margin-right:5px;" onchange="selectDeselect(${element.id})" ${checkedd}>
+                <img class="cart_img" src="${'/laraecomm'+img}" alt="">
+            </td>
+            <td style="width:400px;">
+                <div class="naming_p">
+                    ${element.name}
+                </div>
+                <div class="cart_t_p">
+                ৳ ${element.price}
+                </div>
+            </td>
+            <td  style="width:180px;">
+                <div class="center">
+                    <div class="input-group total_pm">
+                        <span class="input-group-btn minuss">
+                            <div type="button" id="${'btnn'+element.id}" class="btn-number" onclick="minus(${element.id})">
+                                -
+                            </div>
+                        </span>
+                        <input type="text" name="quant[2]" class="form-control input-number" value="${element.quantity}" min="1" max="${element.totalQuantity}">
+                        <span class="input-group-btn pluss">
+                            <div id="${'btnn2'+element.id}" class="btn-number" onclick="plus(${element.id},${element.totalQuantity})">
+                                +
+                            </div>
+                        </span>
+                    </div>
+                </div>
+            </td>
+            <td>
+                <div class="totall">
+                ৳ ${formatValue1}
+                </div>
+                <span class="icon_del" onclick="delCartItem(${element.id})">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                    <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+                    <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+                    </svg>
+                </span>
+            </td>
+        </tr>
+        `;
+        
+    }
+    document.getElementById('cartBoard').innerHTML = totcart;
+}
+renderCart();
+function delCartItem(id) {
+    let cartDetails = JSON.parse(localStorage.getItem('cart'));
+    let getIndex = cartDetails.findIndex(item=> item.id == id);
+    if (getIndex != -1) {
+        cartDetails.splice(getIndex,1);
+        console.log(cartDetails);
+        localStorage.setItem('cart',JSON.stringify(cartDetails));
+        document.getElementById('lblCartCount2').innerHTML = cartDetails.length;
+        renderCart();
+        totalcartvalue();
+        autocart();
+    }
+}
+
+// end left part dom loop
+
+$('#sss').select2();
+let totalPS = '';
+let totalPrice= 0;
+function totalcartvalue() {
+    let totalcost = JSON.parse(localStorage.getItem('cart'));
+    let total = 0;
+    for (let index = 0; index < totalcost.length; index++) {
+        const element = totalcost[index];
+        if (element.checked == true) {
+            let totalwithquan = parseInt(element.quantity) * parseInt(element.price);
+            total += totalwithquan;
+        }
+    }
+    let formatValue = new Intl.NumberFormat('en-IN').format(total);
+    totalPrice = total;
+    document.getElementById('r_tak').innerHTML = '৳ '+formatValue;
+}
+totalcartvalue();
+
+
+axios.get('/laraecomm/api/V1/location').then( res=> {
+    let location = res.data.data;
+    let allLoc;
+    let selectedLoc = localStorage.getItem('locationName');
+    for (let indexLoc = 0; indexLoc < location.length; indexLoc++) {
+        const element = location[indexLoc];
+        if (element.name == selectedLoc) {
+            allLoc += `
+                <option value="${element.shippingcost}" selected>${element.name}</option>
+            `;
+        } else {
+            allLoc += `
+                <option value="${element.shippingcost}">${element.name}</option>
+            `;
+        }
+
+    }
+    allLoc = `<option value="00">Select Location</option>`+allLoc;
+    document.getElementById('sss').innerHTML = allLoc;
+    
+});
+
+function takeValue(costing) {
+    let selectTedOption = costing.options[costing.selectedIndex];
+    let text = selectTedOption.text;
+    let value = selectTedOption.value;
+    localStorage.setItem('locationShipping',value);
+    localStorage.setItem('locationName',text);
+    shipcharge();
+    totalCalculate();
+}
+
+function shipingCostEval() {
+    let allPA = JSON.parse(localStorage.getItem('cart'));
+    let totalCost = 0;
+    for (let index = 0; index < allPA.length; index++) {
+        const element = allPA[index];
+        if (element.checked == true) {
+            totalCost += parseInt(element.shipping,10);
+        }
+    }
+    totalPS = totalCost;
+}
+shipingCostEval();
+
+function shipcharge() {
+    let costingLocalShiping = parseInt(localStorage.getItem('locationShipping'),10);
+    let costingProductShiping = totalPS;
+    let totalCosting = costingLocalShiping + costingProductShiping;
+    document.getElementById('shipCharge').innerHTML = '৳ '+ totalCosting;
+}
+shipcharge();
+
+function totalCalculate() {
+    let costingLocalShiping = parseInt(localStorage.getItem('locationShipping'),10);
+    let costingProductShiping = totalPS;
+    let totalCosting = costingLocalShiping + costingProductShiping;
+    let totalAddedPrice = totalCosting + totalPrice;
+    let formatValue = new Intl.NumberFormat('en-IN').format(totalAddedPrice);
+    document.getElementById('t_head_taka').innerHTML = formatValue;
+}
+totalCalculate();
+
+
+
+
+
+function selectDeselect(id) {
+    let inputElement = document.getElementById(id);
+    if (inputElement.checked == false) {
+        localStorage.setItem('allselect', '');
+        let totalCart = JSON.parse(localStorage.getItem('cart'));
+        let getIndex = totalCart.findIndex(res=> res.id == id);
+        const item = totalCart[getIndex];
+        item.checked = false;
+        localStorage.setItem('cart',JSON.stringify(totalCart));
+    } else {
+        localStorage.setItem('allselect','checked');
+        let totalCart = JSON.parse(localStorage.getItem('cart'));
+        let getIndex = totalCart.findIndex(res=> res.id == id);
+        const item = totalCart[getIndex];
+        item.checked = true;
+        localStorage.setItem('cart',JSON.stringify(totalCart)); 
+    }
+    
+    
+    let totalcost = JSON.parse(localStorage.getItem('cart'));
+    let total = 0;
+    for (let index = 0; index < totalcost.length; index++) {
+        const element = totalcost[index];
+        if (element.checked == true) {
+            let totalwithquan = parseInt(element.quantity) * parseInt(element.price);
+            total += totalwithquan;
+        }
+    }
+    let formatValue = new Intl.NumberFormat('en-IN').format(total);
+    totalPrice = total;
+    document.getElementById('r_tak').innerHTML = '৳ '+formatValue;
+    
+    shipingCostEval();
+    shipcharge();
+    totalCalculate();
+    // allselectHave();
+    autoCheckedDetect();
+}
+
+function allselectHave() {
+	let cartDetails = JSON.parse(localStorage.getItem('cart'));
+    for (let index = 0; index < cartDetails.length; index++) {
+        const element = cartDetails[index];
+        console.log(element.checked)
+        if (element.checked == false) {
+            localStorage.setItem('allselect','');
+        } else {
+            localStorage.setItem('allselect','checked');
+        }
+    }
+}
+// allselectHave();
+
+function autoCheckedDetect() {
+    let autocheck = localStorage.getItem('allselect');
+    let st = `
+        <input type="checkbox" name="" id="checking" onchange="selectAll()" ${autocheck}>
+    `;
+    document.getElementById('labelId2').innerHTML = st;
+}
+autoCheckedDetect();
+
+
+function selectAll() {
+    let checkBox = document.getElementById('checking');
+	if (checkBox.checked == false) {
+        localStorage.setItem('allselect','');
+        let cartDetails1 = JSON.parse(localStorage.getItem('cart'));
+        for (let uncheck = 0; uncheck < cartDetails1.length; uncheck++) {
+            const element = cartDetails1[uncheck];
+            element.checked = false;
+        }
+        console.log(cartDetails1);
+        localStorage.setItem('cart',JSON.stringify(cartDetails1));
+    } else {
+        localStorage.setItem('allselect','checked');
+        let cartDetails1 = JSON.parse(localStorage.getItem('cart'));
+        for (let uncheck = 0; uncheck < cartDetails1.length; uncheck++) {
+            const element = cartDetails1[uncheck];
+            element.checked = true;
+        }
+        console.log(cartDetails1);
+        localStorage.setItem('cart',JSON.stringify(cartDetails1));
+    }
+    
+    let totalcost = JSON.parse(localStorage.getItem('cart'));
+    let total = 0;
+    for (let index = 0; index < totalcost.length; index++) {
+        const element = totalcost[index];
+        if (element.checked == true) {
+            let totalwithquan = parseInt(element.quantity) * parseInt(element.price);
+            total += totalwithquan;
+        }
+    }
+    let formatValue = new Intl.NumberFormat('en-IN').format(total);
+    totalPrice = total;
+    document.getElementById('r_tak').innerHTML = '৳ '+formatValue;
+    
+    shipingCostEval();
+    shipcharge();
+    totalCalculate();
+    renderCart();
+    autoCheckedDetect();
+}
+
+
 function minus(decreaseId) {
 	let cartDetails = JSON.parse(localStorage.getItem('cart'));
 	let searchInd = cartDetails.findIndex(ind=> ind.id == decreaseId);
 	let quantityCheck = cartDetails[searchInd].quantity = cartDetails[searchInd].quantity-1;
 	if (quantityCheck > 0) {
 		localStorage.setItem('cart',JSON.stringify(cartDetails));
-		// document.getElementById('lblCartCount2').innerHTML = cartDetails.length;
 		renderCart();
 		totalcartvalue();
 		autocart();
+
+
+        let totalcost = JSON.parse(localStorage.getItem('cart'));
+        let total = 0;
+        for (let index = 0; index < totalcost.length; index++) {
+            const element = totalcost[index];
+            if (element.checked == true) {
+                let totalwithquan = parseInt(element.quantity) * parseInt(element.price);
+                total += totalwithquan;
+            }
+        }
+        let formatValue = new Intl.NumberFormat('en-IN').format(total);
+        totalPrice = total;
+        document.getElementById('r_tak').innerHTML = '৳ '+formatValue;
+        
+        shipingCostEval();
+        shipcharge();
+        totalCalculate();
+        selectquan();
+        cartLength();
 	}
 }
 function plus(increaseId,totalQuantity) {
 	let cartDetails = JSON.parse(localStorage.getItem('cart'));
 	let searchInd = cartDetails.findIndex(ind=> ind.id == increaseId);
 	let quantityCheck = cartDetails[searchInd].quantity = parseInt(cartDetails[searchInd].quantity) + 1;
-	console.log(quantityCheck,totalQuantity);
 	if (quantityCheck <= totalQuantity) {
 		localStorage.setItem('cart',JSON.stringify(cartDetails));
-		// document.getElementById('lblCartCount2').innerHTML = cartDetails.length;
 		renderCart();
 		totalcartvalue();
 		autocart();
+
+        let totalcost = JSON.parse(localStorage.getItem('cart'));
+        let total = 0;
+        for (let index = 0; index < totalcost.length; index++) {
+            const element = totalcost[index];
+            if (element.checked == true) {
+                let totalwithquan = parseInt(element.quantity) * parseInt(element.price);
+                total += totalwithquan;
+            }
+        }
+        let formatValue = new Intl.NumberFormat('en-IN').format(total);
+        totalPrice = total;
+        document.getElementById('r_tak').innerHTML = '৳ '+formatValue;
+        
+        shipingCostEval();
+        shipcharge();
+        totalCalculate();
+
+        
 	} else {
 		iziToast.error({
 			title: 'Failed',
@@ -302,5 +609,20 @@ function plus(increaseId,totalQuantity) {
 			position: 'topCenter',
 		});
 	}
-
+    selectquan();
+    cartLength();
 }
+
+
+function selectquan() {
+    let labelBox = document.getElementById('lebelId');
+    let totalcost = JSON.parse(localStorage.getItem('cart'));
+    let allQuantity = 0;
+    for (let index = 0; index < totalcost.length; index++) {
+        const element = totalcost[index];
+         allQuantity += parseInt(element.quantity);
+    }
+    labelBox.innerHTML = `SELECT ALL (${allQuantity} ITEM(S))`;
+    
+}
+selectquan();

@@ -13,7 +13,11 @@
     margin-left:-6px;margin-right:8px;
 }
 
-
+.car_item_image img{
+    height:50px;
+    width:50px;
+    object-fit: contain;
+}
 /* responsvie footer */
 
 .responsive_footer{
@@ -343,9 +347,6 @@ footer{
         font-size:25px;
         font-weight:bold;
         margin-top:10px;
-    }
-    .car_item_image img{
-        height:50px;
     }
     .cart_item_list{
         display:flex;

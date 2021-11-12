@@ -102,9 +102,12 @@ class setting extends Controller
         if ($request->parent) {
             $data['parent'] = $request->parent;
         }
-        $data['updated_at'] = Carbon::now();
+        // $data['updated_at'] = Carbon::now();
+        $storeingName = location::whereId($id)->first();
+        $forChild = array();
+        $forChild['parent'] = $request->name;
+        $childUpdate = location::where('parent',$storeingName->name)->update($forChild);
         $storeing = location::whereId($id)->update($data);
-
         if ($storeing) {
             return redirect()->route('location.index')->with('status','Location Updated Successfully');
         } else {

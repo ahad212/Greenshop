@@ -169,7 +169,7 @@ window.onscroll = function(){
             } else {
                 price = currentProduct.price;
             }
-            let orderObj = {id: currentProduct.id, name: currentProduct.name, quantity: quantity, price: price ,pimage : currentProduct.pimage, shipping: totalShippingCost,shipping: currentProduct.shipping_charge,totalQuantity:currentProduct.quantity};
+            let orderObj = {id: currentProduct.id, name: currentProduct.name, quantity: quantity, price: price ,pimage : currentProduct.pimage, shipping: totalShippingCost,shipping: currentProduct.shipping_charge,totalQuantity:currentProduct.quantity, checked:true};
             if (colorId) {
                 orderObj.color = colorId.value; 
             } 
@@ -195,7 +195,7 @@ window.onscroll = function(){
                     message: 'Product add to cart',
                     position: 'topCenter',
                 });
-                document.getElementById('lblCartCount2').innerHTML = 1;
+                cartLength();
                 let total = 0;
                 for (let index = 0; index < cartArray.length; index++) {
                     const element = cartArray[index];
@@ -230,7 +230,7 @@ window.onscroll = function(){
                     `;
                 }
                 document.getElementById('cartItemList').innerHTML = totalcart;
-
+                localStorage.setItem('allselect','checked');
                 
             } else if (findingind != -1) {
                 let jsonArray = JSON.parse(cartExist);
@@ -254,7 +254,7 @@ window.onscroll = function(){
                     message: 'Cart Updated',
                     position: 'topCenter',
                 });
-                document.getElementById('lblCartCount2').innerHTML = jsonArray.length;
+                cartLength();
                 let total = 0;
                 for (let index = 0; index < jsonArray.length; index++) {
                     const element = jsonArray[index];
@@ -299,7 +299,7 @@ window.onscroll = function(){
                     message: 'Product add to cart',
                     position: 'topCenter',
                 });
-                document.getElementById('lblCartCount2').innerHTML = jsonArray.length;
+                cartLength();
                 let total = 0;
                 for (let index = 0; index < jsonArray.length; index++) {
                     const element = jsonArray[index];
@@ -370,5 +370,5 @@ window.onscroll = function(){
             `;
         }
         document.getElementById('cartItemList').innerHTML = totalcart;
-        document.getElementById('lblCartCount2').innerHTML = cartForRight.length;
+        cartLength();
     }

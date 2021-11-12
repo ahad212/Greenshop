@@ -1079,18 +1079,18 @@
             currentProduct = res.data;
         });
 
-        axios.get('/laraecomm/api/V1/location').then(res=>{
-        let location = res.data.data;
-        loc = location;
-        let all;
-        for (let index = 0; index < location.length; index++) {
-            const element = location[index];
-            all += `
-            <option value="${element.name}">${(parseInt(element.shippingcost)+ parseInt(productShipping))+'Taka'}</option>
-            `;
+        axios.get('/laraecomm/api/V1/location').then( res=> {
+            let location = res.data.data;
+            loc = location;
+            let all;
+            for (let index = 0; index < location.length; index++) {
+                const element = location[index];
+                all += `
+                <option value="${element.name}">${(parseInt(element.shippingcost)+ parseInt(productShipping))+'Taka'}</option>
+                `;
 
-        }
-        document.getElementById('cust_selecting').innerHTML = all;
+            }
+            document.getElementById('cust_selecting').innerHTML = all;
             
         });
     }

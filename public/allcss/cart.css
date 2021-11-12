@@ -364,7 +364,7 @@ font-size:18px;
     background:var(--green);
 }
 .cart_part{
-    margin-top:80px;
+    margin-top:68px;
 }
 
 
@@ -581,4 +581,24 @@ font-size:18px;
     }
     .update_butd:hover{
         background:var(--green);
+    }
+
+
+    .selectobx{
+        height:40px;
+        width:100%;
+        background:#F5F5F5;
+        display: flex;
+        align-items: center;
+        padding-left:10px;
+        user-select: none;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+    }
+
+    .container{
+        padding-top:10px;
+    }
+    .right_part{
+        margin-top:0px;
     }

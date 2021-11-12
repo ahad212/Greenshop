@@ -1,445 +1,8 @@
 @extends('welcome')
 
 @section('content')
-<style>
-    @media (min-width:1200px)
-    {
-        .container,
-        .container-lg,
-        .container-md,
-        .container-lg{
-            max-width:1215px;
-        }
-    }
-    /* .col{
-        border:1px solid black;
-    } */
-    :root{
-        --text:#6A7180;
-    }
-    .returning_customer{
-        display:flex;
-        flex-flow:row-wrap;
-    }
-    .re_fir{
-        font-weight:bold;
-    }
-    .re_sec{
-        color:var(--orange);
-        cursor:pointer;
-        margin-left:5px;
-    }
-    .returning_tab{
-        width:100%;
-        height:0px;
-        background:white;
-        overflow:hidden;
-        transition:.7s ease-in-out;
-    }
-    .show_return_tab{
-        height:330px;
-    }
-
-    /* from account page */
-    .register_login{
-        width:48%;
-        margin:auto;
-        margin-bottom:100px;
-    }
-    .account_btn_group{
-        display:flex;
-        justify-content:center;
-        align-items:center;
-        font-size:20px;
-        font-family:tahoma;
-        font-weight:bold;
-    }
-    .login{
-        color:black;
-        cursor:pointer;
-        transition:.5s;
-    }
-    .login:hover,.register:hover{
-        color:black;
-    }
-    .register{
-        margin-left:25px;
-        color:#bbb;
-        cursor:pointer;
-        transition:.35s;
-    }
-    .login_modal{
-    }
-    .login_modal a,.register_modal a{
-        color:var(--orange);
-        
-    }
-    .register_modal a:hover{
-        text-decoration:none;
-    }
-    .link_forget{
-        text-align:center;
-    }
-    input[type='email'],input[type='password'],input[type='text']{
-        font-size:13px;
-        font-family:arial;
-        padding:10px 15px;
-    }
-
-    .custom_check{
-        margin-top:-20px;
-        margin-bottom:10px;
-        margin-left:-20px;
-        user-select:none;
-    }
-
-    .sub_but{
-        width:100%;
-        background:var(--orange);
-        border:none;
-        height:44px;
-        font-weight:bold;
-        transition:.4s;
-        margin-bottom:10px;
-    }
-    .sub_but:hover{
-        background:var(--green);
-    }
-    .form-group{
-        margin-top:10px;
-    }
-    .pass{
-        position:relative;
-    }
-
-
-    .eye_open1{
-        position:absolute;
-        right:10px;
-        top:32px;
-        cursor:pointer;
-        cursor:pointer !important;
-        color:black !important;
-    }
-    .eye_close1{
-        position:absolute;
-        right:10px;
-        top:32px;
-        cursor:pointer;
-        display:none;
-        cursor:pointer !important;
-        color:black !important;
-    }
-
-
-/* for checkbox css started */
-  .custom_check label {
-  transition: 0.5s all;
-  margin: 0;
-  padding: 0;
-  font-size: 13px;
-  cursor: pointer;
-  background-position: left center;
-  background-size: auto 100%;
-  background-repeat: no-repeat;
-  padding-left: 30px;
-  background-image: url("data:image/svg+xml,%3C?xml version='1.0' encoding='iso-8859-1'?%3E %3C!DOCTYPE svg PUBLIC '-//W3C//DTD SVG 1.1//EN' 'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd'%3E %3Csvg version='1.1' id='Capa_1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' width='533.333px' height='533.333px' viewBox='0 0 533.333 533.333' style='enable-background:new 0 0 533.333 533.333;' xml:space='preserve'%3E %3Cg%3E %3Cpath d='M0,0v533.333h533.333V0H0z M500,500H33.333V33.333H500V500z'/%3E %3C/g%3E %3C/svg%3E ");
-}
-#exampleCheck1_return {
-  opacity: 0;
-  height: 30px;
-  width: 100%;
-  cursor: pointer;
-}
-#exampleCheck1_return:checked + .user_sign {
-  background-image: url("data:image/svg+xml,%3C?xml version='1.0' encoding='iso-8859-1'?%3E %3C!DOCTYPE svg PUBLIC '-//W3C//DTD SVG 1.1//EN' 'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd'%3E %3Csvg version='1.1' id='Capa_1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' width='533.333px' height='533.333px' viewBox='0 0 533.333 533.333' style='enable-background:new 0 0 533.333 533.333;' xml:space='preserve'%3E %3Cg%3E %3Cpath d='M0,0v533.333h533.333V0H0z M500,500H33.333V33.333H500V500z M400,116.667L233.333,283.333l-100-100L66.667,250 l166.667,166.667l233.333-233.333L400,116.667z'/%3E %3C/g%3E %3C/svg%3E ");
-}
-.log_otp_but{
-    height:40px;
-    width:140px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    color:white;
-    font-weight:bold;
-    background:var(--orange);
-    border-radius:5px;
-    cursor:pointer;
-    transition:.4s;
-    border:none;
-}
-.log_otp_but:hover, .log_email_pass:hover{
-    background:var(--green);
-}
-.log_email_pass{
-    height:40px;
-    width:240px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    color:white;
-    font-weight:bold;
-    background:var(--orange);
-    border-radius:5px;
-    transition:.4s;
-    cursor:pointer;   
-}
-/* data-list-design-from-cart */
-
-@font-face {
-    font-family: "iconfont";
-    src: url("iconfont.eot?t=1519919520638"); /* IE9*/
-    src: url("iconfont.eot?t=1519919520638#iefix") format("embedded-opentype"),
-    url("data:application/x-font-woff;charset=utf-8;base64,d09GRgABAAAAAAT8AAsAAAAAB0wAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAABHU1VCAAABCAAAADMAAABCsP6z7U9TLzIAAAE8AAAARAAAAFZW7kgPY21hcAAAAYAAAABeAAABhpnMBr5nbHlmAAAB4AAAAS8AAAE4GE3xD2hlYWQAAAMQAAAALwAAADYQm8k2aGhlYQAAA0AAAAAcAAAAJAfeA4RobXR4AAADXAAAAAwAAAAMC+kAAGxvY2EAAANoAAAACAAAAAgAdgCcbWF4cAAAA3AAAAAfAAAAIAESAF1uYW1lAAADkAAAAUUAAAJtPlT+fXBvc3QAAATYAAAAIgAAADPZhex6eJxjYGRgYOBikGPQYWB0cfMJYeBgYGGAAJAMY05meiJQDMoDyrGAaQ4gZoOIAgCKIwNPAHicY2Bk/sE4gYGVgYOpk+kMAwNDP4RmfM1gxMjBwMDEwMrMgBUEpLmmMDgwVDxTZW7438AQw9zA0AAUZgTJAQAmGwyReJzFkMENgDAMAy9t6QOxRiUeDMSLOTpx1ygmlAcT1JJjxbGUKMACRPEQE9iF8eCUa+5HVveTZ7LUCNRWelf/qSKaZdegkpkGm7f6j83rPjp9hTqoE1t5SbgBrLcMIwAAeJwVjD1Lw1AYhe97r7lJbtLE3nynSZsP26tUC8ZYB7FdXBQHwamjIDjp4NKlhQ4KDg7udRLBX+BW8LeI/o5oPBweeDhwkITQ7xdZER9ZaBPtomN0jhDQPmQGjiEV5QD3wUklx7MNInKRynk2IEfgZdR2i2HZ86hMTTCgDXtpMRQDLGC/HOFDKNwYIGiFF7wbcfIMzBfth+oUv4LTySNztFOdbI/tIrGUqc55wPmTQiVJwXjNNODGc1VJZbR6k8zQWXW2cAf0QIRnk0bS4peP5W3c9VSAxQKsVmK8j5ths+4sdC0eyOsNxQ8b+YYN0x/Nt/S4943qwD/IJ75DzVp6mazWoLYHbnEAw5J8aJFWzau5FjkMllqsw5Lha8aqGdwzp96uGIMXLapf/gAZTTBEAHicY2BkYGAA4rxVF67H89t8ZeBmYQCBa/ucFiDo/w9ZGJglgFwOBiaQKABVfgtlAHicY2BkYGBu+N/AEMPCAAJAkpEBFTADAEcJAmwEAAAAA+kAAAQAAAAAAAAAAHYAnHicY2BkYGBgZghkYGUAASYg5gJCBob/YD4DABD3AXAAeJxlj01OwzAQhV/6B6QSqqhgh+QFYgEo/RGrblhUavdddN+mTpsqiSPHrdQDcB6OwAk4AtyAO/BIJ5s2lsffvHljTwDc4Acejt8t95E9XDI7cg0XuBeuU38QbpBfhJto41W4Rf1N2MczpsJtdGF5g9e4YvaEd2EPHXwI13CNT+E69S/hBvlbuIk7/Aq30PHqwj7mXle4jUcv9sdWL5xeqeVBxaHJIpM5v4KZXu+Sha3S6pxrW8QmU4OgX0lTnWlb3VPs10PnIhVZk6oJqzpJjMqt2erQBRvn8lGvF4kehCblWGP+tsYCjnEFhSUOjDFCGGSIyujoO1Vm9K+xQ8Jee1Y9zed0WxTU/3OFAQL0z1xTurLSeTpPgT1fG1J1dCtuy56UNJFezUkSskJe1rZUQuoBNmVXjhF6XNGJPyhnSP8ACVpuyAAAAHicY2BigAAuBuyAmZGJkZmRhYGxgjWxqCi/nIEBABIwAsUAAA==")
-        format("woff"),
-    url("iconfont.ttf?t=1519919520638") format("truetype"),
-    url("iconfont.svg?t=1519919520638#iconfont") format("svg"); /* iOS 4.1- */
-}
-
-.iconfont {
-    font-family: "iconfont" !important;
-    font-size: 16px;
-    font-style: normal;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-}
-
-.icon-arrow:before {
-    content: "\e625";
-}
-
-
-#datalist1 {
-    margin: auto;
-    position: relative;
-    width: 100%;
-    color: #000;
-}
-
-#datalist1.active #datalist-ul1 {
-    display: block;
-}
-
-#datalist-input1 {
-    padding-left: 1em;
-    width: 100%;
-    height: 40px;
-    border-radius: 5px;
-    box-sizing: border-box;
-    box-shadow: none;
-    border: 1px solid #ccc;
-    outline: 0;
-    margin-top:10px;
-}
-#datalist-icon1 {
-    position: absolute;
-    right: 20px !important;
-    top: 6px !important;
-    font-size:15px !important; 
-    transition: transform 0.2s ease;
-}
-#datalist-input1:focus {
-    border: 1px solid #AA0000;
-    outline: 0;
-}
-
-#datalist1.active i {
-    transform: rotate(270deg);
-}
-
-#datalist-ul1 {
-    display: none;
-    position: absolute;
-    margin: 5px 0 0 0;
-    padding: 0;
-    width: 100%;
-    max-height: 120px;
-    top: 100%;
-    left: 0;
-    list-style: none;
-    border-radius: 2px;
-    background: #fff;
-    overflow: hidden;
-    overflow-y: auto;
-    z-index: 100;
-    border:1px solid black;
-}
-
-/* custom-scroll-bar-for-this */
-
-        #datalist-ul1::-webkit-scrollbar {
-        width: 10px;
-        }
-
-        /* Track */
-        #datalist-ul1::-webkit-scrollbar-track {
-        background: #f1f1f1; 
-        }
-        
-        /* Handle */
-        #datalist-ul1::-webkit-scrollbar-thumb {
-        background: #888; 
-        }
-
-        /* Handle on hover */
-        #datalist-ul1::-webkit-scrollbar-thumb:hover {
-        background: #555; 
-        }
-#datalist-ul1 li {
-    display: block;
-    text-align: left;
-    padding: 2px 5px;
-    color: #999;
-    cursor: pointer;
-}
-
-#datalist-ul1 li:hover {
-    background: #4e00f0;
-    color: white;
-}
-
-.sign_up_bil_toggle{
-    width:100%;
-    height:0px;
-    overflow:hidden;
-    transition:.7s ease-in-out;
-}
-.sign_up_bil_toggle_show{
-    height:270px;
-}
-.create_billing_ac{
-    margin-top:10px;
-}
-
-.eye_open{
-    position:absolute;
-    right:10px;
-    top:10px;
-    cursor:pointer;
-    cursor:pointer !important;
-    color:black !important;
-}
-.eye_close{
-    position:absolute;
-    right:10px;
-    top:10px;
-    cursor:pointer !important;
-    color:black !important;
-    display:none;
-}
-.checkoutc span{
-    color:red;
-    cursor:help;
-}
-.billing_head{
-    font-size:20px;
-    font-weight:bold;
-}
-.custom_checkbar:checked{
-    background-color:var(--orange);
-    border-color:var(--orange);
-}
-.con-cover-checkout .container{
-    padding-top:10px !important;
-}
-
-
-/*head part menu*/
-.second{
-    height: 55px;
-    background:rgb(255, 255, 255);
-    display: flex;
-    border-bottom:1px solid rgb(212, 210, 210);
-}
-.smain{
-    width:28%;
-}
-.cathead{
-    width:68.5%;
-    height:100%;
-    position: relative;
-    margin-left:auto;
-    margin-right:10.3%;
-}
-.covercat{
-    height:400px;
-    background:red;
-}
-.corg{
-    height:100%;
-    background:#FF3C20;
-    margin-left:auto;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color:white;
-    cursor:pointer;
-}
-.catdetails{
-    height:400px;
-    width:100%;
-    background:white; 
-    position:absolute;
-    top:130px;
-    z-index:300;
-    box-shadow:1px 1px 7px rgb(172, 170, 170);
-    transition: .5s;
-    visibility: hidden;
-    opacity:0;
-}
-.cathead:hover .catdetails{
-    visibility: visible;
-    top:53px;
-    opacity:1;
-}
-.catdetails ul{
-    list-style:none;
-    overflow:hidden;
-    border:1px solid #D7D7D7;
-    padding-top:2px;
-    padding-left:0px;
-}
-.catdetails ul li{
-    width:100%;
-    padding:10px 0px;
-    padding-left:30px;
-    border-bottom:1px solid #D7D7D7;
-}
-.catdetails a{
-    text-decoration:none;
-    color:black;
-}
-.catdetails a:hover{
-    text-decoration:none;
-    color:var(--orange);
-
-}
-.menupart{
-    width:72%;
-    display:flex;
-    align-items:center;
-    padding-top:20px;
-}
-.menupart ul{
-    list-style:none;
-    display:flex;
-    grid-column-gap:30px;
-}
-.menupart ul li{
-    display:inline;
-}
-.menupart ul li a{
-    text-decoration:none;
-    color:rgb(230, 56, 56);
-    padding:13px 10px;
-    border-radius:7px;
-    font-size:18px;
-}
-
-
-
-</style>
-
+<link rel="stylesheet" href="{{asset('laraecomm/allcss/checkout.css')}}">
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 
 {{-- <div class="second">
     <div class="smain">
@@ -558,11 +121,13 @@
                                 </div> -->
                                 <div class="discrict" style="margin-top:8px;">
                                     <div class="discrictd">Town / City<span>*</span></div>
-                                    <div id="datalist1">
-                                        <input id="datalist-input1" style="margin-top:-2px;" type="text" placeholder="Select City">
-                                        <i id="datalist-icon1" class="icon iconfont icon-arrow"></i>
-                                        <ul id="datalist-ul1"></ul>
-                                    </div>
+                                    <select style="width:100%;" class="js-example-basic-single" name="state" id="townSelect">
+                                        <option value="AL">Dhaka</option>
+                                        <option value="WY">jessore</option>
+                                        <option value="WY">Magura</option>
+                                        <option value="WY">Sylhet</option>
+                                        <option value="WY">Barisal</option>
+                                    </select>
                                 </div>
                                 <!-- <div class="post_code_bil" style="margin-top:8px;">
                                     <label for="posts">Postcode / Zip (optional) <span>*</span></label>
@@ -621,130 +186,7 @@
                 </div>
             </div>
 
-            <style>
-                .order_box{
-                    width:100%;
-                    min-height:306px;
-                    border:1px solid #DCDCDC;
-                }
-                .order_head{
-                    width:100%;
-                    height:53px;
-                    background:#F5F5F5;
-                    border-bottom:1px solid #DCDCDC;
-                }
-                .payment_box{
-                    width:100%;
-                    min-height:260px;
-                    border:1px solid #DCDCDC;
 
-                }
-                .payment_head1{
-                    width:100%;
-                    height:75px;
-                    border-bottom:1px solid #DCDCDC;
-                    padding:10px 20px;
-                    color:black;
-                    overflow:hidden;
-                    transition:.5s;
-
-                }
-
-                .payment_head2{
-                    width:100%;
-                    height:60px;
-                    border-bottom:1px solid #DCDCDC;
-                    overflow:hidden;
-                    padding:10px 20px;
-                    transition:.5s;
-                    color:black;                
-                }
-                .payment_head3{
-                    width:100%;
-                    height:130px;
-                    overflow:hidden;
-                    transition:.5s;
-                    padding:10px 20px;
-                    color:black;                
-                }
-                .show_pay_height_toggle{
-                    height:100px;
-                    background:#F5F5F5;
-                }
-                .show_pay_height_toggle_spe{
-                    background:#F5F5F5;
-                }
-                .pay_slogan{
-                    padding-top:10px;
-                }
-                .padding_top_pm{
-                    padding-top:15px;
-                }
-                .padding_left_pm{
-                    padding-left:10px;
-                }
-                .pay_flex_part{
-                    display:flex;
-                    flex-flow:row-wrap;
-                }
-                .p_name{
-                    display:inline;
-                    color:black;
-                    font-weight:bold;
-                }
-                .s_name{
-                    display:inline;
-                    float:right;
-                    font-weight:bold;
-                    color:black;
-                }
-
-                .namig_he_g{
-                    padding:12px 30px;
-                }
-                .heda_imidiate{
-                    display:flex;
-                    flex-flow:row-wrap;
-                    height:80px;
-                    width:100%;
-                    border-bottom:1px solid #DCDCDC;
-                }
-                .custom_pad_inner{
-                    padding:10px 30px;
-                }
-                .c_p_img{
-                    width:20%;
-                }
-                .c_p_img img{
-                    height:50px;
-                    width:50px;
-                }
-                .c_p_mid{
-                    width:55%;
-                }
-                .c_p_final{
-                    width:25%;
-                    text-align:right;
-                    color:var(--orange);
-                    font-weight:bold;
-                }
-                .hed_f1, .hed_f2, .hed_f3{
-                    display:flex;
-                    flex-flow:row-wrap;
-                }
-                .subto, .shipp, .total_sh{
-                    text-align:left;
-                }
-                .right_al{
-                    margin-left:auto;
-                    text-align:right;
-                }
-                .c_p_mid aside{
-                    display:inline;
-                    color:var(--text);
-                }
-
-            </style>
             <div class="col col-lg-5 custom_col_padd">
                 <div class="your_order">
                     <strong style="font-size:20px;">Your order</strong>
@@ -759,27 +201,42 @@
                                             <div class="s_name">Subtotal</div>
                                         </div>
                                     </div>
-                                    <div class="heda_imidiate  custom_pad_inner">
-                                        <div class="c_p_img"><img src="{{asset('laraecomm/assets/images/xiaomi-redmi-note10-pro.jpg')}}" alt=""></div>
-                                        <div class="c_p_mid" style="color:black;">Xiaomi redmi note10 pro <aside>(x 2)</aside></div>
-                                        <div class="c_p_final">৳ 28,998.00</div>
+                                    <div class="arrayCover" id="productDetails">
+                                        {{-- auto inject product array from js --}}
                                     </div>
+
                                     <div class="head_final custom_pad_inner">
                                         <div class="hed_f1">
                                             <div class="subto" style="color:black;">Subtotal</div>
-                                            <div class="c_p_final right_al">৳ 28,998.00</div>
+                                            <div class="c_p_final right_al">
+                                                <span id="subVal"> {{--subtotal auto inject--}} </span>
+                                            </div>
+
                                         </div>
                                         <br>
                                         <div class="hed_f2">
-                                            <div class="shipp" style="color:black;">Shipping</div>
+                                            <div class="shipp" style="color:black;">Shipping Area</div>
                                             <div class="flatr right_al">
-                                                <div class="flatr1">Flat rate:</div><br>
-                                                <div class="flatr2" style="font-weight:bold;">৳ 99.00</div>
+                                                <div class="flatr1">
+                                                    <select class="js-example-basic-single" name="state" id="selectL"  onchange="takeValue(this)">
+                                                        <option value="">Add any Item</option>
+                                                    </select>
+                                                </div>
+                                                {{-- <div class="flatr2" style="font-weight:bold;">৳ 99.00</div> --}}
+                                            </div>
+                                        </div>
+                                        <div class="hed_f2" style="margin:10px 0px;">
+                                            <div class="shipp" style="color:black;">Shipping </div>
+                                            <div class="flatr right_al">
+                                                <div class="flatr1">
+                                                    <span style="color:var(--orange)" id="shipCharge">৳ 00</span>
+                                                </div>
+                                                {{-- <div class="flatr2" style="font-weight:bold;">৳ 99.00</div> --}}
                                             </div>
                                         </div>
                                         <div class="hed_f3">
                                             <div class="total_sh c_p_final">Total</div>
-                                            <div class="c_p_final right_al">৳ 29,097.00</div>
+                                            <div class="c_p_final right_al" id="totalVal"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -833,96 +290,7 @@
                     </div>
                 </div>
                 <p>Your personal data will be used to process your order, support your experience throughout this website, and for other purposes described in our <a href=""><span style="cursor:pointer;">privacy policy</span></a>.</p>
-                <style>
-                    .terms_and_condition{
-                        width:100%;
-                        height:0px;
-                        overflow:hidden;
-                        background: #F2F2F2;
-                        transition:.4s ease-in-out;
-                    }
-                    .terms_show{
-                        padding:15px 20px;
-                        height:200px;
-                        overflow-y:scroll;
-                        border:1px solid black;
-                    }
-                    .terms_show::-webkit-scrollbar {
-                    width: 10px;
-                    }
 
-                    /* Track */
-                    .terms_show::-webkit-scrollbar-track {
-                    background: #f1f1f1; 
-                    }
-                    
-                    /* Handle */
-                    .terms_show::-webkit-scrollbar-thumb {
-                    background: #888; 
-                    }
-
-                    /* Handle on hover */
-                    .terms_show::-webkit-scrollbar-thumb:hover {
-                    background: #555; 
-                    }
-                    .place_button{
-                        width:100%;
-                        height:40px;
-                        border-radius:4px;
-                        background:var(--orange);
-                        transition:.4s;
-                        display:flex;
-                        align-items:center;
-                        justify-content:center;
-                        color:white;
-                        font-weight:bold;
-                        cursor:pointer;
-                        margin-top:15px;
-                    }
-                    .place_button:hover{
-                        background:var(--green);
-                    }
-                    @media (max-width:968px) {
-                        .custom_col_padd{
-                            padding-top:50px !important;
-                        }
-                    }
-                    @media (max-width:1026px) {
-                        .second{
-                            display: none;
-                        }
-                    }
-                    @media (max-width:414px)
-                    {
-                        .c_p_final{
-                            font-size:12px;
-                        }
-                        br{
-                            display:none;
-                        }
-                        .log_otp_but{
-                            margin-top:10px;
-                        }
-                        .log_email_pass{
-                            margin-top:10px;
-                        }
-                        .custom_col_padd{
-                            padding-top:0px !important;
-                        }
-                        .place_button{
-                            margin-bottom:50px;
-                        }
-                        .payment_head1{
-                            height:65px;
-                        }
-                        .show_pay_height_toggle{
-                            height:85px;
-                        }
-                        .payment_box{
-                            min-height:250px;
-                        }
-                    }
-                </style>
                 <div class="terms_and_condition" id="terms_and_condition">
                     <strong style="color:var(--text);font-size:14px;">TERMS AND CONDITIONS</strong><br><br>
                     <strong style="font-size:14px;color:var(--text);">Privacy Policy</strong>
@@ -1006,14 +374,8 @@
 
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script src="{{asset('laraecomm/alljs/checkout2.js')}}"></script>
 
-
-<script>
-    // let bil_sign_tog = $('#flexCheckDefault');
-    // let bil_press = $('.sign_up_bil_toggle');
-    // bil_sign_tog.on('click',function(){
-    //     bil_press.toggleClass('sign_up_bil_toggle_show');
-    // });
-
-</script>
 @endsection
