@@ -75,6 +75,9 @@ shipingCostEval();
 
 function shipcharge() {
     let costingLocalShiping = parseInt(localStorage.getItem('locationShipping'),10);
+    if (!costingLocalShiping) {
+        costingLocalShiping = 0;
+    }
     let costingProductShiping = totalPS;
     let totalCosting = costingLocalShiping + costingProductShiping;
     document.getElementById('shipCharge').innerHTML = '৳ '+ totalCosting;
@@ -94,6 +97,9 @@ function takeValue(costing) {
 
 function allFinalValue() {
     let costingLocalShiping = parseInt(localStorage.getItem('locationShipping'),10);
+    if (!costingLocalShiping) {
+        costingLocalShiping = 0;
+    }
     let costingProductShiping = totalPS;
     let totalCosting = costingLocalShiping + costingProductShiping;
 

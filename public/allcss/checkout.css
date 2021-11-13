@@ -532,7 +532,7 @@ font-size:18px;
 }
 .c_p_img img{
     height:50px;
-    width:50px;
+    /* width:50px; */
 }
 .c_p_mid{
     width:55%;

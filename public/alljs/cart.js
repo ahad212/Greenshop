@@ -408,7 +408,7 @@ function shipingCostEval() {
     for (let index = 0; index < allPA.length; index++) {
         const element = allPA[index];
         if (element.checked == true) {
-            totalCost += parseInt(element.shipping,10);
+            totalCost += parseInt(element.shipping,10) * parseInt(element.quantity,10);
         }
     }
     totalPS = totalCost;
@@ -417,6 +417,9 @@ shipingCostEval();
 
 function shipcharge() {
     let costingLocalShiping = parseInt(localStorage.getItem('locationShipping'),10);
+    if (!costingLocalShiping) {
+        costingLocalShiping = 0;
+    }
     let costingProductShiping = totalPS;
     let totalCosting = costingLocalShiping + costingProductShiping;
     document.getElementById('shipCharge').innerHTML = '৳ '+ totalCosting;
@@ -425,6 +428,9 @@ shipcharge();
 
 function totalCalculate() {
     let costingLocalShiping = parseInt(localStorage.getItem('locationShipping'),10);
+    if (!costingLocalShiping) {
+        costingLocalShiping = 0;
+    }
     let costingProductShiping = totalPS;
     let totalCosting = costingLocalShiping + costingProductShiping;
     let totalAddedPrice = totalCosting + totalPrice;
