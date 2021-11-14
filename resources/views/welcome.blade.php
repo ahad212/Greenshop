@@ -273,11 +273,15 @@
                         function cartLength() {
                             let totalcost = JSON.parse(localStorage.getItem('cart'));
                             let allQuantity = 0;
-                            for (let index = 0; index < totalcost.length; index++) {
-                                const element = totalcost[index];
-                                allQuantity += parseInt(element.quantity);
+                            if (totalcost) {
+                                for (let index = 0; index < totalcost.length; index++) {
+                                    const element = totalcost[index];
+                                    allQuantity += parseInt(element.quantity);
+                                }
+                                document.getElementById('lblCartCount2').innerHTML = allQuantity;
+                            } else {
+                                document.getElementById('lblCartCount2').innerHTML = 00;
                             }
-                            document.getElementById('lblCartCount2').innerHTML = allQuantity;
                             
                         }
                         cartLength();
@@ -654,10 +658,12 @@
                 function totalcartvalue() {
                     let totalcost = JSON.parse(localStorage.getItem('cart'));
                     let total = 0;
-                    for (let index = 0; index < totalcost.length; index++) {
-                        const element = totalcost[index];
-                        let totalwithquan = parseInt(element.quantity) * parseInt(element.price);
-                        total += totalwithquan;
+                    if (totalcost) {
+                        for (let index = 0; index < totalcost.length; index++) {
+                            const element = totalcost[index];
+                            let totalwithquan = parseInt(element.quantity) * parseInt(element.price);
+                            total += totalwithquan;
+                        }
                     }
                     let formatValue = new Intl.NumberFormat('en-IN').format(total);
                     document.getElementById('totalCart').innerHTML = formatValue;
@@ -671,27 +677,29 @@
                 function autocart() {
                     let cartForRight = JSON.parse(localStorage.getItem('cart'));
                     let totalcart = '';
-                    for (let caring = 0; caring < cartForRight.length; caring++) {
-                        const element = cartForRight[caring];
-                        const imageFirst = JSON.parse(element.pimage);
-                        let totalwithquanRight = parseInt(element.price);
-                        let formatValueRight = new Intl.NumberFormat('en-IN').format(totalwithquanRight);
-                        totalcart += `
-                        <div class="cart_item_list">
-                            <div class="car_item_image">
-                                <img src="${'/laraecomm'+imageFirst[0]}" alt="">
-                            </div>
-                            <div class="item_all_info">
-                                <div class="info_name">
-                                    ${element.name}
+                    if (cartForRight) {
+                        for (let caring = 0; caring < cartForRight.length; caring++) {
+                            const element = cartForRight[caring];
+                            const imageFirst = JSON.parse(element.pimage);
+                            let totalwithquanRight = parseInt(element.price);
+                            let formatValueRight = new Intl.NumberFormat('en-IN').format(totalwithquanRight);
+                            totalcart += `
+                            <div class="cart_item_list">
+                                <div class="car_item_image">
+                                    <img src="${'/laraecomm'+imageFirst[0]}" alt="">
                                 </div>
-                                <div class="count_which">${element.quantity}x <span>৳ ${formatValueRight}</span></div>
+                                <div class="item_all_info">
+                                    <a class="info_name" href="http://localhost/laraecomm/Product/${element.slug}">
+                                        ${element.name}
+                                    </a>
+                                    <div class="count_which">${element.quantity}x <span>৳ ${formatValueRight}</span></div>
+                                </div>
+                                <div class="action_items" onclick="splititem(${element.id})">
+                                    <i class="far fa-trash-alt"></i>
+                                </div>
                             </div>
-                            <div class="action_items" onclick="splititem(${element.id})">
-                                <i class="far fa-trash-alt"></i>
-                            </div>
-                        </div>
-                        `;
+                            `;
+                        }
                     }
                     document.getElementById('cartItemList').innerHTML = totalcart;
                 }
@@ -729,10 +737,12 @@
                     cartLength();
                     let totalcost = JSON.parse(localStorage.getItem('cart'));
                     let total = 0;
-                    for (let index = 0; index < totalcost.length; index++) {
-                        const element = totalcost[index];
-                        let totalwithquan = parseInt(element.quantity) * parseInt(element.price);
-                        total += totalwithquan;
+                    if (totalcost) {
+                        for (let index = 0; index < totalcost.length; index++) {
+                            const element = totalcost[index];
+                            let totalwithquan = parseInt(element.quantity) * parseInt(element.price);
+                            total += totalwithquan;
+                        }
                     }
                     let formatValue = new Intl.NumberFormat('en-IN').format(total);
                     document.getElementById('totalCart').innerHTML = formatValue;

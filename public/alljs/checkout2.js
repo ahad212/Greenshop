@@ -2,20 +2,22 @@
 let cart = JSON.parse(localStorage.getItem('cart'));
 let totalcart = '';
 let allTotalPrice = 0;
-for (let index = 0; index < cart.length; index++) {
-const element = cart[index];
-const img = JSON.parse(element.pimage)[0];
-const totalPrice = parseInt(element.quantity) * parseInt(element.price);
-allTotalPrice += totalPrice;
-let formatValue1 = new Intl.NumberFormat('en-IN').format(totalPrice);
-
-totalcart += `
-<div class="heda_imidiate  custom_pad_inner">
-<div class="c_p_img"><img src="${'/laraecomm'+img}" alt=""></div>
-<div class="c_p_mid" style="color:black;">${element.name} <aside>(x ${element.quantity})</aside></div>
-<div class="c_p_final">৳ ${formatValue1}</div>
-</div>
-`;
+if (cart) {
+    for (let index = 0; index < cart.length; index++) {
+        const element = cart[index];
+        const img = JSON.parse(element.pimage)[0];
+        const totalPrice = parseInt(element.quantity) * parseInt(element.price);
+        allTotalPrice += totalPrice;
+        let formatValue1 = new Intl.NumberFormat('en-IN').format(totalPrice);
+        
+        totalcart += `
+        <div class="heda_imidiate  custom_pad_inner">
+        <div class="c_p_img"><img src="${'/laraecomm'+img}" alt=""></div>
+        <div class="c_p_mid" style="color:black;">${element.name} <aside>(x ${element.quantity})</aside></div>
+        <div class="c_p_final">৳ ${formatValue1}</div>
+        </div>
+        `;
+    }
 }
 
 document.getElementById('productDetails').innerHTML = totalcart;
@@ -65,9 +67,11 @@ let totalPS = 0;
 function shipingCostEval() {
     let allPA = JSON.parse(localStorage.getItem('cart'));
     let totalCost = 0;
-    for (let index = 0; index < allPA.length; index++) {
-        const element = allPA[index];
-        totalCost += parseInt(element.shipping,10);
+    if (allPA) {
+        for (let index = 0; index < allPA.length; index++) {
+            const element = allPA[index];
+            totalCost += parseInt(element.shipping,10);
+        }
     }
     totalPS = totalCost;
 }
@@ -105,12 +109,25 @@ function allFinalValue() {
 
     let totalValue = 0;
     let cartCache = JSON.parse(localStorage.getItem('cart'));
-    for (let index = 0; index < cartCache.length; index++) {
-        const element = cartCache[index];
-        totalValue += parseInt(element.quantity) * parseInt(element.price);
+    if (cartCache) {
+        for (let index = 0; index < cartCache.length; index++) {
+            const element = cartCache[index];
+            totalValue += parseInt(element.quantity) * parseInt(element.price);
+        }
     }
     totalValuewihShiping = totalValue + totalCosting;
     let formatValue = new Intl.NumberFormat('en-IN').format(totalValuewihShiping);
     document.getElementById('totalVal').innerHTML = `৳ ${formatValue}`;
 }
 allFinalValue();
+
+
+// check returning 
+
+let userToken = localStorage.getItem('usertoken');
+if (userToken) {
+    let returning = document.getElementById('returning');
+    let returningHr = document.getElementById('returningHr');
+    returning.style.display = 'none';
+    returningHr.style.display = 'none';
+}

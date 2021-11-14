@@ -39,7 +39,7 @@
 
 <div class="con-cover-checkout">
 <div class="container checkoutc">
-    <div class="row row-cols-1 row-cols-sm-1 row-cols-lg-2">
+    {{-- <div class="row row-cols-1 row-cols-sm-1 row-cols-lg-2" id="returning">
         <div class="col col-lg-7">
             <div class="returning_customer">
                 <div class="re_fir">Returning customer? </div>
@@ -49,13 +49,13 @@
             <div class="returning_tab" id="returning_tab">
                 <p>If you have shopped with us before, please enter your details below. If you are a new customer, please proceed to the Billing section.</p>
                 <div class="login_modal">
-                    <form>
+                    <form id="myFormCheck">
                         <div class="form-group">
-                            <input type="email" class="form-control" id="sigin_mail_return" aria-describedby="emailHelp" placeholder="Username or email">
+                            <input type="email" class="form-control" id="sigin_mail_return" aria-describedby="emailHelp" name="mail" placeholder="Username or email">
                         </div>
                         <div class="form-group">
                             <div class="pass">
-                                <input type="password" class="form-control" id="exampleInputPassword1_return" placeholder="Password">
+                                <input type="password" class="form-control" id="exampleInputPassword1_return" name="pass" placeholder="Password">
                                 <span class="eye_open" id="eye_open_return"><i class="far fa-eye"></i></span>
                                 <span class="eye_close" id="eye_close_return"><i class="fas fa-eye-slash"></i></span>
                             </div>
@@ -69,11 +69,12 @@
                             <div class="link_forget">Lost password</div>
                         </a>
                     </form>
+
                 </div>
             </div>
         </div>
         <div class="col col-lg-5"></div>
-    </div>
+    </div> --}}
     <!-- <br>
     <br>
     <div class="row">
@@ -88,7 +89,7 @@
             </div>
         </div>
     </div> -->
-    <hr style="border-bottom:1px solid black;">
+    {{-- <hr style="border-bottom:1px solid black;" id="returningHr"> --}}
         <div class="row row-cols-1 row-cols-md-1 row-cols-lg-2">
             <div class="col col-lg-7">
                 <div class="billing_details">

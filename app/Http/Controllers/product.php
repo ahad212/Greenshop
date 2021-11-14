@@ -353,4 +353,12 @@ public function updateProduct(Request $request) {
         }
     }
 
+
+
+    public function category() {
+        $all_products = products::where('pstatus','active')->join('brands','products.category','=','brands.id')->select('products.*','brands.cname','brands.parent')->get();
+        $f_products = products::where('pstatus','active')->get();
+        return view('ProductCategory',['allProducts'=> $all_products,'featuredProducts'=> $f_products]);
+    }
+
 }

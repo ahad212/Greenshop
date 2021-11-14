@@ -756,3 +756,14 @@
 
 
 }
+
+
+
+
+/* new css for card image  */
+
+
+.p_img{
+    height:150px !important;
+    object-fit: contain;
+}

@@ -92,77 +92,77 @@
 
 
 
-    class DataList1 {
-	constructor(containerId, inputId, listId, options) {
-		this.containerId1 = containerId;
-		this.inputId1 = inputId;
-		this.listId1 = listId;
-		this.options1 = options;
-	}
+//     class DataList1 {
+// 	constructor(containerId, inputId, listId, options) {
+// 		this.containerId1 = containerId;
+// 		this.inputId1 = inputId;
+// 		this.listId1 = listId;
+// 		this.options1 = options;
+// 	}
 
-	create(filter = "") {
-		const list1 = document.getElementById(this.listId1);
-		const filterOptions1 = this.options1.filter(
-			d => filter === "" || d.text.includes(filter)
-		);
+// 	create(filter = "") {
+// 		const list1 = document.getElementById(this.listId1);
+// 		const filterOptions1 = this.options1.filter(
+// 			d => filter === "" || d.text.includes(filter)
+// 		);
 
-		if (filterOptions1.length === 0) {
-			list1.classList.remove("active");
-		} else {
-			list1.classList.add("active");
-		}
+// 		if (filterOptions1.length === 0) {
+// 			list1.classList.remove("active");
+// 		} else {
+// 			list1.classList.add("active");
+// 		}
 
-		list1.innerHTML = filterOptions1
-			.map(o => `<li id=${o.value}>${o.text}</li>`)
-			.join("");
-	}
+// 		list1.innerHTML = filterOptions1
+// 			.map(o => `<li id=${o.value}>${o.text}</li>`)
+// 			.join("");
+// 	}
 
-	addListeners(datalist1) {
-		const container1 = document.getElementById(this.containerId1);
-		const input1 = document.getElementById(this.inputId1);
-		const list1 = document.getElementById(this.listId1);
-		container1.addEventListener("click", e => {
-			if (e.target.id === this.inputId1) {
-				container1.classList.toggle("active");
-			} else if (e.target.id === "datalist-icon1") {
-				container1.classList.toggle("active");
-				input1.focus();
-			}
-		});
+// 	addListeners(datalist1) {
+// 		const container1 = document.getElementById(this.containerId1);
+// 		const input1 = document.getElementById(this.inputId1);
+// 		const list1 = document.getElementById(this.listId1);
+// 		container1.addEventListener("click", e => {
+// 			if (e.target.id === this.inputId1) {
+// 				container1.classList.toggle("active");
+// 			} else if (e.target.id === "datalist-icon1") {
+// 				container1.classList.toggle("active");
+// 				input1.focus();
+// 			}
+// 		});
 
-		input1.addEventListener("input", function(e) {
-			if (!container1.classList.contains("active")) {
-				container1.classList.add("active");
-			}
+// 		input1.addEventListener("input", function(e) {
+// 			if (!container1.classList.contains("active")) {
+// 				container1.classList.add("active");
+// 			}
 
-			datalist1.create(input1.value);
-		});
+// 			datalist1.create(input1.value);
+// 		});
 
-		list1.addEventListener("click", function(e) {
-			if (e.target.nodeName.toLocaleLowerCase() === "li") {
-				input1.value = e.target.innerText;
-				container1.classList.remove("active");
-			}
-		});
-	}
-}
+// 		list1.addEventListener("click", function(e) {
+// 			if (e.target.nodeName.toLocaleLowerCase() === "li") {
+// 				input1.value = e.target.innerText;
+// 				container1.classList.remove("active");
+// 			}
+// 		});
+// 	}
+// }
 
-const data1 = [
-	{ value: "Dhaka", text: "Dhaka" },
-	{ value: "Jessore", text: "Jessore" },
-	{ value: "Khulna", text: "Khulna" },
-	{ value: "Chuadanga", text: "Chuadanga" },
-	{ value: "Norail", text: "Norail" },
-	{ value: "Pabna", text: "Pabna" },
-	{ value: "Sylhet", text: "Sylhet" },
-	{ value: "Borisal", text: "Borisal" }
-];
+// const data1 = [
+// 	{ value: "Dhaka", text: "Dhaka" },
+// 	{ value: "Jessore", text: "Jessore" },
+// 	{ value: "Khulna", text: "Khulna" },
+// 	{ value: "Chuadanga", text: "Chuadanga" },
+// 	{ value: "Norail", text: "Norail" },
+// 	{ value: "Pabna", text: "Pabna" },
+// 	{ value: "Sylhet", text: "Sylhet" },
+// 	{ value: "Borisal", text: "Borisal" }
+// ];
 
-const datalist1 = new DataList1(
-	"datalist1",
-	"datalist-input1",
-	"datalist-ul1",
-	data1
-);
-datalist1.create();
-datalist1.addListeners(datalist1);
+// const datalist1 = new DataList1(
+// 	"datalist1",
+// 	"datalist-input1",
+// 	"datalist-ul1",
+// 	data1
+// );
+// datalist1.create();
+// datalist1.addListeners(datalist1);

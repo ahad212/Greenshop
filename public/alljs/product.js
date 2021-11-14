@@ -169,7 +169,7 @@ window.onscroll = function(){
             } else {
                 price = currentProduct.price;
             }
-            let orderObj = {id: currentProduct.id, name: currentProduct.name, quantity: quantity, price: price ,pimage : currentProduct.pimage, shipping: totalShippingCost,shipping: currentProduct.shipping_charge,totalQuantity:currentProduct.quantity, checked:true};
+            let orderObj = {id: currentProduct.id, name: currentProduct.name, quantity: quantity, price: price ,pimage : currentProduct.pimage, shipping: totalShippingCost,shipping: currentProduct.shipping_charge,totalQuantity:currentProduct.quantity, checked:true, slug: currentProduct.slug};
             if (colorId) {
                 orderObj.color = colorId.value; 
             } 

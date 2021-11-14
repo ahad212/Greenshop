@@ -356,11 +356,13 @@ let totalPrice= 0;
 function totalcartvalue() {
     let totalcost = JSON.parse(localStorage.getItem('cart'));
     let total = 0;
-    for (let index = 0; index < totalcost.length; index++) {
-        const element = totalcost[index];
-        if (element.checked == true) {
-            let totalwithquan = parseInt(element.quantity) * parseInt(element.price);
-            total += totalwithquan;
+    if (totalcost) {
+        for (let index = 0; index < totalcost.length; index++) {
+            const element = totalcost[index];
+            if (element.checked == true) {
+                let totalwithquan = parseInt(element.quantity) * parseInt(element.price);
+                total += totalwithquan;
+            }
         }
     }
     let formatValue = new Intl.NumberFormat('en-IN').format(total);
@@ -464,11 +466,13 @@ function selectDeselect(id) {
     
     let totalcost = JSON.parse(localStorage.getItem('cart'));
     let total = 0;
-    for (let index = 0; index < totalcost.length; index++) {
-        const element = totalcost[index];
-        if (element.checked == true) {
-            let totalwithquan = parseInt(element.quantity) * parseInt(element.price);
-            total += totalwithquan;
+    if (totalcost) {
+        for (let index = 0; index < totalcost.length; index++) {
+            const element = totalcost[index];
+            if (element.checked == true) {
+                let totalwithquan = parseInt(element.quantity) * parseInt(element.price);
+                total += totalwithquan;
+            }
         }
     }
     let formatValue = new Intl.NumberFormat('en-IN').format(total);
@@ -530,11 +534,13 @@ function selectAll() {
     
     let totalcost = JSON.parse(localStorage.getItem('cart'));
     let total = 0;
-    for (let index = 0; index < totalcost.length; index++) {
-        const element = totalcost[index];
-        if (element.checked == true) {
-            let totalwithquan = parseInt(element.quantity) * parseInt(element.price);
-            total += totalwithquan;
+    if (totalcost) {
+        for (let index = 0; index < totalcost.length; index++) {
+            const element = totalcost[index];
+            if (element.checked == true) {
+                let totalwithquan = parseInt(element.quantity) * parseInt(element.price);
+                total += totalwithquan;
+            }
         }
     }
     let formatValue = new Intl.NumberFormat('en-IN').format(total);
@@ -562,11 +568,13 @@ function minus(decreaseId) {
 
         let totalcost = JSON.parse(localStorage.getItem('cart'));
         let total = 0;
-        for (let index = 0; index < totalcost.length; index++) {
-            const element = totalcost[index];
-            if (element.checked == true) {
-                let totalwithquan = parseInt(element.quantity) * parseInt(element.price);
-                total += totalwithquan;
+        if (totalcost) {
+            for (let index = 0; index < totalcost.length; index++) {
+                const element = totalcost[index];
+                if (element.checked == true) {
+                    let totalwithquan = parseInt(element.quantity) * parseInt(element.price);
+                    total += totalwithquan;
+                }
             }
         }
         let formatValue = new Intl.NumberFormat('en-IN').format(total);
@@ -592,11 +600,13 @@ function plus(increaseId,totalQuantity) {
 
         let totalcost = JSON.parse(localStorage.getItem('cart'));
         let total = 0;
-        for (let index = 0; index < totalcost.length; index++) {
-            const element = totalcost[index];
-            if (element.checked == true) {
-                let totalwithquan = parseInt(element.quantity) * parseInt(element.price);
-                total += totalwithquan;
+        if (totalcost) {
+            for (let index = 0; index < totalcost.length; index++) {
+                const element = totalcost[index];
+                if (element.checked == true) {
+                    let totalwithquan = parseInt(element.quantity) * parseInt(element.price);
+                    total += totalwithquan;
+                }
             }
         }
         let formatValue = new Intl.NumberFormat('en-IN').format(total);
@@ -624,9 +634,11 @@ function selectquan() {
     let labelBox = document.getElementById('lebelId');
     let totalcost = JSON.parse(localStorage.getItem('cart'));
     let allQuantity = 0;
-    for (let index = 0; index < totalcost.length; index++) {
-        const element = totalcost[index];
-         allQuantity += parseInt(element.quantity);
+    if (totalcost) {
+        for (let index = 0; index < totalcost.length; index++) {
+            const element = totalcost[index];
+             allQuantity += parseInt(element.quantity);
+        }
     }
     labelBox.innerHTML = `SELECT ALL (${allQuantity} ITEM(S))`;
     

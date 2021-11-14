@@ -1,5 +1,6 @@
 @extends('welcome')
 @section('content')
+<link rel="stylesheet" href="{{asset('laraecomm/allcss/nice-select.css')}}">
 <link rel="stylesheet" href="{{asset('laraecomm/allcss/category.css')}}">
 
 {{-- <div class="second">
@@ -119,6 +120,12 @@
                         <option value="may">price low to high</option>
                         <option value="june">price high to low</option>
                     </select>
+                    {{-- <select name="" id="select">
+                        <option value="">a</option>
+                        <option value="">b</option>
+                        <option value="">c</option>
+                        <option value="">e</option>
+                    </select> --}}
                     <div class="filter_button filcolor" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
                         <img class="filter_img filcolor" src="{{asset('laraecomm/images/filter.png')}}" alt=""><span>Filter</span>
                     </div>
@@ -136,9 +143,19 @@
                 <!-- list and grid component -->
 
 
-    <div class="container grid-container cgc">
-        <div class="row">
+<div class="container grid-container cgc">
+    <div class="row">
+        @foreach ($allProducts as $k => $products)
             <div class="col-6 col-md-6 col-lg-4">
+                @php
+                    $image = json_decode($products->pimage)[0];
+
+                    //discount percentage calculation
+                    $price = $products->price;
+                    $dis_price = $products->discount_price;
+                    $subtruct = $price - $dis_price;
+                    $parcentage = ($subtruct*100)/$price;
+                @endphp
                 <div class="card">
                     <div class="one class_for_list">
                         <div class="icon_group">
@@ -146,9 +163,9 @@
                             <div class="eye emargin"><i class="far fa-eye"></i></div>
                         </div>
                         <div class="product_image">
-                        <a href="{{route('product_details','Samsung Galaxy S21 5G')}}"><img class="p_img" src="{{asset('laraecomm/assets/images/samsung-galaxy-s21-5g-r.jpg')}}" alt=""></a></div>
+                        <a href="{{route('product_details',$products->slug)}}"><img class="p_img" src="{{asset('laraecomm/'.$image)}}" alt=""></a></div>
                         <div class="apart_for_list">
-                            <a href="{{route('product_details','Samsung Galaxy S21 5G')}}"><div class="product_title">Samsung Galaxy S21 5G</div></a>
+                            <a href="{{route('product_details',$products->slug)}}"><div class="product_title">{{$products->name}}</div></a>
                             <div class="rating">
                                 <span class="far fa-star checked"></span>
                                 <span class="far fa-star checked"></span>
@@ -156,10 +173,10 @@
                                 <span class="far fa-star checked"></span>
                                 <span class="far fa-star checked"></span><span class="ratingcolor9">(0)</span>
                             </div>
-                            <div class="taka"><div class="triangle-left"></div><div class="circle_trns disinline1"></div> <div class="t_icon">&#2547;</div> 1,39,000</div>
+                            <div class="taka"><div class="triangle-left"></div><div class="circle_trns disinline1"></div> <div class="t_icon">&#2547;</div> {{number_format($products->price)}}</div>
                             <div class="list_all_text">
                                 <div class="list_all_text_title">
-                                    Samsung Galaxy S21 5G 8GB/256GB
+                                    {{$products->name}}
                                 </div>
                                 <div class="list_all_text_description">
                                     {{-- <ul>
@@ -186,243 +203,8 @@
                     </div>
                 </div>
             </div>
-        <div class="col-6 col-md-6 col-lg-4">
-            <div class="card">
-                <div class="one class_for_list">
-                    <div class="icon_group">
-                        <div class="heart"><i class="far fa-heart"></i></div>
-                        <div class="eye emargin"><i class="far fa-eye"></i></div>
-                    </div>
-                    <div class="product_image"><a href="{{route('product_details','Samsung Galaxy S21 5G')}}"><img class="p_img" src="{{asset('laraecomm/assets/images/vivo-v21-5g.jpg')}}" alt=""></a></div>
-                    <div class="apart_for_list">
-                    <a href="{{route('product_details','Samsung Galaxy S21 5G')}}"><div class="product_title">Samsung Galaxy S21 5G</div></a>
-                        <div class="rating">
-                            <span class="far fa-star checked"></span>
-                            <span class="far fa-star checked"></span>
-                            <span class="far fa-star checked"></span>
-                            <span class="far fa-star checked"></span>
-                            <span class="far fa-star checked"></span><span class="ratingcolor9">(0)</span>
-                        </div>
-                        <div class="taka"><div class="triangle-left"></div><div class="circle_trns disinline1"></div> <div class="t_icon">&#2547;</div> 1,39,000</div>
-                        <div class="list_all_text">
-                            <div class="list_all_text_title">
-                                Samsung Galaxy S21 5G 8GB/256GB
-                            </div>
-                            <div class="list_all_text_description">
-                                {{-- <ul>
-                                    <li>OS: Android 10</li>
-                                    <li>Chipset: Mediatek MT6765 Helio P35 (12nm)</li>
-                                    <li>CPU: Octa-core (4x2.35 GHz Cortex-A53 & 4x1.8 GHz Cortex-A53)</li>
-                                    <li>GPU: PowerVR GE8320</li>
-                                    <li>RAM: 4GB</li>
-                                    <li>ROM: 64GB</li>
-                                    <li>Back Camera: 48MP+5MP+2MP+2MP</li>
-                                    <li>Front Camera: 8MP</li>
-                                    <li>Display Size: 6.5” (PLS IPS Display)</li>
-                                    <li>Display Resolution: 720 x 1600 pixels, 20:9 ratio (~270 ppi Density)</li>
-                                    <li>Build: Glass Front, Plastic Back, Plastic Frame</li>
-                                    <li>Connectivity: Wi-Fi 802.11 b/g/n, Wi-Fi Direct, hotspot; Bluetooth: 5.0 A2DP, LE; GPS: Yes, with</li>
-                                    <li>A-GPS, GLONASS, GALILEO, BDS; NFC: YES; Radio: FM Radio, RDS, Recording; USB: Type-C 2.0</li>
-                                    <li>Sensors: Fingerprint (side-mounted), accelerometer</li>
-                                    <li>Battery Type: Li-Po 5000mAh, non-removable (Fast charging 15W)</li>
-                                </ul> --}}
-                            </div>
-                        </div>
-                        <div class="add_to_cart">Add to cart</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-6 col-md-6 col-lg-4">
-            <div class="card">
-                <div class="one class_for_list">
-                    <div class="icon_group">
-                        <div class="heart"><i class="far fa-heart"></i></div>
-                        <div class="eye emargin"><i class="far fa-eye"></i></div>
-                    </div>
-                    <div class="product_image"><a href="{{route('product_details','Samsung Galaxy S21 5G')}}"><img class="p_img" src="{{asset('laraecomm/assets/images/xiaomi-redmi-note10-pro.jpg')}}" alt=""></a></div>
-                    <div class="apart_for_list">
-                    <a href="{{route('product_details','Samsung Galaxy S21 5G')}}"><div class="product_title">Samsung Galaxy S21 5G</div></a>
-                        <div class="rating">
-                            <span class="far fa-star checked"></span>
-                            <span class="far fa-star checked"></span>
-                            <span class="far fa-star checked"></span>
-                            <span class="far fa-star checked"></span>
-                            <span class="far fa-star checked"></span><span class="ratingcolor9">(0)</span>
-                        </div>
-                        <div class="taka"><div class="triangle-left"></div><div class="circle_trns disinline1"></div> <div class="t_icon">&#2547;</div>1,39,000</div>
-                        <div class="list_all_text">
-                            <div class="list_all_text_title">
-                                Samsung Galaxy S21 5G 8GB/256GB
-                            </div>
-                            <div class="list_all_text_description">
-                                {{-- <ul>
-                                    <li>OS: Android 10</li>
-                                    <li>Chipset: Mediatek MT6765 Helio P35 (12nm)</li>
-                                    <li>CPU: Octa-core (4x2.35 GHz Cortex-A53 & 4x1.8 GHz Cortex-A53)</li>
-                                    <li>GPU: PowerVR GE8320</li>
-                                    <li>RAM: 4GB</li>
-                                    <li>ROM: 64GB</li>
-                                    <li>Back Camera: 48MP+5MP+2MP+2MP</li>
-                                    <li>Front Camera: 8MP</li>
-                                    <li>Display Size: 6.5” (PLS IPS Display)</li>
-                                    <li>Display Resolution: 720 x 1600 pixels, 20:9 ratio (~270 ppi Density)</li>
-                                    <li>Build: Glass Front, Plastic Back, Plastic Frame</li>
-                                    <li>Connectivity: Wi-Fi 802.11 b/g/n, Wi-Fi Direct, hotspot; Bluetooth: 5.0 A2DP, LE; GPS: Yes, with</li>
-                                    <li>A-GPS, GLONASS, GALILEO, BDS; NFC: YES; Radio: FM Radio, RDS, Recording; USB: Type-C 2.0</li>
-                                    <li>Sensors: Fingerprint (side-mounted), accelerometer</li>
-                                    <li>Battery Type: Li-Po 5000mAh, non-removable (Fast charging 15W)</li>
-                                </ul> --}}
-                            </div>
-                        </div>
-                        <div class="add_to_cart">Add to cart</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-6 col-md-6 col-lg-4">
-            <div class="card">
-                <div class="one class_for_list">
-                    <div class="icon_group">
-                        <div class="heart"><i class="far fa-heart"></i></div>
-                        <div class="eye emargin"><i class="far fa-eye"></i></div>
-                    </div>
-                    <div class="product_image"><a href="{{route('product_details','Samsung Galaxy S21 5G')}}"><img class="p_img" src="{{asset('laraecomm/assets/images/oppo-reno6-pro-plus.jpg')}}" alt=""></a></div>
-                    <div class="apart_for_list">
-                    <a href="{{route('product_details','Samsung Galaxy S21 5G')}}"><div class="product_title">Samsung Galaxy S21 5G</div></a>
-                        <div class="rating">
-                            <span class="far fa-star checked"></span>
-                            <span class="far fa-star checked"></span>
-                            <span class="far fa-star checked"></span>
-                            <span class="far fa-star checked"></span>
-                            <span class="far fa-star checked"></span><span class="ratingcolor9">(0)</span>
-                        </div>
-                        <div class="taka"><div class="triangle-left"></div><div class="circle_trns disinline1"></div> <div class="t_icon">&#2547;</div>1,39,000</div>
-                        <div class="list_all_text">
-                            <div class="list_all_text_title">
-                                Samsung Galaxy S21 5G 8GB/256GB
-                            </div>
-                            <div class="list_all_text_description">
-                                {{-- <ul>
-                                    <li>OS: Android 10</li>
-                                    <li>Chipset: Mediatek MT6765 Helio P35 (12nm)</li>
-                                    <li>CPU: Octa-core (4x2.35 GHz Cortex-A53 & 4x1.8 GHz Cortex-A53)</li>
-                                    <li>GPU: PowerVR GE8320</li>
-                                    <li>RAM: 4GB</li>
-                                    <li>ROM: 64GB</li>
-                                    <li>Back Camera: 48MP+5MP+2MP+2MP</li>
-                                    <li>Front Camera: 8MP</li>
-                                    <li>Display Size: 6.5” (PLS IPS Display)</li>
-                                    <li>Display Resolution: 720 x 1600 pixels, 20:9 ratio (~270 ppi Density)</li>
-                                    <li>Build: Glass Front, Plastic Back, Plastic Frame</li>
-                                    <li>Connectivity: Wi-Fi 802.11 b/g/n, Wi-Fi Direct, hotspot; Bluetooth: 5.0 A2DP, LE; GPS: Yes, with</li>
-                                    <li>A-GPS, GLONASS, GALILEO, BDS; NFC: YES; Radio: FM Radio, RDS, Recording; USB: Type-C 2.0</li>
-                                    <li>Sensors: Fingerprint (side-mounted), accelerometer</li>
-                                    <li>Battery Type: Li-Po 5000mAh, non-removable (Fast charging 15W)</li>
-                                </ul> --}}
-                            </div>
-                        </div>
-                        <div class="add_to_cart">Add to cart</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-6 col-md-6 col-lg-4">
-            <div class="card">
-                <div class="one class_for_list">
-                    <div class="icon_group">
-                        <div class="heart"><i class="far fa-heart"></i></div>
-                        <div class="eye emargin"><i class="far fa-eye"></i></div>
-                    </div>
-                    <div class="product_image"><a href="{{route('product_details','Samsung Galaxy S21 5G')}}"><img class="p_img" src="{{asset('laraecomm/assets/images/samsung-galaxy-s21-5g-r.jpg')}}" alt=""></a></div>
-                    <div class="apart_for_list">
-                    <a href="{{route('product_details','Samsung Galaxy S21 5G')}}"><div class="product_title">Samsung Galaxy S21 5G</div></a>
-                        <div class="rating">
-                            <span class="far fa-star checked"></span>
-                            <span class="far fa-star checked"></span>
-                            <span class="far fa-star checked"></span>
-                            <span class="far fa-star checked"></span>
-                            <span class="far fa-star checked"></span><span class="ratingcolor9">(0)</span>
-                        </div>
-                        <div class="taka"><div class="triangle-left"></div><div class="circle_trns disinline1"></div> <div class="t_icon">&#2547;</div>1,39,000</div>
-                        <div class="list_all_text">
-                            <div class="list_all_text_title">
-                                Samsung Galaxy S21 5G 8GB/256GB
-                            </div>
-                            <div class="list_all_text_description">
-                                {{-- <ul>
-                                    <li>OS: Android 10</li>
-                                    <li>Chipset: Mediatek MT6765 Helio P35 (12nm)</li>
-                                    <li>CPU: Octa-core (4x2.35 GHz Cortex-A53 & 4x1.8 GHz Cortex-A53)</li>
-                                    <li>GPU: PowerVR GE8320</li>
-                                    <li>RAM: 4GB</li>
-                                    <li>ROM: 64GB</li>
-                                    <li>Back Camera: 48MP+5MP+2MP+2MP</li>
-                                    <li>Front Camera: 8MP</li>
-                                    <li>Display Size: 6.5” (PLS IPS Display)</li>
-                                    <li>Display Resolution: 720 x 1600 pixels, 20:9 ratio (~270 ppi Density)</li>
-                                    <li>Build: Glass Front, Plastic Back, Plastic Frame</li>
-                                    <li>Connectivity: Wi-Fi 802.11 b/g/n, Wi-Fi Direct, hotspot; Bluetooth: 5.0 A2DP, LE; GPS: Yes, with</li>
-                                    <li>A-GPS, GLONASS, GALILEO, BDS; NFC: YES; Radio: FM Radio, RDS, Recording; USB: Type-C 2.0</li>
-                                    <li>Sensors: Fingerprint (side-mounted), accelerometer</li>
-                                    <li>Battery Type: Li-Po 5000mAh, non-removable (Fast charging 15W)</li>
-                                </ul> --}}
-                            </div>
-                        </div>
-                        <div class="add_to_cart">Add to cart</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-6 col-md-6 col-lg-4">
-            <div class="card">
-                <div class="one class_for_list">
-                    <div class="icon_group">
-                        <div class="heart"><i class="far fa-heart"></i></div>
-                        <div class="eye emargin"><i class="far fa-eye"></i></div>
-                    </div>
-                    <div class="product_image"><a href="{{route('product_details','Samsung Galaxy S21 5G')}}"><img class="p_img" src="{{asset('laraecomm/assets/images/samsung-galaxy-s21-5g-r.jpg')}}" alt=""></a></div>
-                    <div class="apart_for_list">
-                    <a href="{{route('product_details','Samsung Galaxy S21 5G')}}"><div class="product_title">Samsung Galaxy S21 5G</div></a>
-                        <div class="rating">
-                            <span class="far fa-star checked"></span>
-                            <span class="far fa-star checked"></span>
-                            <span class="far fa-star checked"></span>
-                            <span class="far fa-star checked"></span>
-                            <span class="far fa-star checked"></span><span class="ratingcolor9">(0)</span>
-                        </div>
-                        <div class="taka"><div class="triangle-left"></div><div class="circle_trns disinline1"></div> <div class="t_icon">&#2547;</div>1,39,000</div>
-                        <div class="list_all_text">
-                            <div class="list_all_text_title">
-                                Samsung Galaxy S21 5G 8GB/256GB
-                            </div>
-                            <div class="list_all_text_description">
-                            {{-- <ul>
-                                    <li>OS: Android 10</li>
-                                    <li>Chipset: Mediatek MT6765 Helio P35 (12nm)</li>
-                                    <li>CPU: Octa-core (4x2.35 GHz Cortex-A53 & 4x1.8 GHz Cortex-A53)</li>
-                                    <li>GPU: PowerVR GE8320</li>
-                                    <li>RAM: 4GB</li>
-                                    <li>ROM: 64GB</li>
-                                    <li>Back Camera: 48MP+5MP+2MP+2MP</li>
-                                    <li>Front Camera: 8MP</li>
-                                    <li>Display Size: 6.5” (PLS IPS Display)</li>
-                                    <li>Display Resolution: 720 x 1600 pixels, 20:9 ratio (~270 ppi Density)</li>
-                                    <li>Build: Glass Front, Plastic Back, Plastic Frame</li>
-                                    <li>Connectivity: Wi-Fi 802.11 b/g/n, Wi-Fi Direct, hotspot; Bluetooth: 5.0 A2DP, LE; GPS: Yes, with</li>
-                                    <li>A-GPS, GLONASS, GALILEO, BDS; NFC: YES; Radio: FM Radio, RDS, Recording; USB: Type-C 2.0</li>
-                                    <li>Sensors: Fingerprint (side-mounted), accelerometer</li>
-                                    <li>Battery Type: Li-Po 5000mAh, non-removable (Fast charging 15W)</li>
-                                </ul> --}}
-                            </div>
-                        </div>
-                        <div class="add_to_cart">Add to cart</div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        @endforeach
     </div>
-  
 </div>
 
 <!-- end list grid -->
@@ -436,20 +218,20 @@
 <!-- can-vas-sidebar-start -->
 
 <div class="offcanvas offcanvas-start custom_byme" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
-  <div class="offcanvas-body">
+    <div class="offcanvas-body">
         <!-- main-content-of-sidebar-start -->
         <div class="sidebar_title">
             Price
         </div>
             <br/>
-            <div class="slider">
-                <div id="slider-range2" class="slmargintop"></div>
-                <p>
-                <label for="amount2">Price:
-                <input  class="slider_input slinput" type="text" id="amount2" readonly >
-                </label></p>
-            </div>
-            <div class="price_range"></div>
+        <div class="slider">
+            <div id="slider-range2" class="slmargintop"></div>
+            <p>
+            <label for="amount2">Price:
+            <input  class="slider_input slinput" type="text" id="amount2" readonly >
+            </label></p>
+        </div>
+        <div class="price_range"></div>
         <hr class="hrclass"/>
         <div class="categories">
             <div class="ctitle">
@@ -551,6 +333,9 @@
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" integrity="sha512-uto9mlQzrs59VwILcLiRYeLKPPbS/bT71da/OEBYEwcdNUk8jYIy+D176RYoop1Da+f9mvkYrmj5MCLZWEtQuA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="{{asset('laraecomm/alljs/jquery.nice-select.min.js')}}"></script>
 <script src="{{asset('laraecomm/alljs/category.js')}}"></script>
-
+<script>
+    $('#select').niceSelect();
+</script>
 @endsection

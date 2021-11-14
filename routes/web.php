@@ -32,9 +32,7 @@ Route::prefix('laraecomm')->group(function () {
     Route::get('/checkout', function () {
         return view('checkout');
     })->name('checkout');
-    Route::get('/ProductCategory/{name}', function () {
-        return view('ProductCategory');
-    })->name('categoryclient');
+    Route::get('/ProductCategory/{name}', 'product@category')->name('categoryclient');
     Route::get('/Product/{p_name}','product@individualproductblade')->name('product_details');
     Route::fallback(function () {
         return view('admin.404');
