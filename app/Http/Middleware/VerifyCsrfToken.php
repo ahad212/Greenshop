@@ -16,6 +16,7 @@ class VerifyCsrfToken extends Middleware
         '/laraecomm/subadmin/login/token',
         '/laraecomm/seller/login/token',
         '/laraecomm/user/create',
-        '/laraecomm/user/login'
+        '/laraecomm/user/login',
+        '/laraecomm/v1/insert_address'
     ];
 }

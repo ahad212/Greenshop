@@ -75,4 +75,26 @@ class userController extends Controller
             ],200);
         }
     }
+
+    public function insertAddress(Request $request) {
+        $id = $request->userID;
+        $data = array();
+        $data['address_arr'] = $request->address;
+        $insert = DB::table('users')->where('id',$id)->update($data);
+        if ($insert) {
+            return response()->json([
+                'error' => false,
+                'message' => 'Your address added'
+            ],201);
+        } else {
+            return response()->json([
+                'error' => true,
+                'message' => 'Address added failed'
+            ],200);
+        }
+    }
+    public function getAddress(Request $request) {
+        $addr = DB::table('users')->where('id',$request->userID)->first();
+        return response()->json($addr);
+    }
 }

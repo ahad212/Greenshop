@@ -9,59 +9,61 @@
 
     // for payment_method_check_system
 
-    function checkTestPayment(a){
-        var check1 = document.getElementById('flexCheckDefault_payment');
-        var check2 = document.getElementById('flexCheckDefault_payment1');
-        var check3 = document.getElementById('flexCheckDefault_payment2');
-        check1.checked = false;
-        check2.checked = false;
-        check3.checked = false;
-        var head1 = document.getElementById('payment_head1');
-        var head2 = document.getElementById('payment_head2');
-        var head3 = document.getElementById('payment_head3');
-        head1.classList.remove('show_pay_height_toggle');
-        head2.classList.remove('show_pay_height_toggle');
-        head3.classList.remove('show_pay_height_toggle_spe');
+    // function checkTestPayment(a){
+    //     var check1 = document.getElementById('flexCheckDefault_payment');
+    //     var check2 = document.getElementById('flexCheckDefault_payment1');
+    //     var check3 = document.getElementById('flexCheckDefault_payment2');
+    //     check1.checked = false;
+    //     check2.checked = false;
+    //     check3.checked = false;
+    //     var head1 = document.getElementById('payment_head1');
+    //     var head2 = document.getElementById('payment_head2');
+    //     var head3 = document.getElementById('payment_head3');
+    //     head1.classList.remove('show_pay_height_toggle');
+    //     head2.classList.remove('show_pay_height_toggle');
+    //     head3.classList.remove('show_pay_height_toggle_spe');
 
-        a.checked = true;
-        if(a == flexCheckDefault_payment)
-        {
-            head1.classList.add('show_pay_height_toggle')
-        }
-        if(a == flexCheckDefault_payment1)
-        {
-            head2.classList.add('show_pay_height_toggle')
-        }
-        if(a == flexCheckDefault_payment2)
-        {
-            head3.classList.add('show_pay_height_toggle_spe')
-        }
+    //     a.checked = true;
+    //     if(a == flexCheckDefault_payment)
+    //     {
+    //         head1.classList.add('show_pay_height_toggle')
+    //     }
+    //     if(a == flexCheckDefault_payment1)
+    //     {
+    //         head2.classList.add('show_pay_height_toggle')
+    //     }
+    //     if(a == flexCheckDefault_payment2)
+    //     {
+    //         head3.classList.add('show_pay_height_toggle_spe')
+    //     }
 
 
-    }
+    // }
 
     // for-copy-pass-from-account
-    var dd = document.getElementById('eye_open1');
-    var ee = document.getElementById('eye_close1');
-    var ff = document.getElementById('pass');
-    dd.addEventListener('click',function(){
-        dd.style.display = 'none';
-        ee.style.display = 'block';
-        ff.type='text';
-    });
-    ee.addEventListener('click',function(){
-        dd.style.display = 'block';
-        ee.style.display = 'none';
-        ff.type='password';
-    });
+
+
+    // var dd = document.getElementById('eye_open1');
+    // var ee = document.getElementById('eye_close1');
+    // var ff = document.getElementById('pass');
+    // dd.addEventListener('click',function(){
+    //     dd.style.display = 'none';
+    //     ee.style.display = 'block';
+    //     ff.type='text';
+    // });
+    // ee.addEventListener('click',function(){
+    //     dd.style.display = 'block';
+    //     ee.style.display = 'none';
+    //     ff.type='password';
+    // });
 
 
 
-    var returning = document.getElementById('re_sec');
-    var tab_return = document.getElementById('returning_tab');
-    returning.addEventListener('click',function(){
-        tab_return.classList.toggle('show_return_tab');
-    });
+    // var returning = document.getElementById('re_sec');
+    // var tab_return = document.getElementById('returning_tab');
+    // returning.addEventListener('click',function(){
+    //     tab_return.classList.toggle('show_return_tab');
+    // });
     
     // var returning1 = document.getElementById('login_em2');
     // var tab_return1 = document.getElementById('returning_tab');
@@ -70,19 +72,19 @@
     // });
 
     // login_eye
-    var a = document.getElementById('eye_open_return');
-    var b = document.getElementById('eye_close_return');
-    var c = document.getElementById('exampleInputPassword1_return');
-    a.addEventListener('click',function(){
-        a.style.display = 'none';
-        b.style.display = 'block';
-        c.type='text';
-    });
-    b.addEventListener('click',function(){
-        a.style.display = 'block';
-        b.style.display = 'none';
-        c.type='password';
-    });
+    // var a = document.getElementById('eye_open_return');
+    // var b = document.getElementById('eye_close_return');
+    // var c = document.getElementById('exampleInputPassword1_return');
+    // a.addEventListener('click',function(){
+    //     a.style.display = 'none';
+    //     b.style.display = 'block';
+    //     c.type='text';
+    // });
+    // b.addEventListener('click',function(){
+    //     a.style.display = 'block';
+    //     b.style.display = 'none';
+    //     c.type='password';
+    // });
 
 
 

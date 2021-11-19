@@ -650,3 +650,92 @@ background: #555;
         min-height:250px;
     }
 }
+
+
+/* address css  */
+
+
+.add_address_div{
+    height:70px;
+    width:200px;
+    border:1px dashed black;
+    border-radius:10px;
+    display: flex;
+    align-items:center;
+    justify-content:center;
+    cursor:pointer;
+    user-select: none;
+    -webkit-user-select:none;
+}
+.add_content{
+    height:450px;
+    width:700px;
+    background:white;
+    position: fixed;
+    top:200px;
+    left:50%;
+    margin-top:-225px;
+    margin-left:-350px;
+    z-index:105;
+    visibility: hidden;
+    opacity: 0;
+    transition:.5s;
+    box-sizing: border-box;
+    padding:0 10px;
+}
+.content_visible{
+    top:50%;
+    visibility: visible;
+    opacity: 1;
+}                        
+.add_address_popup {
+    position: fixed;
+    top:0;left:0;bottom:0;right:0;
+    background:rgba(0,0,0,0.1);
+    z-index: 100;
+    display: none;
+}
+.showadd{
+    display: block;
+}
+.close_address{
+    position:absolute;
+    right:10px;
+    top:20px;
+    font-size:25px;
+    cursor: pointer;
+}
+
+
+
+
+.button_group{
+    display: flex;
+    justify-content:flex-end;
+    margin-top:100px;
+    grid-column-gap: 2ch;
+}
+.cancel-btn {
+    height:40px;
+    width:100px;
+    background:wheat;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-weight: bold;
+}
+.cancel-btn:hover,.confirm-btn:hover{
+    opacity: .8;
+    transition:opacity .3s;
+}
+.confirm-btn{
+    height:40px;
+    width:100px;
+    background:rgb(184, 157, 209);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-weight: bold;
+}

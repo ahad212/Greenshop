@@ -5,18 +5,21 @@ let allTotalPrice = 0;
 if (cart) {
     for (let index = 0; index < cart.length; index++) {
         const element = cart[index];
-        const img = JSON.parse(element.pimage)[0];
-        const totalPrice = parseInt(element.quantity) * parseInt(element.price);
-        allTotalPrice += totalPrice;
-        let formatValue1 = new Intl.NumberFormat('en-IN').format(totalPrice);
-        
-        totalcart += `
-        <div class="heda_imidiate  custom_pad_inner">
-        <div class="c_p_img"><img src="${'/laraecomm'+img}" alt=""></div>
-        <div class="c_p_mid" style="color:black;">${element.name} <aside>(x ${element.quantity})</aside></div>
-        <div class="c_p_final">৳ ${formatValue1}</div>
-        </div>
-        `;
+        if (element.checked) {
+            const img = JSON.parse(element.pimage)[0];
+            const totalPrice = parseInt(element.quantity) * parseInt(element.price);
+            allTotalPrice += totalPrice;
+            let formatValue1 = new Intl.NumberFormat('en-IN').format(totalPrice);
+            
+            totalcart += `
+            <div class="heda_imidiate  custom_pad_inner">
+            <div class="c_p_img"><img src="${'/laraecomm'+img}" alt=""></div>
+            <div class="c_p_mid" style="color:black;">${element.name} <aside>(x ${element.quantity})</aside></div>
+            <div class="c_p_final">৳ ${formatValue1}</div>
+            </div>
+            `;
+        }
+
     }
 }
 
@@ -124,10 +127,146 @@ allFinalValue();
 
 // check returning 
 
-let userToken = localStorage.getItem('usertoken');
-if (userToken) {
-    let returning = document.getElementById('returning');
-    let returningHr = document.getElementById('returningHr');
-    returning.style.display = 'none';
-    returningHr.style.display = 'none';
+// let userToken = localStorage.getItem('usertoken');
+// if (userToken) {
+//     let returning = document.getElementById('returning');
+//     let returningHr = document.getElementById('returningHr');
+//     returning.style.display = 'none';
+//     returningHr.style.display = 'none';
+// }
+
+
+// address script 
+
+
+
+
+
+
+
+let modal = document.getElementById('main_modal');
+let popupshed = document.getElementById('add_popup_shadow');
+function openM() {
+    modal.classList.toggle('content_visible');
+    popupshed.style.display = 'block';
+    document.body.classList.add('bodyblur');
+
 }
+function closeM() {
+    popupshed.style.display = 'none';
+    modal.classList.toggle('content_visible');
+    document.body.classList.remove('bodyblur');
+}
+async function sendadd() {
+    let name = document.getElementById('addName').value;
+    let number = document.getElementById('addNum').value;
+    let cityOption = document.getElementById('selectL');
+    let city = cityOption.options[cityOption.selectedIndex].text;
+    let address = document.getElementById('addADD').value;
+    let home = document.getElementById('inlineRadio1');
+    let office = document.getElementById('inlineRadio2');
+    let addrObj = {name:name,number:number,city:city,address:address};
+    // let formdata = new FormData();
+    // formdata.append('name',name);
+    // formdata.append('number',number);
+    // formdata.append('city',city);
+    // formdata.append('address',address);
+    if (home.checked == true) {
+        addrObj.adjloc = home.value;
+    } else {
+        addrObj.cityOption = office.value;
+
+    }
+    let addressArray;
+    let userID = localStorage.getItem('userID');
+    let formdataId = new FormData();
+    formdataId.append('userID',userID);
+    await axios.post('/laraecomm/api/address/getAddr',formdataId).then( res=> {
+        let allAddress = JSON.parse(res.data.address_arr);
+        addressArray = allAddress;
+    });
+    // check already address available in database
+    if (!Array.isArray(addressArray)) {
+        let addressArray = [];
+        addressArray.push(addrObj);
+        let addString = JSON.stringify(addressArray);
+        let formdata = new FormData();
+        formdata.append('address',addString);
+        formdata.append('userID',userID);
+        axios.post('/laraecomm/api/address/update',formdata).then( res=> {
+            console.log(res.data);
+            if (res.data.error) {
+                iziToast.error({
+                    title: 'Failed',
+                    message: res.data.message,
+                    position: 'topCenter',
+                });
+            } else {
+                iziToast.success({
+                    title: 'Success',
+                    message: res.data.message,
+                    position: 'topCenter',
+                });
+            }
+            getAddress();
+        });
+    } else {
+        addressArray.push(addrObj);
+        let addString = JSON.stringify(addressArray);
+        let formdata = new FormData();
+        formdata.append('address',addString);
+        formdata.append('userID',userID);
+        axios.post('/laraecomm/api/address/update',formdata).then( res=> {
+            console.log(res.data);
+            if (res.data.error) {
+                iziToast.error({
+                    title: 'Failed',
+                    message: res.data.message,
+                    position: 'topCenter',
+                });
+            } else {
+                iziToast.success({
+                    title: 'Success',
+                    message: res.data.message,
+                    position: 'topCenter',
+                });
+            }
+            getAddress();
+        });
+    }
+
+
+}
+
+
+function getAddress() {
+    let userID = localStorage.getItem('userID');
+    let formdata = new FormData();
+    formdata.append('userID',userID);
+    axios.post('/laraecomm/api/address/getAddr',formdata).then( res=> {
+        let allAddress = JSON.parse(res.data.address_arr);
+        console.log(allAddress);
+        let all = '';
+        for (let index = 0; index < allAddress.length; index++) {
+            const element = allAddress[index];
+            all += `
+            <label>
+                <input type="radio" name="address" style="display: none">
+                <div  class="add1">
+                    <div class="el1" style="margin-left:4px;">
+                        <i class="fas fa-map-marker"></i> <span> ${element.city}</span>
+                    </div>
+                    <div class="el2">
+                        <i class="fas fa-home"></i> <span> ${element.address}</span>
+                    </div>
+                    <div class="el3">
+                        <i class="fas fa-mobile-alt" style="margin-left:3px;"></i> <span style="margin-left:-5px;"> ${element.number}</span>
+                    </div>
+                </div>
+            </label>
+            `;
+        }
+        document.getElementById('showAddress').innerHTML = all;
+    });
+}
+getAddress();

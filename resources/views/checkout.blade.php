@@ -92,7 +92,7 @@
     {{-- <hr style="border-bottom:1px solid black;" id="returningHr"> --}}
         <div class="row row-cols-1 row-cols-md-1 row-cols-lg-2">
             <div class="col col-lg-7">
-                <div class="billing_details">
+                {{-- <div class="billing_details">
                     <div class="billing_head">Billing details</div>
                     <div class="row">
                         <div class="col">
@@ -184,7 +184,101 @@
                             </div>
                         </div>
                     </div>
+                </div> --}}
+                <div class="addressUnit">
+                    <h3>Set Your Address</h3>
+                    <div class="add_address_div" onclick="openM()">
+                        Add Your Address
+                    </div>
+                    <br>
+                    <style>
+                        .showing_addr{
+                            width:100%;
+                            display: flex;
+                            flex-flow: row wrap;
+                            justify-content: space-between;
+                            align-items: stretch;
+                        }
+                        .add1{
+                            height:100px;
+                            border-radius:10px;
+                            width:330px;
+                            box-shadow: 1px 1px 6px rgba(0,0,0,0.2);
+                            margin-bottom:10px;
+                            display: flex;
+                            flex-flow:column wrap;
+                            justify-content: center;
+                            align-items: flex-start;
+                            padding:0px 20px;
+                        }
+                        .showing_addr input:checked ~ .add1 {
+                            background-color:rgb(245, 242, 220);
+                        }
+                        .add1 i{
+                            font-size:13px ;
+                            color:var(--orange);
+                        }
+                        .add1 span{
+                            color:black;
+                        }
+                    </style>
+                    <div class="showing_addr" id="showAddress">
+                        {{-- automatic all radio address will be injected --}}
+                    </div>
+                    {{-- popup div start  --}}
+                    <div class="add_address_popup" id="add_popup_shadow">
+                    </div>
+                    <div class="add_content " id="main_modal">
+                        <div class="close_address" onclick="closeM()">x</div>
+                        <h5>Add New Shipping Address</h5>
+                        <div class="row row-cols-1 row-cols-md-2">
+                            <div class="col">
+                                <div class="1strow">
+                                    <label for="addName" class="form-label" style="width: 100%;"> Full Name
+                                        <input type="text" class="form-control" placeholder="Your name" id="addName">
+                                    </label>
+                                </div>
+                                <div class="1strow">
+                                    <label for="addNum" class="form-label" style="width: 100%;"> Phone Number
+                                        <input type="number" class="form-control" placeholder="01815831120" id="addNum">
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="1strow">
+                                    <label for="selectL">Select Location</label><br>
+                                    <select class="js-example-basic-single" style="width:100%;" name="state" id="selectL">
+                                        <option value="">Add any Item</option>
+                                    </select>
+                                </div><br>
+                                <div class="1strow">
+                                    <label for="" class="form-label" style="width: 100%;"> Address
+                                        <input type="text" class="form-control" placeholder="#12/3 A" id="addADD">
+                                    </label>                                    
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col">
+                                <label for="">Select a label for effective delivery:</label><br>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="home">
+                                    <label class="form-check-label" for="inlineRadio1">Home</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="office">
+                                    <label class="form-check-label" for="inlineRadio2">Office</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="button_group">
+                            <div class="cancel-btn" onclick="closeM()">Cancel</div>
+                            <div class="confirm-btn" onclick="closeM();sendadd()">Confirm</div>
+                        </div>
+                    </div>
                 </div>
+
             </div>
 
 

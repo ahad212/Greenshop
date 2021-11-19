@@ -46,9 +46,9 @@
         }
     </style>
     <body>
-    <div id="loader">
+    {{-- <div id="loader">
         <img src="{{asset('laraecomm/images/loader.gif')}}" alt="">
-    </div>
+    </div> --}}
 
 
     {{-- login modal start --}}
@@ -852,6 +852,7 @@
                         } else {
                             localStorage.clear();
                             localStorage.setItem('usertoken',res.data.token);
+                            localStorage.setItem('userID',res.data.user.id);
                             iziToast.success({
                                 title: 'Success',
                                 message: res.data.message,

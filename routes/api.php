@@ -31,3 +31,8 @@ Route::post('/v1/singleproductbyslug','product@slugproduct');
 //id wise category api for delete category 
 Route::post('/v1/test','product@testing');
 Route::post('/v1/deletcat','product@delcategorysub');
+
+
+// insert & getting address 
+Route::post('/address/update','userController@insertAddress');
+Route::post('/address/getAddr','userController@getAddress');
