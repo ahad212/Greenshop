@@ -9,36 +9,36 @@
 
     // for payment_method_check_system
 
-    // function checkTestPayment(a){
-    //     var check1 = document.getElementById('flexCheckDefault_payment');
-    //     var check2 = document.getElementById('flexCheckDefault_payment1');
-    //     var check3 = document.getElementById('flexCheckDefault_payment2');
-    //     check1.checked = false;
-    //     check2.checked = false;
-    //     check3.checked = false;
-    //     var head1 = document.getElementById('payment_head1');
-    //     var head2 = document.getElementById('payment_head2');
-    //     var head3 = document.getElementById('payment_head3');
-    //     head1.classList.remove('show_pay_height_toggle');
-    //     head2.classList.remove('show_pay_height_toggle');
-    //     head3.classList.remove('show_pay_height_toggle_spe');
+    function checkTestPayment(a){
+        var check1 = document.getElementById('flexCheckDefault_payment');
+        var check2 = document.getElementById('flexCheckDefault_payment1');
+        var check3 = document.getElementById('flexCheckDefault_payment2');
+        check1.checked = false;
+        check2.checked = false;
+        check3.checked = false;
+        var head1 = document.getElementById('payment_head1');
+        var head2 = document.getElementById('payment_head2');
+        var head3 = document.getElementById('payment_head3');
+        head1.classList.remove('show_pay_height_toggle');
+        head2.classList.remove('show_pay_height_toggle');
+        head3.classList.remove('show_pay_height_toggle_spe');
 
-    //     a.checked = true;
-    //     if(a == flexCheckDefault_payment)
-    //     {
-    //         head1.classList.add('show_pay_height_toggle')
-    //     }
-    //     if(a == flexCheckDefault_payment1)
-    //     {
-    //         head2.classList.add('show_pay_height_toggle')
-    //     }
-    //     if(a == flexCheckDefault_payment2)
-    //     {
-    //         head3.classList.add('show_pay_height_toggle_spe')
-    //     }
+        a.checked = true;
+        if(a == flexCheckDefault_payment)
+        {
+            head1.classList.add('show_pay_height_toggle')
+        }
+        if(a == flexCheckDefault_payment1)
+        {
+            head2.classList.add('show_pay_height_toggle')
+        }
+        if(a == flexCheckDefault_payment2)
+        {
+            head3.classList.add('show_pay_height_toggle_spe')
+        }
 
 
-    // }
+    }
 
     // for-copy-pass-from-account
 

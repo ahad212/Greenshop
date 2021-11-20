@@ -247,7 +247,7 @@
                             <div class="col">
                                 <div class="1strow">
                                     <label for="selectL">Select Location</label><br>
-                                    <select class="js-example-basic-single" style="width:100%;" name="state" id="selectL">
+                                    <select class="js-example-basic-single" style="width:100%;" name="state" id="selectL0">
                                         <option value="">Add any Item</option>
                                     </select>
                                 </div><br>
@@ -275,6 +275,60 @@
                         <div class="button_group">
                             <div class="cancel-btn" onclick="closeM()">Cancel</div>
                             <div class="confirm-btn" onclick="closeM();sendadd()">Confirm</div>
+                        </div>
+                    </div>
+                    <div class="editAdd">
+                        <div class="add_address_popup" id="add_popup_shadow1">
+                        </div>
+                        <div class="add_content " id="main_modal1">
+                            <div class="close_address" onclick="closeEditM()">x</div>
+                            <h5>Add New Shipping Address</h5>
+                            <div class="row row-cols-1 row-cols-md-2">
+                                <input type="hidden" id="hiddenField">
+                                <div class="col">
+                                    <div class="1strow">
+                                        <label for="addName1" class="form-label" style="width: 100%;"> Full Name
+                                            <input type="text" class="form-control" placeholder="Your name" id="addName1">
+                                        </label>
+                                    </div>
+                                    <div class="1strow">
+                                        <label for="addNum1" class="form-label" style="width: 100%;"> Phone Number
+                                            <input type="number" class="form-control" placeholder="01815831120" id="addNum1">
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="1strow">
+                                        <label for="selectL">Select Location</label><br>
+                                        <select class="js-example-basic-single" style="width:100%;" name="state" id="selectL1">
+                                            <option value="">Add any Item</option>
+                                        </select>
+                                    </div><br>
+                                    <div class="1strow">
+                                        <label for="" class="form-label" style="width: 100%;"> Address
+                                            <input type="text" class="form-control" placeholder="#12/3 A" id="addADD1">
+                                        </label>                                    
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col">
+                                    <label for="">Select a label for effective delivery:</label><br>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio11" value="home">
+                                        <label class="form-check-label" for="inlineRadio11">Home</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio21" value="office">
+                                        <label class="form-check-label" for="inlineRadio21">Office</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="button_group">
+                                <div class="cancel-btn" onclick="closeEditM()">Cancel</div>
+                                <div class="confirm-btn" onclick="closeEditM();editAdd()">Confirm</div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -347,7 +401,7 @@
                         <div class="payment_head1 show_pay_height_toggle" id="payment_head1">
                             <div class="pay_flex_part">
                                 <div class="form-check padding_top_pm">
-                                    <input class="form-check-input custom_checkbar" type="checkbox" value="" id="flexCheckDefault_payment" onclick="checkTestPayment(this)" checked>
+                                    <input class="form-check-input custom_checkbar" type="checkbox" value="ShurjoPay" id="flexCheckDefault_payment" onclick="checkTestPayment(this);paymentMethod(this.value)" >
                                     <label class="form-check-label" for="flexCheckDefault_payment" style="cursor:pointer;user-select:none;">
                                         ShurjoPay
                                     </label>
@@ -362,7 +416,7 @@
                         </div>
                         <div class="payment_head2" id="payment_head2">
                             <div class="form-check padding_top_pm">
-                                <input class="form-check-input custom_checkbar" type="checkbox" value="" id="flexCheckDefault_payment1" onclick="checkTestPayment(this)">
+                                <input class="form-check-input custom_checkbar" type="checkbox" value="COD" id="flexCheckDefault_payment1" onclick="checkTestPayment(this);paymentMethod(this.value)">
                                 <label class="form-check-label" for="flexCheckDefault_payment1" style="cursor:pointer;user-select:none;">
                                     Cash on delivery
                                 </label>
@@ -373,7 +427,7 @@
                         </div>
                         <div class="payment_head3" id="payment_head3">
                             <div class="form-check padding_top_pm">
-                                <input class="form-check-input custom_checkbar" type="checkbox" value="" id="flexCheckDefault_payment2" onclick="checkTestPayment(this)">
+                                <input class="form-check-input custom_checkbar" type="checkbox" value="sManager Online Payment" id="flexCheckDefault_payment2" onclick="checkTestPayment(this);paymentMethod(this.value)">
                                 <label class="form-check-label" for="flexCheckDefault_payment2" style="cursor:pointer;">
                                     sManager Online Payment
                                 </label>
@@ -456,7 +510,7 @@
                 </div>
                 <div id="terms_ac" style="display:inline;color:var(--orange);cursor:pointer;margin-top:10px;">terms and conditions *</div>
                 <br>
-                <div class="place_button">Place order</div>
+                <div class="place_button" onclick="placeOrder()">Place order</div>
                 <br>
             </div>
         </div>

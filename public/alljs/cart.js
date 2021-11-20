@@ -455,12 +455,13 @@ function selectDeselect(id) {
         item.checked = false;
         localStorage.setItem('cart',JSON.stringify(totalCart));
     } else {
-        localStorage.setItem('allselect','checked');
+        // localStorage.setItem('allselect','checked');
         let totalCart = JSON.parse(localStorage.getItem('cart'));
         let getIndex = totalCart.findIndex(res=> res.id == id);
         const item = totalCart[getIndex];
         item.checked = true;
-        localStorage.setItem('cart',JSON.stringify(totalCart)); 
+        localStorage.setItem('cart',JSON.stringify(totalCart));
+        allselectHave(); 
     }
     
     
@@ -485,17 +486,20 @@ function selectDeselect(id) {
     // allselectHave();
     autoCheckedDetect();
 }
-
+//check if all items checkbox is checked then select all will be checked from here logic.
 function allselectHave() {
 	let cartDetails = JSON.parse(localStorage.getItem('cart'));
+    let chccct = 1;
     for (let index = 0; index < cartDetails.length; index++) {
         const element = cartDetails[index];
-        console.log(element.checked)
+        console.log(element.checked);
+        chccct *= Number(element.checked);
         if (element.checked == false) {
             localStorage.setItem('allselect','');
-        } else {
-            localStorage.setItem('allselect','checked');
         }
+    }
+    if (chccct) {
+        localStorage.setItem('allselect','checked');
     }
 }
 // allselectHave();
@@ -509,7 +513,7 @@ function autoCheckedDetect() {
 }
 autoCheckedDetect();
 
-
+// all items checked or not checked
 function selectAll() {
     let checkBox = document.getElementById('checking');
 	if (checkBox.checked == false) {
