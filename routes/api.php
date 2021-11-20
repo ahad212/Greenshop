@@ -36,3 +36,9 @@ Route::post('/v1/deletcat','product@delcategorysub');
 // insert & getting address 
 Route::post('/address/update','userController@insertAddress');
 Route::post('/address/getAddr','userController@getAddress');
+
+// order api
+
+Route::post('/order/insert','OrderController@insertOrder');
+
+

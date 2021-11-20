@@ -16,5 +16,6 @@ class order extends Model
         'payment_method',
         'total_amount',
         'status',
+        'delivery_location'
     ];
 }

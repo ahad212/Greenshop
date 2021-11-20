@@ -3,8 +3,8 @@ let cart = JSON.parse(localStorage.getItem('cart'));
 let totalcart = '';
 let allTotalPrice = 0;
 if (cart) {
-    for (let index = 0; index < cart.length; index++) {
-        const element = cart[index];
+    for (let index1 = 0; index1 < cart.length; index1++) {
+        const element = cart[index1];
         if (element.checked) {
             const img = JSON.parse(element.pimage)[0];
             const totalPrice = parseInt(element.quantity) * parseInt(element.price);
@@ -409,15 +409,11 @@ function paymentMethod(thisElement) {
 
 function placeOrder() {
     let address = JSON.parse(localStorage.getItem('selectedaddr'));
+    let userID = localStorage.getItem('userID');
     let cart = JSON.parse(localStorage.getItem('cart'));
     let shippingAddress = localStorage.getItem('locationName');
     let actuallyBuyCart= [];
-    for (let index = 0; index < cart.length; index++) {
-        const element = cart[index];
-        if (element.checked == true) {
-            actuallyBuyCart.push(element);
-        }
-    }
+
     if (!cart.length) {
         iziToast.error({
             title: 'Error',
@@ -452,6 +448,20 @@ function placeOrder() {
         });
         return;
     }
+    for (let index = 0; index < cart.length; index++) {
+        const element = cart[index];
+        if (element.checked == true) {
+            actuallyBuyCart.push(element);
+            // cart.splice(index,1);
+        }
+    }
+    // localStorage.setItem('cart',JSON.stringify(cart))
+    for (let index3 = 0; index3 < actuallyBuyCart.length; index3++) {
+        const element = actuallyBuyCart[index3];
+        let indx = cart.findIndex(res=> res.id = element.id);
+        cart.splice(indx,1);
+    }
+    localStorage.setItem('cart',JSON.stringify(cart));
     console.log(address);
     console.log(shippingAddress);
     console.log(finalShippingCharge);
@@ -459,4 +469,20 @@ function placeOrder() {
     console.log(totalValuewihShiping);
     console.log(paymentGateway);
     console.log(actuallyBuyCart);
+    let formdata = new FormData();
+    formdata.append('id',userID);
+    formdata.append('address',JSON.stringify(address));
+    formdata.append('shippingAddress',shippingAddress);
+    formdata.append('finalShippingCharge',finalShippingCharge);
+    formdata.append('allTotalPrice',allTotalPrice);
+    formdata.append('totalValuewihShiping',totalValuewihShiping);
+    formdata.append('paymentGateway',paymentGateway);
+    formdata.append('actuallyBuyCart',actuallyBuyCart);
+    formdata.append('actuallyBuyCartString',JSON.stringify(actuallyBuyCart));
+    let congrat = document.getElementById('congrat');
+    axios.post('/laraecomm/api/order/insert',formdata).then(res=>{
+        console.log(res.data.message);
+        congrat.style.display = 'flex';
+        document.body.classList.add('bodyblur');
+    });
 }

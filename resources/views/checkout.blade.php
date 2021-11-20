@@ -516,7 +516,17 @@
         </div>
     </div>
 </div>
-
+{{-- congratulations popup  --}}
+<div class="congratulations" id="congrat">
+    <div class="congratsMain">
+        <h3>Congratulations</h3>
+        <pre>
+            Your order is placed,
+            We will contact with you soon
+        </pre>
+        <a href="{{route('home')}}" class="btn btn-outline-danger">Continue Shopping</a>
+    </div>
+</div>
 <script src="{{asset('laraecomm/alljs/checkout.js')}}"></script>
 
 

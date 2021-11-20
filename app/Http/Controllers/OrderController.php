@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\order;
+use App\Models\products;
 class OrderController extends Controller
 {
     public function allorder () {
@@ -58,5 +59,36 @@ class OrderController extends Controller
     public function refundorder () {
         $order = order::where('status','refund_order')->get();
         return view('admin.order.refund',['order'=>$order]);
+    }
+
+
+    public function insertOrder (Request $request) {
+        $orderArray = json_decode($request->actuallyBuyCartString);
+        // $orderArray = $request->actuallyBuyCart;
+        $elementing= '';
+        for ($i=0; $i < count($orderArray); $i++) { 
+            $element = $orderArray[$i];
+            $getProduct = products::where('id',$element->id)->first();
+            $elementing = $getProduct;
+            $getQuantity = $getProduct->quantity;
+            $updatedQuantity = intval($getQuantity) - intval($element->quantity);
+            products::where('id',$element->id)->update(['quantity'=> $updatedQuantity]);
+        }
+
+        $data = array();
+        $data['customer_id'] = $request->id ;
+        $data['product_with_quantity'] = $request->actuallyBuyCartString;
+        $data['shipping_address'] = $request->shippingAddress;
+        $data['delivery_location'] = $request->address;
+        $data['payment_method'] = $request->paymentGateway;
+        $data['total_amount'] = $request->totalValuewihShiping;
+        $data['status'] = 'Pending';
+        $check = order::insert($data);
+        if($check) {
+            return response()->json([
+                'error' => false,
+                'message' => 'Congratulations'
+            ],201);
+        }
     }
 }
