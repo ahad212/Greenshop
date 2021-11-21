@@ -66,7 +66,7 @@ Route::prefix('laraecomm')->group(function() {
     Route::get('/admin/products/edit/{id}','product@editnew')->name('editprod');
    // user route
 
-    Route::get('/admin/manage/adminlist','subadminController@admin')->name('admin');
+    Route::get('/admin/manage/adminlist','userController@admin')->name('admin');
     Route::get('/admin/manage/subadmin','SubadminController@create')->name('createadmin');
     Route::post('/admin/manage/createadmin','SubadminController@store')->name('storeadmin');
     Route::get('/admin/manage/{id}/edit','SubadminController@edit')->name('editadmin');

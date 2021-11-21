@@ -6,8 +6,13 @@ use Illuminate\Http\Request;
 use DB;
 include('jwt.php');
 use App\Classes\JWT;
+use App\Models\subadmin;
 class userController extends Controller
 {
+    public function admin () {
+        $subadmin = subadmin::all();
+        return view('admin.user.admin',['subadmin'=>$subadmin]);
+    }
     public function storeuser(Request $request) {
         $check = DB::table('users')->where('email',$request->email)->first();
         if ($check) {
