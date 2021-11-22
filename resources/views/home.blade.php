@@ -277,8 +277,8 @@
                 //discount percentage calculation
                 $price = $products->price;
                 $dis_price = $products->discount_price;
-                $subtruct = $price - $dis_price;
-                $parcentage = ($subtruct*100)/$price;
+                $subtruct = intval($price) - intval($dis_price);
+                $parcentage = ($subtruct*100)/intval($price);
             @endphp
                 <div class="one">
                     @if (!$products->quantity)
@@ -300,12 +300,12 @@
                     @if ($products->discount_price)
                         <div class="taka">{{number_format($products->discount_price)}} <span>৳</span></div>
                     @else
-                        <div class="taka">{{number_format($products->price)}} <span>৳</span></div>
+                        <div class="taka">{{number_format(intval($products->price))}} <span>৳</span></div>
                     @endif
                     @if ($products->discount_price)
                         <div class="mainprice" style="text-align:center;">
                             {{-- <span style="font-size:12px;"> {{round($parcentage)}}%- </span> --}}
-                            <del>{{number_format($products->price)}}</del> 
+                            <del>{{number_format(intval($products->price))}}</del> 
                         </div>
                     @endif
                     <div class="rating">
@@ -323,8 +323,9 @@
                 </div>
             @endforeach
         </div>
+        {{-- this issue (View_all position) will be fixed when item will be grater than 6 --}}
         @php
-            if ($k < 4) {
+            if ($k < 5) {
                 echo '<br>';
                 echo '<br>';
             }
@@ -363,20 +364,44 @@
 
     <div class="sell-slider">
         <div class="owl-carousel owl-theme">
-            @foreach ($allProducts as $k => $products)
+            @foreach ($featuredProducts as $k => $products)
             @php
-            $image = json_decode($products->pimage)[0];
+                $image = json_decode($products->pimage)[0];
+
+                //discount percentage calculation
+                $price = $products->price;
+                $dis_price = $products->discount_price;
+                $subtruct = intval($price) - intval($dis_price);
+                $parcentage = ($subtruct*100)/intval($price);
             @endphp
                 <div class="one">
                     @if (!$products->quantity)
                         <div class="sold_out">Out Of Stock</div>
                     @endif
+                    @if ($products->discount_price)
+                        <div class="discountsticker">
+                            {{-- <span style="margin-left:4px;">-</span> --}}
+                            {{-- <div class="triangle-left"></div> --}}
+                            {{round($parcentage).'%'.'-'}}
+                        </div>
+                    @endif
                     <div class="icon_group">
                         <div class="heart"><i class="far fa-eye"></i></div>
                         <div class="eye"><i class="far fa-heart"></i></div>
                     </div>
-                    <a href="{{route('product_details', $products->slug)}}"><figure><img src="{{asset('laraecomm'.$image)}}" alt=""></figure></a>
+                    <a href="{{route('product_details', $products->slug)}}"><figure><img src="{{asset('laraecomm'.$image)}}" alt=""></figure></a> 
                     <a href="{{route('product_details', $products->slug)}}"><figcaption>{{$products->name}}</figcaption></a>
+                    @if ($products->discount_price)
+                        <div class="taka">{{number_format($products->discount_price)}} <span>৳</span></div>
+                    @else
+                        <div class="taka">{{number_format(intval($products->price))}} <span>৳</span></div>
+                    @endif
+                    @if ($products->discount_price)
+                        <div class="mainprice" style="text-align:center;">
+                            {{-- <span style="font-size:12px;"> {{round($parcentage)}}%- </span> --}}
+                            <del>{{number_format(intval($products->price))}}</del> 
+                        </div>
+                    @endif
                     <div class="rating">
                         <span class="spanrating">(0)</span>
                         <span class="far fa-star checked"></span>
@@ -385,18 +410,21 @@
                         <span class="far fa-star checked"></span>
                         <span class="far fa-star checked"></span>
                     </div>
-                    <div class="taka">{{$products->price}} <span>&#2547;</span></div>
+                    @if (!$products->discount_price)
+                        <br>
+                    @endif
                     <div class="add_to_cart">Add to cart</div>
                 </div>
             @endforeach
         </div>
+        {{-- this issue (View_all position) will be fixed when item will be grater than 6 --}}
         @php
-            if ($k < 4) {
+            if ($k < 5) {
                 echo '<br>';
                 echo '<br>';
             }
         @endphp
-        <a href="{{route('categoryclient','mobile')}}"><div class="view_all"><span>View All</span></div></a>
+        <a href="{{route('categoryclient','Bestsell')}}"><div class="view_all"><span>View All</span></div></a>
     </div>
 </div>
 
@@ -420,20 +448,44 @@
 
     <div class="sell-slider">
         <div class="owl-carousel owl-theme">
-            @foreach ($allProducts as $k => $products)
+            @foreach ($featuredProducts as $k => $products)
             @php
-            $image = json_decode($products->pimage)[0];
+                $image = json_decode($products->pimage)[0];
+
+                //discount percentage calculation
+                $price = $products->price;
+                $dis_price = $products->discount_price;
+                $subtruct = intval($price) - intval($dis_price);
+                $parcentage = ($subtruct*100)/intval($price);
             @endphp
                 <div class="one">
                     @if (!$products->quantity)
                         <div class="sold_out">Out Of Stock</div>
                     @endif
+                    @if ($products->discount_price)
+                        <div class="discountsticker">
+                            {{-- <span style="margin-left:4px;">-</span> --}}
+                            {{-- <div class="triangle-left"></div> --}}
+                            {{round($parcentage).'%'.'-'}}
+                        </div>
+                    @endif
                     <div class="icon_group">
                         <div class="heart"><i class="far fa-eye"></i></div>
                         <div class="eye"><i class="far fa-heart"></i></div>
                     </div>
-                    <a href="{{route('product_details', $products->slug)}}"><figure><img src="{{asset('laraecomm'.$image)}}" alt=""></figure></a>
+                    <a href="{{route('product_details', $products->slug)}}"><figure><img src="{{asset('laraecomm'.$image)}}" alt=""></figure></a> 
                     <a href="{{route('product_details', $products->slug)}}"><figcaption>{{$products->name}}</figcaption></a>
+                    @if ($products->discount_price)
+                        <div class="taka">{{number_format($products->discount_price)}} <span>৳</span></div>
+                    @else
+                        <div class="taka">{{number_format(intval($products->price))}} <span>৳</span></div>
+                    @endif
+                    @if ($products->discount_price)
+                        <div class="mainprice" style="text-align:center;">
+                            {{-- <span style="font-size:12px;"> {{round($parcentage)}}%- </span> --}}
+                            <del>{{number_format(intval($products->price))}}</del> 
+                        </div>
+                    @endif
                     <div class="rating">
                         <span class="spanrating">(0)</span>
                         <span class="far fa-star checked"></span>
@@ -442,18 +494,21 @@
                         <span class="far fa-star checked"></span>
                         <span class="far fa-star checked"></span>
                     </div>
-                    <div class="taka">{{$products->price}} <span>&#2547;</span></div>
+                    @if (!$products->discount_price)
+                        <br>
+                    @endif
                     <div class="add_to_cart">Add to cart</div>
                 </div>
             @endforeach
         </div>
+        {{-- this issue (View_all position) will be fixed when item will be grater than 6 --}}
         @php
-            if ($k < 4) {
+            if ($k < 5) {
                 echo '<br>';
                 echo '<br>';
             }
         @endphp
-        <a href="{{route('categoryclient','mobile')}}"><div class="view_all"><span>View All</span></div></a>
+        <a href="{{route('categoryclient','Bestsell')}}"><div class="view_all"><span>View All</span></div></a>
     </div>
 </div>
 
@@ -480,20 +535,44 @@
 
     <div class="sell-slider">
         <div class="owl-carousel owl-theme">
-            @foreach ($allProducts as $k => $products)
+            @foreach ($featuredProducts as $k => $products)
             @php
-            $image = json_decode($products->pimage)[0];
+                $image = json_decode($products->pimage)[0];
+
+                //discount percentage calculation
+                $price = $products->price;
+                $dis_price = $products->discount_price;
+                $subtruct = intval($price) - intval($dis_price);
+                $parcentage = ($subtruct*100)/intval($price);
             @endphp
                 <div class="one">
                     @if (!$products->quantity)
                         <div class="sold_out">Out Of Stock</div>
                     @endif
+                    @if ($products->discount_price)
+                        <div class="discountsticker">
+                            {{-- <span style="margin-left:4px;">-</span> --}}
+                            {{-- <div class="triangle-left"></div> --}}
+                            {{round($parcentage).'%'.'-'}}
+                        </div>
+                    @endif
                     <div class="icon_group">
                         <div class="heart"><i class="far fa-eye"></i></div>
                         <div class="eye"><i class="far fa-heart"></i></div>
                     </div>
-                    <a href="{{route('product_details', $products->slug)}}"><figure><img src="{{asset('laraecomm'.$image)}}" alt=""></figure></a>
+                    <a href="{{route('product_details', $products->slug)}}"><figure><img src="{{asset('laraecomm'.$image)}}" alt=""></figure></a> 
                     <a href="{{route('product_details', $products->slug)}}"><figcaption>{{$products->name}}</figcaption></a>
+                    @if ($products->discount_price)
+                        <div class="taka">{{number_format($products->discount_price)}} <span>৳</span></div>
+                    @else
+                        <div class="taka">{{number_format(intval($products->price))}} <span>৳</span></div>
+                    @endif
+                    @if ($products->discount_price)
+                        <div class="mainprice" style="text-align:center;">
+                            {{-- <span style="font-size:12px;"> {{round($parcentage)}}%- </span> --}}
+                            <del>{{number_format(intval($products->price))}}</del> 
+                        </div>
+                    @endif
                     <div class="rating">
                         <span class="spanrating">(0)</span>
                         <span class="far fa-star checked"></span>
@@ -502,18 +581,21 @@
                         <span class="far fa-star checked"></span>
                         <span class="far fa-star checked"></span>
                     </div>
-                    <div class="taka">{{$products->price}} <span>&#2547;</span></div>
+                    @if (!$products->discount_price)
+                        <br>
+                    @endif
                     <div class="add_to_cart">Add to cart</div>
                 </div>
             @endforeach
         </div>
+        {{-- this issue (View_all position) will be fixed when item will be grater than 6 --}}
         @php
-            if ($k < 4) {
+            if ($k < 5) {
                 echo '<br>';
                 echo '<br>';
             }
         @endphp
-        <a href="{{route('categoryclient','mobile')}}"><div class="view_all"><span>View All</span></div></a>
+        <a href="{{route('categoryclient','Bestsell')}}"><div class="view_all"><span>View All</span></div></a>
     </div>
 </div>
 

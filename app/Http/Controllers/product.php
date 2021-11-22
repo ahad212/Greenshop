@@ -143,11 +143,11 @@ public function updateProduct(Request $request) {
         $attach = $request->file('attach');
 
         if ($imgg) {
-
-                $filename = 'public/new/'.$imgg->getClientOriginalName();
-                $imgg->move(public_path('public/new/'),$filename);
-                $data->pimage = $filename;
-
+            $imgaa = [];
+            $filename = '/productimages/'.$imgg->getClientOriginalName();
+            $imgg->move(public_path('/productimages/'),$filename);
+            $imgaa[] = $filename;
+            $data->pimage = json_encode($imgaa);
         }
         if ($attach) {
             $img_name= hexdec(uniqid());
@@ -161,7 +161,10 @@ public function updateProduct(Request $request) {
         }
         $data->quantity = $request->quantity;
         $data->price = $request->price;
-        $data->featured = $request->fy;
+        // $data->featured = $request->fy;
+        $data->shipping_charge = 0;
+        $data->virtual_product = 'yes';
+        $data->discount_price = $request->d_price;
         $data->pstatus = $request->sactive;
         $data->pimei = $request->IMEI;
         $data->pwarranty = $request->Warrantyavailable;
@@ -359,6 +362,11 @@ public function updateProduct(Request $request) {
         $all_products = products::where('pstatus','active')->join('brands','products.category','=','brands.id')->select('products.*','brands.cname','brands.parent')->get();
         $f_products = products::where('pstatus','active')->get();
         return view('ProductCategory',['allProducts'=> $all_products,'featuredProducts'=> $f_products]);
+    }
+
+    public function searchApi(Request $request) {
+        $all_products = products::where('name', 'like', $request->Searchtext.'%')->where('pstatus','active')->get();
+        return response()->json($all_products);
     }
 
 }

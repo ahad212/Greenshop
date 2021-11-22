@@ -38,7 +38,9 @@ Route::post('/address/update','userController@insertAddress');
 Route::post('/address/getAddr','userController@getAddress');
 
 // order api
-
 Route::post('/order/insert','OrderController@insertOrder');
+
+//search api
+Route::post('/product/search','product@searchApi');
 
 

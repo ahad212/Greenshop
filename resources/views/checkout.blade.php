@@ -363,7 +363,7 @@
 
                                         </div>
                                         <br>
-                                        <div class="hed_f2">
+                                        <div class="hed_f2" id="shipping_select">
                                             <div class="shipp" style="color:black;">Shipping Area</div>
                                             <div class="flatr right_al">
                                                 <div class="flatr1">
@@ -374,7 +374,7 @@
                                                 {{-- <div class="flatr2" style="font-weight:bold;">৳ 99.00</div> --}}
                                             </div>
                                         </div>
-                                        <div class="hed_f2" style="margin:10px 0px;">
+                                        <div class="hed_f2" style="margin:10px 0px;" id="shipping_amount">
                                             <div class="shipp" style="color:black;">Shipping </div>
                                             <div class="flatr right_al">
                                                 <div class="flatr1">
@@ -386,6 +386,20 @@
                                         <div class="hed_f3">
                                             <div class="total_sh c_p_final">Total</div>
                                             <div class="c_p_final right_al" id="totalVal"></div>
+                                        </div>
+                                        <style>
+                                            .vartualPmail{
+                                                display: none;
+                                            }
+                                        </style>
+                                        <br>
+                                        <div class="mail_field_forVirtual" style="display: flex;justify-content:center;" id="vartualPmail">
+                                            <div class="emailfiedl" style="width:auto;">
+                                                <label style="color:black" for="vproductMail" class="form-label">
+                                                    Give your email address for receiving virtual product
+                                                    <input type="email" id="vproductMail" class="form-control">
+                                                </label>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

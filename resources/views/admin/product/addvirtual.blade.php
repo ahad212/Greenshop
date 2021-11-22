@@ -48,7 +48,7 @@
                     <select name="scat" id="ss" class="form-control" required>
                         <option value="">Select Brand</option>
                         @foreach ($Category as $cat)
-                            <option value="{{$cat->cname}}">{{$cat->cname}}</option>
+                            <option value="{{$cat->id}}">{{$cat->cname}}</option>
                         @endforeach
                     </select>
 
@@ -102,6 +102,10 @@
                     <label for="price" style="margin-top:5px;font-weight:bold;" class="d-block" style="font-weight: bold;">
                         Product Price
                         <input type="text" name="price" id="price" class="form-control" required>
+                    </label>
+                    <label for="d_price" style="margin-top:5px;font-weight:bold;" class="d-block" style="font-weight: bold;">
+                        Product Discount Price
+                        <input type="text" name="d_price" id="d_price" class="form-control" value="0">
                     </label>
                     <div class="status_wrapping">
                         {{-- <div class="status" style="font-weight:bold;">Featured</div>

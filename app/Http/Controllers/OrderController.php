@@ -22,7 +22,7 @@ class OrderController extends Controller
         $data['status'] = $request->status;
         $check = order::where('id',$id)->update($data);
         if($check) {
-            return back()->with('status','Order Status Updated successfully');
+            return redirect()->route('allorder')->with('status','Order Status Updated successfully');
         }
     }
 
@@ -47,7 +47,7 @@ class OrderController extends Controller
     }
     
     public function pendingorder () {
-        $order = order::where('status','pending_order')->get();
+        $order = order::where('status','Pending')->get();
         return view('admin.order.pendigorder',['order'=>$order]);
     }
     
@@ -72,7 +72,8 @@ class OrderController extends Controller
             $elementing = $getProduct;
             $getQuantity = $getProduct->quantity;
             $updatedQuantity = intval($getQuantity) - intval($element->quantity);
-            products::where('id',$element->id)->update(['quantity'=> $updatedQuantity]);
+            $updateSold = intval($getProduct->sold) + intval($element->quantity);
+            products::where('id',$element->id)->update(['quantity'=> $updatedQuantity,'sold'=>$updateSold]);
         }
 
         $data = array();

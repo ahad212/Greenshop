@@ -107,7 +107,7 @@
                                 ৳ 00
                             </div>
                         </div>
-                        <div class="r_ship_p">
+                        <div class="r_ship_p" id="ship_p_select">
                             <div class="s_t2">
                                 Shipping Area
                             </div>

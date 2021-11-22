@@ -41,3 +41,33 @@ loader.style.display = 'block';
 setTimeout(() => {
     loader.style.display = 'none';
 }, 1000);
+
+
+function search() {
+    let searchText = document.getElementById('searchText').value;
+    console.log(searchText);
+    let formdata = new FormData();
+    formdata.append('Searchtext',searchText);
+    axios.post('/laraecomm/api/product/search',formdata).then( res=>{
+        const {data: allData} = res;
+        let allsearchProducts = '';
+        for (let index = 0; index < allData.length; index++) {
+            const element = res.data[index];
+            const elementImg = JSON.parse(element.pimage)[0];
+            console.log(element);
+            console.log(elementImg);
+            allsearchProducts += `
+            <div class="searchItem">
+                <div class="ims">
+                    <img class="imgs" src="${'/laraecomm'+elementImg}" alt="">
+                </div>
+                <div class="pname">
+                    <a href="/laraecomm/Product/${element.slug}">${element.name}</a>
+                </div>
+            </div>
+            `;
+        }
+        document.getElementById('allsearchShow').style.border = '1px solid black';
+        document.getElementById('allsearchShow').innerHTML = allsearchProducts;
+    });
+}

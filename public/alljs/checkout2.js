@@ -1,5 +1,35 @@
-
+let virtualProductAmount = 0;
+let regularProductAmount = 0;
+document.getElementById('vartualPmail').style.display = 'none';
 let cart = JSON.parse(localStorage.getItem('cart'));
+for (let vartu = 0; vartu < cart.length; vartu++) {
+    const element = cart[vartu];
+    if (element.checked == true) {
+        if (element.virtualP) {
+            virtualProductAmount += 1;
+        } else {
+            regularProductAmount += 1;
+        }
+    }
+}
+
+//here two conditions for two things 
+//first one for only virtual products
+//second one for only virtual & physical products both
+if (regularProductAmount == 0 && virtualProductAmount) {
+    // alert(1);
+    document.getElementById('shipping_select').style.display = 'none';
+    document.getElementById('shipping_amount').style.display = 'none';
+    document.getElementById('vartualPmail').style.display = 'block';
+}
+console.log(virtualProductAmount);
+console.log(regularProductAmount);
+if (regularProductAmount && virtualProductAmount) {
+    // alert(2);
+    document.getElementById('vartualPmail').style.display = 'block';
+}
+
+
 let totalcart = '';
 let allTotalPrice = 0;
 if (cart) {
@@ -76,7 +106,9 @@ function shipingCostEval() {
     if (allPA) {
         for (let index = 0; index < allPA.length; index++) {
             const element = allPA[index];
-            totalCost += parseInt(element.shipping,10) * parseInt(element.quantity,10);
+            if (element.checked == true) {
+                totalCost += parseInt(element.shipping,10) * parseInt(element.quantity,10);
+            }
         }
     }
     totalPS = totalCost;
@@ -119,10 +151,13 @@ function allFinalValue() {
     if (cartCache) {
         for (let index = 0; index < cartCache.length; index++) {
             const element = cartCache[index];
-            totalValue += parseInt(element.quantity) * parseInt(element.price);
+            if (element.checked == true) {
+                totalValue += parseInt(element.quantity) * parseInt(element.price);
+            }
         }
     }
     totalValuewihShiping = totalValue + totalCosting;
+    // console.log(totalCosting);
     let formatValue = new Intl.NumberFormat('en-IN').format(totalValuewihShiping);
     document.getElementById('totalVal').innerHTML = `৳ ${formatValue}`;
 }
@@ -153,10 +188,16 @@ allFinalValue();
 let modal = document.getElementById('main_modal');
 let popupshed = document.getElementById('add_popup_shadow');
 function openM() {
+    let userDetails = JSON.parse(localStorage.getItem('userDetails'));
     modal.classList.toggle('content_visible');
     popupshed.style.display = 'block';
     document.body.classList.add('bodyblur');
-
+    document.getElementById('addName').value = userDetails.username;
+    document.getElementById('addNum').value = userDetails.phone;
+}
+//entry to open add address modal
+if (localStorage.getItem('usertoken')) {
+    openM();
 }
 function closeM() {
     popupshed.style.display = 'none';
@@ -410,10 +451,23 @@ function paymentMethod(thisElement) {
 function placeOrder() {
     let address = JSON.parse(localStorage.getItem('selectedaddr'));
     let userID = localStorage.getItem('userID');
+    let token = localStorage.getItem('usertoken');
     let cart = JSON.parse(localStorage.getItem('cart'));
     let shippingAddress = localStorage.getItem('locationName');
     let actuallyBuyCart= [];
-
+    if (!token) {
+        //open login modal
+        background.classList.add('shadowopen');
+        model.classList.add('shadowopen');
+        document.body.classList.add('bodyblur');
+        document.getElementById('main_warp').classList.add('main-warp'); 
+        //login notification
+        iziToast.error({
+            title: 'Error',
+            message: 'Please login to purchase first',
+            position: 'topCenter',
+        });       
+    }
     if (!cart.length) {
         iziToast.error({
             title: 'Error',
@@ -423,7 +477,6 @@ function placeOrder() {
         // window.location.href = "ProductCategory/Bestsell";
         return;     
     }
-    console.log();
     if (!address) {
         iziToast.error({
             title: 'Error',
@@ -432,10 +485,10 @@ function placeOrder() {
         });
         return;     
     }
-    if (!shippingAddress.length) {
+    if (!shippingAddress) {
         iziToast.error({
             title: 'Error',
-            message: 'Shipping area Missing',
+            message: 'Select shipping area',
             position: 'topCenter',
         });
         return;        
@@ -455,24 +508,41 @@ function placeOrder() {
             // cart.splice(index,1);
         }
     }
-    // localStorage.setItem('cart',JSON.stringify(cart))
-    for (let index3 = 0; index3 < actuallyBuyCart.length; index3++) {
-        const element = actuallyBuyCart[index3];
-        let indx = cart.findIndex(res=> res.id = element.id);
-        cart.splice(indx,1);
+    if (!actuallyBuyCart.length) {
+        iziToast.error({
+            title: 'Error',
+            message: 'Please select a purchase item from cart',
+            position: 'topCenter',
+        });
+        return;        
     }
-    localStorage.setItem('cart',JSON.stringify(cart));
-    console.log(address);
-    console.log(shippingAddress);
-    console.log(finalShippingCharge);
-    console.log(allTotalPrice);
-    console.log(totalValuewihShiping);
-    console.log(paymentGateway);
-    console.log(actuallyBuyCart);
+    let email = document.getElementById('vproductMail');
+    if (virtualProductAmount) {
+        if (!email.value) {
+            iziToast.error({
+                title: 'Error',
+                message: 'Please Give your mail for sending product',
+                position: 'topCenter',
+            });
+            return;              
+        }
+    }
+
     let formdata = new FormData();
     formdata.append('id',userID);
     formdata.append('address',JSON.stringify(address));
-    formdata.append('shippingAddress',shippingAddress);
+    // check product type and take address accordingly
+    if (virtualProductAmount && regularProductAmount==0) {
+        formdata.append('shippingAddress',email.value);
+    }
+    else if (virtualProductAmount && regularProductAmount){
+        let total_address = `${shippingAddress} + virtual address: ${email.value}`;
+        formdata.append('shippingAddress',total_address);
+    } 
+    else if (regularProductAmount && virtualProductAmount==0) {
+        formdata.append('shippingAddress',shippingAddress);
+    }
+
     formdata.append('finalShippingCharge',finalShippingCharge);
     formdata.append('allTotalPrice',allTotalPrice);
     formdata.append('totalValuewihShiping',totalValuewihShiping);
@@ -481,7 +551,15 @@ function placeOrder() {
     formdata.append('actuallyBuyCartString',JSON.stringify(actuallyBuyCart));
     let congrat = document.getElementById('congrat');
     axios.post('/laraecomm/api/order/insert',formdata).then(res=>{
-        console.log(res.data.message);
+        // deduct products from localstorage
+        for (let index3 = 0; index3 < actuallyBuyCart.length; index3++) {
+            const element = actuallyBuyCart[index3];
+            let indx = cart.findIndex(res=> res.id = element.id);
+            cart.splice(indx,1);
+        }
+        //save new cart array after deducting
+        localStorage.setItem('cart',JSON.stringify(cart));
+        // console.log(res.data.message);
         congrat.style.display = 'flex';
         document.body.classList.add('bodyblur');
     });

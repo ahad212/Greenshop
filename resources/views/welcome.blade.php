@@ -105,11 +105,11 @@
             <div class="formdiv2">
                 <div class="form-floating mb-2">
                     <input type="text" class="form-control" id="floatingInput0" placeholder="Username">
-                    <label for="floatingInput0">Username*</label>
+                    <label for="floatingInput0">Name*</label>
                 </div>
                 <div class="form-floating mb-2">
                     <input type="email" class="form-control" id="floatingInput1"  placeholder="Email">
-                    <label for="floatingInput1">Email*</label>
+                    <label for="floatingInput1">Email</label>
                 </div>
                 <div class="form-floating mb-2">
                     <input type="text" class="form-control" id="floatingInput2" placeholder="Phone">
@@ -155,9 +155,13 @@
                 </a>
             </div>
             <div class="searchBar">
-                <input type="text" placeholder="Search Products...">
+                <input type="text" placeholder="Search Products..." id="searchText" onkeyup="search()">
                 <div class="searchIcon"><i class="fas fa-search"></i></div>
+                <div class="searchProductShow" id="allsearchShow">
+                    {{-- search product will be auto injected --}}
+                </div>
             </div>
+
             <div class="rightpart">
                 {{-- <a href="{{route('account')}}"> --}}
                     <div class="accountbtn">
@@ -211,11 +215,15 @@
                 });
                 logout.classList.remove('afterloginvisible');
                 localStorage.removeItem('usertoken');
+                localStorage.removeItem('selectedaddr');
+                localStorage.removeItem('userID');
+                localStorage.removeItem('userDetails');
                 localStorage.removeItem('cart');
                 document.getElementById('lblCartCount2').innerHTML = '';
                 document.getElementById('totalCart').innerHTML = '00';
                 document.getElementById('cartItemList').innerHTML = '';
                 document.getElementById('sub_amounRight').innerHTML = '00';
+                window.location.reload();
             });
 
         }
@@ -787,7 +795,7 @@
                         message: 'Password & Confirm password must be same',
                         position: 'topCenter',
                     });
-                } else if (username == '' || email == '' || phone == '' || pass == '' || conpass == '') {
+                } else if (username == '' || phone == '' || pass == '' || conpass == '') {
                     iziToast.error({
                         title: 'Error',
                         message: 'Please fill required field',
@@ -800,7 +808,11 @@
                     // cpasserror.style.display = 'none';
                     let formdata = new FormData();
                     formdata.append('name',username);
-                    formdata.append('email',email);
+                    if (email) {
+                        formdata.append('email',email);
+                    } else {
+                        formdata.append('email',' ');
+                    }
                     formdata.append('phone',phone);
                     formdata.append('pass',pass);
                     formdata.append('conpass',conpass);
@@ -821,6 +833,10 @@
                             model.classList.remove('shadowopen');
                             document.body.classList.remove('bodyblur');
                             document.getElementById('main_warp').classList.remove('main-warp');
+                            localStorage.clear();
+                            localStorage.setItem('usertoken',res.data.token);
+                            localStorage.setItem('userID',res.data.user.id);
+                            localStorage.setItem('userDetails',JSON.stringify(res.data.user));
                         }
                     });
                 }
@@ -850,9 +866,10 @@
                                 position: 'topCenter',
                             });                        
                         } else {
-                            localStorage.clear();
+                            // localStorage.clear();
                             localStorage.setItem('usertoken',res.data.token);
                             localStorage.setItem('userID',res.data.user.id);
+                            localStorage.setItem('userDetails',JSON.stringify(res.data.user));
                             iziToast.success({
                                 title: 'Success',
                                 message: res.data.message,

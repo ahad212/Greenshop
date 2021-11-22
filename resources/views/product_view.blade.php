@@ -68,7 +68,7 @@
                 @if ($single_product->discount_price)
                     <div class="taka price_sticky" style="margin-top:10px;">৳ {{number_format($single_product->discount_price)}}</div>
                 @else
-                    <div class="taka price_sticky" style="margin-top:10px;">৳ {{number_format($single_product->price)}}</div>
+                    <div class="taka price_sticky" style="margin-top:10px;">৳ {{number_format(intval($single_product->price))}}</div>
                 @endif
                 <div class="cart_button_sticky">Add to cart</div>
             </div>
@@ -103,13 +103,13 @@
                     <span class="far fa-star checked"></span>
                     <span class="far fa-star checked"></span>
                     <span class="far fa-star checked"></span>
-                    <span class="far fa-star checked"></span><span class="spanrating2">(0 Reviews)</span><span class="spancolmargin"><span class="spancol3">sold:</span> 0</span>
+                    <span class="far fa-star checked"></span><span class="spanrating2">(0 Reviews)</span><span class="spancolmargin"><span class="spancol3">sold:</span> {{$single_product->sold}}</span>
                 </div>
             </li>
             @if ($single_product->discount_price)
                 <li class="taka" style="margin-top:0px !important;">৳ {{number_format($single_product->discount_price)}}</li>
             @else
-                <li class="taka"  style="margin-top:0px; !important">৳ {{number_format($single_product->price)}}</li>
+                <li class="taka"  style="margin-top:0px; !important">৳ {{number_format(intval($single_product->price))}}</li>
             @endif
             {{-- @foreach (explode(';',$single_product->pdescription) as $des)
                 <li>{{$des}}</li>

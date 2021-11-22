@@ -43,13 +43,13 @@
                     <label for="ss" style="font-weight:bold;margin-top:5px;">Select Category</label>
                     <select name="status" id="ss" class="form-control">
                         <option value="">Select Order status</option>
-                        <option value="pending_order" <?php if($order->status =='pending_order') echo 'selected';?>>Pending Order</option>
-                        <option value="processing" <?php if($order->status =='processing') echo 'selected';?>>Processing Order</option>
-                        <option value="curiar_order" <?php if($order->status =='curiar_order') echo 'selected';?>>Curiar Order</option>
-                        <option value="completed_order" <?php if($order->status =='completed_order') echo 'selected';?>>Completed Order</option>
-                        <option value="cancel_order" <?php if($order->status =='cancel_order') echo 'selected';?>>Cancel Order</option>
-                        <option value="exchange_order" <?php if($order->status =='exchange_order') echo 'selected';?>>Exchange Order</option>
-                        <option value="refund_order" <?php if($order->status =='refund_order') echo 'selected';?>>Refund Order</option>
+                        <option value="Pending" <?php if($order->status =='Pending') echo 'selected';?>>Pending Order</option>
+                        <option value="Processing" <?php if($order->status =='Processing') echo 'selected';?>>Processing Order</option>
+                        <option value="Curiar" <?php if($order->status =='Curiar') echo 'selected';?>>Curiar Order</option>
+                        <option value="Completed" <?php if($order->status =='Completed') echo 'selected';?>>Completed Order</option>
+                        <option value="Cancel" <?php if($order->status =='Cancel') echo 'selected';?>>Cancel Order</option>
+                        <option value="Exchange" <?php if($order->status =='Exchange') echo 'selected';?>>Exchange Order</option>
+                        <option value="Refund" <?php if($order->status =='Refund') echo 'selected';?>>Refund Order</option>
                     </select>
 
                 </div>

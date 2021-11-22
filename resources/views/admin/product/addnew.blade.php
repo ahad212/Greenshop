@@ -114,7 +114,7 @@
                     </label>
                     <label for="dprice" style="margin-top:5px;font-weight:bold;" class="d-block" style="font-weight: bold;">
                         Discount Price
-                        <input type="text" name="dprice" id="dprice" class="form-control">
+                        <input type="text" name="dprice" id="dprice"  value="0" class="form-control">
                     </label>
                     <label for="shipPrice" style="margin-top:5px;font-weight:bold;" class="d-block" style="font-weight: bold;">
                         Shipping Charge

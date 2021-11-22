@@ -1,4 +1,26 @@
+let virtualProductAmount = 0;
+let regularProductAmount = 0;
+let cart = JSON.parse(localStorage.getItem('cart'));
+for (let vartu = 0; vartu < cart.length; vartu++) {
+    const element = cart[vartu];
+    if (element.checked == true) {
+        if (element.virtualP) {
+            virtualProductAmount += 1;
+        } else {
+            regularProductAmount += 1;
+        }
+    }
+}
 
+//if in cart only virtual product remove select are
+if (regularProductAmount == 0 && virtualProductAmount) {
+    // alert(1);
+    document.getElementById('ship_p_select').style.display = 'none';
+
+}
+
+    
+    
     // var ship = document.getElementById('cal_shipping');
     // var s_cal =document.getElementById('cal_modal_toggle');
     // ship.addEventListener('click',function(){

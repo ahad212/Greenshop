@@ -14,11 +14,11 @@ class userController extends Controller
         return view('admin.user.admin',['subadmin'=>$subadmin]);
     }
     public function storeuser(Request $request) {
-        $check = DB::table('users')->where('email',$request->email)->first();
+        $check = DB::table('users')->where('phone',$request->phone)->first();
         if ($check) {
             return response()->json([
                 'error' => true,
-                'message' => 'Email Already Exist'
+                'message' => 'Phone number Already Exist'
             ],200);
         }
         $data = array();

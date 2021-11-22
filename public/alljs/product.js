@@ -124,11 +124,21 @@ window.onscroll = function(){
     function orderplace() {
         let tokenExist = localStorage.getItem('usertoken');
         if (!tokenExist) {
+
+            //open login screen
+            background.classList.add('shadowopen');
+            model.classList.add('shadowopen');
+            document.body.classList.add('bodyblur');
+            document.getElementById('main_warp').classList.add('main-warp');
+            //end login screen
+
+            //showing error message
             iziToast.error({
                 title: 'Error',
                 message: 'Please Login First',
                 position: 'topCenter',
             });
+            //end error message
             return;       
         }
         let colorId = document.getElementById('coloring');
@@ -175,6 +185,10 @@ window.onscroll = function(){
             } 
             if (sizeId) {
                 orderObj.size = sizeId.value;
+            }
+            console.log(currentProduct.virtual_product);
+            if (currentProduct.virtual_product == 'yes') {
+                orderObj.virtualP = 'yes';
             }
             let cartExist = localStorage.getItem('cart');
             let findingind = '';
