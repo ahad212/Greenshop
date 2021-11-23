@@ -120,7 +120,6 @@ window.onscroll = function(){
 
     // });
 
-
     function orderplace() {
         let tokenExist = localStorage.getItem('usertoken');
         if (!tokenExist) {
@@ -355,6 +354,242 @@ window.onscroll = function(){
     }
 
 
+    function  buynow() {
+        let tokenExist = localStorage.getItem('usertoken');
+        if (!tokenExist) {
+
+            //open login screen
+            background.classList.add('shadowopen');
+            model.classList.add('shadowopen');
+            document.body.classList.add('bodyblur');
+            document.getElementById('main_warp').classList.add('main-warp');
+            //end login screen
+
+            //showing error message
+            iziToast.error({
+                title: 'Error',
+                message: 'Please Login First',
+                position: 'topCenter',
+            });
+            //end error message
+            return;       
+        }
+        let colorId = document.getElementById('coloring');
+        let sizeId = document.getElementById('sizing');
+        if(colorId || sizeId) {
+            if (!colorId.value) {
+                iziToast.error({
+                    title: 'Error',
+                    message: 'Select Color is required',
+                    position: 'topCenter',
+                });
+                return;
+            }
+            if (!sizeId.value) {
+                iziToast.error({
+                    title: 'Error',
+                    message: 'Select Size is required',
+                    position: 'topCenter',
+                });
+                return;
+            } 
+        } else {
+            console.log('color or size is missing');
+        }
+
+        if (shipcost == 'abc') {
+            iziToast.error({
+                title: 'Error',
+                message: 'Select Your City',
+                position: 'topCenter',
+            });
+            return;
+        } else {
+            let quantity = document.getElementById('quantitynum').value;
+            let price = '';
+            if (currentProduct.discount_price > 0) {
+                price = currentProduct.discount_price;
+            } else {
+                price = currentProduct.price;
+            }
+            let orderObj = {id: currentProduct.id, name: currentProduct.name, quantity: quantity, price: price ,pimage : currentProduct.pimage, shipping: totalShippingCost,shipping: currentProduct.shipping_charge,totalQuantity:currentProduct.quantity, checked:true, slug: currentProduct.slug};
+            if (colorId) {
+                orderObj.color = colorId.value; 
+            } 
+            if (sizeId) {
+                orderObj.size = sizeId.value;
+            }
+            console.log(currentProduct.virtual_product);
+            if (currentProduct.virtual_product == 'yes') {
+                orderObj.virtualP = 'yes';
+            }
+            let cartExist = localStorage.getItem('cart');
+            let findingind = '';
+
+
+            if (cartExist) { 
+                let jsonArray = JSON.parse(cartExist);
+                findingind = jsonArray.findIndex(x => x.id == currentProduct.id);
+            }
+
+
+            if (!cartExist) {
+                let cartArray = [];
+                cartArray.push(orderObj);
+                localStorage.setItem('cart',JSON.stringify(cartArray));
+                iziToast.success({
+                    title: 'Success',
+                    message: 'Product add to cart',
+                    position: 'topCenter',
+                });
+                cartLength();
+                let total = 0;
+                for (let index = 0; index < cartArray.length; index++) {
+                    const element = cartArray[index];
+                    let totalwithquan = parseInt(element.quantity) * parseInt(element.price);
+                    total += totalwithquan;
+                }
+                let formatValue = new Intl.NumberFormat('en-IN').format(total);
+                document.getElementById('totalCart').innerHTML = formatValue;
+                document.getElementById('sub_amounRight').innerHTML = formatValue;
+
+                let totalcart = '';
+                for (let caring = 0; caring < cartArray.length; caring++) {
+                    const element = cartArray[caring];
+                    const imageFirst = JSON.parse(element.pimage);
+                    let totalwithquanRight = parseInt(element.price);
+                    let formatValueRight = new Intl.NumberFormat('en-IN').format(totalwithquanRight);
+                    totalcart += `
+                    <div class="cart_item_list">
+                        <div class="car_item_image">
+                            <img src="${'/laraecomm'+imageFirst[0]}" alt="">
+                        </div>
+                        <div class="item_all_info">
+                            <div class="info_name">
+                                ${element.name}
+                            </div>
+                            <div class="count_which">${element.quantity}x <span>৳ ${formatValueRight}</span></div>
+                        </div>
+                        <div class="action_items" onclick="splititem(${element.id})">
+                            <i class="far fa-trash-alt"></i>
+                        </div>
+                    </div>
+                    `;
+                }
+                document.getElementById('cartItemList').innerHTML = totalcart;
+                localStorage.setItem('allselect','checked');
+                window.location.href = '/laraecomm/cart';
+                
+            } else if (findingind != -1) {
+                let jsonArray = JSON.parse(cartExist);
+                let oldQuantity = jsonArray[findingind].quantity;
+                let totalQuantityNow = parseInt(orderObj.quantity) + parseInt(oldQuantity);
+                if ( totalQuantityNow > currentProduct.quantity ) {
+                    orderObj.quantity = parseInt(oldQuantity);
+                    iziToast.error({
+                        title: 'Failed',
+                        message: 'Exceed available quantity',
+                        position: 'topCenter',
+                    });  
+                    return;
+                } else {
+                    orderObj.quantity = totalQuantityNow;
+                }
+                jsonArray.splice(findingind,1,orderObj);
+                localStorage.setItem('cart',JSON.stringify(jsonArray));
+                iziToast.success({
+                    title: 'Success',
+                    message: 'Cart Updated',
+                    position: 'topCenter',
+                });
+                cartLength();
+                let total = 0;
+                for (let index = 0; index < jsonArray.length; index++) {
+                    const element = jsonArray[index];
+                    let totalwithquan = parseInt(element.quantity) * parseInt(element.price);
+                    total += totalwithquan;
+                }
+                let formatValue = new Intl.NumberFormat('en-IN').format(total);
+                document.getElementById('totalCart').innerHTML = formatValue;
+                document.getElementById('sub_amounRight').innerHTML = formatValue;
+
+                let totalcart = '';
+                for (let caring = 0; caring < jsonArray.length; caring++) {
+                    const element = jsonArray[caring];
+                    const imageFirst = JSON.parse(element.pimage);
+                    let totalwithquanRight = parseInt(element.price);
+                    let formatValueRight = new Intl.NumberFormat('en-IN').format(totalwithquanRight);
+                    totalcart += `
+                    <div class="cart_item_list">
+                        <div class="car_item_image">
+                            <img src="${'/laraecomm'+imageFirst[0]}" alt="">
+                        </div>
+                        <div class="item_all_info">
+                            <div class="info_name">
+                                ${element.name}
+                            </div>
+                            <div class="count_which">${element.quantity}x <span>৳ ${formatValueRight}</span></div>
+                        </div>
+                        <div class="action_items" onclick="splititem(${element.id})">
+                            <i class="far fa-trash-alt"></i>
+                        </div>
+                    </div>
+                    `;
+                }
+                document.getElementById('cartItemList').innerHTML = totalcart;
+                window.location.href = '/laraecomm/cart';
+
+            } else {
+                let jsonArray = JSON.parse(cartExist);
+                jsonArray.push(orderObj);
+                localStorage.setItem('cart',JSON.stringify(jsonArray));
+                iziToast.success({
+                    title: 'Success',
+                    message: 'Product add to cart',
+                    position: 'topCenter',
+                });
+                cartLength();
+                let total = 0;
+                for (let index = 0; index < jsonArray.length; index++) {
+                    const element = jsonArray[index];
+                    let totalwithquan = parseInt(element.quantity) * parseInt(element.price);
+                    total += totalwithquan;
+                }
+                let formatValue = new Intl.NumberFormat('en-IN').format(total);
+                document.getElementById('totalCart').innerHTML = formatValue;
+                document.getElementById('sub_amounRight').innerHTML = formatValue;
+
+                let totalcart = '';
+                for (let caring = 0; caring < jsonArray.length; caring++) {
+                    const element = jsonArray[caring];
+                    const imageFirst = JSON.parse(element.pimage);
+                    let totalwithquanRight = parseInt(element.price);
+                    let formatValueRight = new Intl.NumberFormat('en-IN').format(totalwithquanRight);
+                    totalcart += `
+                    <div class="cart_item_list">
+                        <div class="car_item_image">
+                            <img src="${'/laraecomm'+imageFirst[0]}" alt="">
+                        </div>
+                        <div class="item_all_info">
+                            <div class="info_name">
+                                ${element.name}
+                            </div>
+                            <div class="count_which">${element.quantity}x <span>৳ ${formatValueRight}</span></div>
+                        </div>
+                        <div class="action_items" onclick="splititem(${element.id})">
+                            <i class="far fa-trash-alt"></i>
+                        </div>
+                    </div>
+                    `;
+                }
+                document.getElementById('cartItemList').innerHTML = totalcart;
+                window.location.href = '/laraecomm/cart';
+                
+            }
+        }
+    }
+
+
     function splititem(splId) {
         let cartForRight = JSON.parse(localStorage.getItem('cart'));
         let getSpid = cartForRight.findIndex(x => x.id == splId);
@@ -385,4 +620,67 @@ window.onscroll = function(){
         }
         document.getElementById('cartItemList').innerHTML = totalcart;
         cartLength();
+    }
+
+
+    // rating part start 
+    let ratingCount;
+    function checkrating(val) {
+        ratingCount = val;
+        console.log(ratingCount);
+    }
+
+    function submitRating() {
+        let token = localStorage.getItem('usertoken');
+        if (!token) {
+
+            //open login screen
+            background.classList.add('shadowopen');
+            model.classList.add('shadowopen');
+            document.body.classList.add('bodyblur');
+            document.getElementById('main_warp').classList.add('main-warp');
+            //end login screen
+
+            //showing error message
+            iziToast.error({
+                title: 'Error',
+                message: 'Please Login First',
+                position: 'topCenter',
+            });
+            //end error message
+            return;       
+        }
+        let review = document.getElementById('exampleFormControlTextarea1').value;
+        let ratingObj = {
+            ratingCount: ratingCount,
+            review : review,
+            productId : currentProduct.id,
+            userId : localStorage.getItem('userID')
+        };
+        if (!ratingCount) {
+            iziToast.error({
+                title: 'Error',
+                message: 'Rating field required',
+                position: 'topCenter',
+            });
+            return;
+        }
+        if (!review) {
+            iziToast.error({
+                title: 'Error',
+                message: 'Review field required',
+                position: 'topCenter',
+            });
+            return;
+        }
+        let formdata = new FormData();
+        formdata.append('review',JSON.stringify(ratingObj));
+        console.log(ratingObj);
+        axios.post('/laraecomm/api/product/review',formdata).then(res=>{
+            iziToast.success({
+                title: 'Success',
+                message: res.data.message,
+                position: 'topCenter',
+            });
+        });
     }

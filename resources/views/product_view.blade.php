@@ -510,7 +510,7 @@
             <li>
                 <div class="add_buy_but">
                     <div class="add_but" onclick="orderplace()">Add to cart</div>
-                    <div class="buy_but">Buy Now</div>
+                    <div class="buy_but" onclick="buynow()">Buy Now</div>
                     <div class="wish_icon"><i class="far fa-heart"></i></div>
                 </div>
             </li>
@@ -740,35 +740,35 @@
                             
                             <div class="form-item">
                             
-                            <input id="rating-5" name="rating" type="radio" value="5" />
+                            <input id="rating-5" name="rating" type="radio" value="5" onclick="checkrating(this.value)"/>
                             <label for="rating-5" data-value="5">
                                 <span class="rating-star">
                                 <i class="fa fa-star-o ifontsize"></i>
                                 <i class="fa fa-star ifontsize"></i>
                                 </span>
                             </label>
-                            <input id="rating-4" name="rating" type="radio" value="4" />
+                            <input id="rating-4" name="rating" type="radio" value="4" onclick="checkrating(this.value)"/>
                             <label for="rating-4" data-value="4">
                                 <span class="rating-star">
                                 <i class="fa fa-star-o ifontsize"></i>
                                 <i class="fa fa-star ifontsize"></i>
                                 </span>
                             </label>
-                            <input id="rating-3" name="rating" type="radio" value="3" />
+                            <input id="rating-3" name="rating" type="radio" value="3" onclick="checkrating(this.value)"/>
                             <label for="rating-3" data-value="3">
                                 <span class="rating-star">
                                 <i class="fa fa-star-o ifontsize"></i>
                                 <i class="fa fa-star ifontsize"></i>
                                 </span>
                             </label>
-                            <input id="rating-2" name="rating" type="radio" value="2" />
+                            <input id="rating-2" name="rating" type="radio" value="2" onclick="checkrating(this.value)"/>
                             <label for="rating-2" data-value="2">
                                 <span class="rating-star">
                                 <i class="fa fa-star-o ifontsize"></i>
                                 <i class="fa fa-star ifontsize"></i>
                                 </span>
                             </label>
-                            <input id="rating-1" name="rating" type="radio" value="1" />
+                            <input id="rating-1" name="rating" type="radio" value="1" onclick="checkrating(this.value)"/>
                             <label for="rating-1" data-value="1">
                                 <span class="rating-star">
                                 <i class="fa fa-star-o ifontsize"></i>
@@ -776,14 +776,13 @@
                                 </span>
                             
                             </div>
-                            
                         </fieldset>
                         </form>
                         </div>
                     </div>
                     <br>
                     <br>
-                    <div class="row">
+                    <div class="">
                         <div class="col">
                             <div class="review_your">
                                 <label for="exampleFormControlTextarea1">Your review <span class="spanstarcolor">*</span></label>
@@ -816,24 +815,15 @@
                             border-bottom:1px solid black;
                         }
                     </style>
-                    <div class="row row-cols-1 row-cols-sm-2">
-                        <div class="col">
-                            <label for="name">Name <span class="spanstarcolor">*</span></label>
-                            <input type="text" id="name" class="form-control">
-                        </div>
-                        <div class="col">
-                        <label for="name3">Email <span class="spanstarcolor">*</span></label>
-                            <input type="email" id="name3" class="form-control">
-                        </div>
-                    </div><br>
-                    <div class="form-check">
+
+                    {{-- <div class="form-check">
                         <input class="form-check-input  custom_checkbar" type="checkbox" value="" id="flexCheckDefault">
                         <label class="form-check-label" for="flexCheckDefault">
                         Save my name, email, and website in this browser for the next time I comment.
                         </label>
-                    </div>
+                    </div> --}}
                     <br>
-                    <div class="review_submit">Submit</div>
+                    <div class="review_submit" onclick="submitRating()">Submit</div>
                     <br>
                     <br>
                     <hr class="h1border">

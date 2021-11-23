@@ -270,7 +270,7 @@
 
     <div class="sell-slider">
         <div class="owl-carousel owl-theme">
-            @foreach ($featuredProducts as $k => $products)
+            @foreach ($allProducts as $k => $products)
             @php
                 $image = json_decode($products->pimage)[0];
 
@@ -308,13 +308,23 @@
                             <del>{{number_format(intval($products->price))}}</del> 
                         </div>
                     @endif
+                    @php
+                        $countReview = 0;
+                        $reviewArray = json_decode($products->review);
+                        if ($reviewArray) {
+                            for ($i=0; $i <count($reviewArray) ; $i++) { 
+                                $countReview += 1;
+                            }
+                        }
+                        echo $countReview;
+                    @endphp
                     <div class="rating">
                         <span class="spanrating">(0)</span>
                         <span class="far fa-star checked"></span>
                         <span class="far fa-star checked"></span>
                         <span class="far fa-star checked"></span>
                         <span class="far fa-star checked"></span>
-                        <span class="far fa-star checked"></span>
+                        <span><i class="fas fa-star"></i></span>
                     </div>
                     @if (!$products->discount_price)
                         <br>
@@ -364,7 +374,7 @@
 
     <div class="sell-slider">
         <div class="owl-carousel owl-theme">
-            @foreach ($featuredProducts as $k => $products)
+            @foreach ($allProducts as $k => $products)
             @php
                 $image = json_decode($products->pimage)[0];
 
@@ -448,7 +458,7 @@
 
     <div class="sell-slider">
         <div class="owl-carousel owl-theme">
-            @foreach ($featuredProducts as $k => $products)
+            @foreach ($allProducts as $k => $products)
             @php
                 $image = json_decode($products->pimage)[0];
 
@@ -535,7 +545,7 @@
 
     <div class="sell-slider">
         <div class="owl-carousel owl-theme">
-            @foreach ($featuredProducts as $k => $products)
+            @foreach ($allProducts as $k => $products)
             @php
                 $image = json_decode($products->pimage)[0];
 

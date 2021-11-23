@@ -43,4 +43,8 @@ Route::post('/order/insert','OrderController@insertOrder');
 //search api
 Route::post('/product/search','product@searchApi');
 
+//review post api
+
+Route::post('/product/review','product@rating');
+
 

@@ -369,4 +369,32 @@ public function updateProduct(Request $request) {
         return response()->json($all_products);
     }
 
+
+    public function rating(Request $request) {
+        $ratingObject = json_decode($request->review);
+        $productId = $ratingObject->productId;
+        $previousRating = products::where('id',$productId)->first();
+        $existingReview = json_decode($previousRating->review);
+        if ($existingReview) {
+            array_push($existingReview ,$ratingObject);
+            products::where('id',$productId)->update([
+                'review' => json_encode($existingReview)
+            ]);
+            return response()->json([
+                'message' => 'Thanks for your review :)'
+            ],201);
+        } 
+        else {
+            $array = array();
+            array_push($array,$ratingObject);
+            products::where('id',$productId)->update([
+                'review' => json_encode($array)
+            ]);
+            return response()->json([
+                'message' => 'Thanks for your review :)'
+            ],201);
+        }
+        return response()->json();
+    }
+
 }
