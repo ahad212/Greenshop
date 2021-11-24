@@ -47,4 +47,17 @@ Route::post('/product/search','product@searchApi');
 
 Route::post('/product/review','product@rating');
 
+//wishlist add
+
+Route::post('/wishlist/insert','product@wishlistAdd');
+
+
+//check wishlist
+
+Route::post('/wishlist/check','product@wishlistCheck');
+
+//wishlist update 
+
+Route::post('/wishlist/update','product@wishlistupdate');
+
 

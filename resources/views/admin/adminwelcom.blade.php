@@ -113,7 +113,7 @@
                                 </a>
                                 <div class="collapse" id="collapseLayouts_site" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                     <nav class="sb-sidenav-menu-nested nav">
-                                        <a class="nav-link {{ ('laraecomm/admin/setting/affiliate' === request()->path())? 'active' : ''}}" href="{{route('affiliate')}}">Affiliate</a>
+                                        <a class="nav-link {{ ('laraecomm/admin/setting/offer' === request()->path())? 'active' : ''}}" href="{{route('offer.index')}}">Offer</a>
                                         <a class="nav-link {{ ('laraecomm/admin/setting/location' === request()->path())? 'active' : ''}}" href="{{route('location.index')}}">Location</a>
                                     </nav>
                                 </div>

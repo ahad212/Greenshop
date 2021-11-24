@@ -78,9 +78,14 @@ Route::prefix('laraecomm')->group(function() {
 
     // site route
 
-    Route::get('/admin/setting/affiliate', function () {
-        return view('admin.site.affiliate');
-    })->name('affiliate');
+    // Route::get('/admin/setting/offer', function () {
+    //     return view('admin.sellOffer.offer');
+    // })->name('affiliate');
+    Route::post('/admin/setting/delete/{id}','offer@deleteItem')->name('offerdelete');
+    Route::prefix('admin/setting')->group(function(){
+        Route::resource('offer','offer');
+    });
+
 
     Route::prefix('admin/setting')->group(function() {
         Route::resource('location', 'setting');

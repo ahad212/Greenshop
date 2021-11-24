@@ -121,117 +121,72 @@
             <!-- </div> -->
         </div>
     </div>
-
-
-    <div class="special_offer">
-        <div class="row">
-            <h1 class="h1special">Special Offer</h1>
-            <div class="special_main_part">
-                <div class="wrapper_counter timer_counter">
-                    <div class="endlint_text" >Ending Offers </div>
-                    <div class="countDownPart">
-                        <div class="uk-grid-small uk-child-width-auto uk-margin" uk-grid uk-countdown="date: 2021-09-15T16:51:03+00:00">
-                            <div>
-                                <div class="uk-countdown-number uk-countdown-days"></div>
-                                <div class="d">Day</div>
-                            </div>
-                            <div>
-                                <div class="uk-countdown-number uk-countdown-hours"></div>
-                                <div class="d">Hour</div>
-                            </div>
-                            <div>
-                                <div class="uk-countdown-number uk-countdown-minutes"></div>
-                                <div class="d">Min</div>
-                            </div>
-                            <div>
-                                <div class="uk-countdown-number uk-countdown-seconds"></div>
-                                <div class="d">Sec</div>
-                            </div>
+@php
+    if (count($offer)) {
+        $offerProdcutsArray = json_decode($offer[0]->products);
+    }
+@endphp
+{{-- if offer was not counted that was through error contniously offset 0 --}}
+@if (count($offer))
+{{-- {{$offerProdcutsArray}} --}}
+<div class="special_offer">
+    <div class="row">
+        <h1 class="h1special">Special Offer</h1>
+        <div class="special_main_part">
+            <div class="wrapper_counter timer_counter">
+                <div class="endlint_text" >Ending Offers </div>
+                <div class="countDownPart">
+                    <div class="uk-grid-small uk-child-width-auto uk-margin" uk-grid uk-countdown="date: {{$offer[0]->datetime}}:03+06:00">
+                        <div>
+                            <div class="uk-countdown-number uk-countdown-days"></div>
+                            <div class="d">Day</div>
                         </div>
-                    </div>                    
-                </div>
-                <div class="best_sell6">
-                    <div class="sell-sliderBrand">
-                        <div class="owl-carousel owl-theme" id="owl-carousel2">
-                            <div class="one">
-                                <div class="fire">
-                                    <img src="https://t3.ftcdn.net/jpg/02/84/46/60/360_F_284466038_lOHcM8pRGyigojkyV2M9CSQpimCTcqeD.jpg" alt="">
-                                </div>
-                                <div class="off">
-                                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQrCWJLuEXcCU4I6sEagFGgoIwYyETv6hP36w&usqp=CAU" alt="">
-                                </div>
-                                <a href="{{route('categoryclient','brands')}}"><figure><img src="{{asset('laraecomm/assets/images/samsung-galaxy-s21-5g-r.jpg')}}" alt=""></figure></a>
-                                <div class="fig_title_countdouen">Samsung Galaxy S21 5G</div>
-                                <div class="new_price">&#2547; 1,11,000</div>
-                                <div class="old_price"><del>&#2547; 1,39,000</del></div>
-                            </div>
-                            <div class="one">
-                                <div class="fire">
-                                    <img src="https://t3.ftcdn.net/jpg/02/84/46/60/360_F_284466038_lOHcM8pRGyigojkyV2M9CSQpimCTcqeD.jpg" alt="">
-                                </div>
-                                <div class="off">
-                                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQrCWJLuEXcCU4I6sEagFGgoIwYyETv6hP36w&usqp=CAU" alt="">
-                                </div>
-                                <a href="{{route('categoryclient','brands')}}"><figure><img src="{{asset('laraecomm/assets/images/xiaomi-redmi-note10-pro.jpg')}}" alt=""></figure></a> 
-                                <div class="fig_title_countdouen">Samsung Galaxy S21 5G</div>
-                                <div class="new_price">&#2547; 1,11,000</div>
-                                <div class="old_price"><del>&#2547; 1,39,000</del></div>
-                            </div>
-                            <div class="one">
-                                <div class="fire">
-                                    <img src="https://t3.ftcdn.net/jpg/02/84/46/60/360_F_284466038_lOHcM8pRGyigojkyV2M9CSQpimCTcqeD.jpg" alt="">
-                                </div>
-                                <div class="off">
-                                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQrCWJLuEXcCU4I6sEagFGgoIwYyETv6hP36w&usqp=CAU" alt="">
-                                </div>
-                                <a href="{{route('categoryclient','brands')}}"><figure><img src="{{asset('laraecomm/assets/images/samsung-galaxy-s21-5g-r.jpg')}}" alt=""></figure></a>
-                                <div class="fig_title_countdouen">Samsung Galaxy S21 5G</div>
-                                <div class="new_price">&#2547; 1,11,000</div>
-                                <div class="old_price"><del>&#2547; 1,39,000</del></div>
-                            </div>
-                            <div class="one">
-                                <div class="fire">
-                                    <img src="https://t3.ftcdn.net/jpg/02/84/46/60/360_F_284466038_lOHcM8pRGyigojkyV2M9CSQpimCTcqeD.jpg" alt="">
-                                </div>
-                                <div class="off">
-                                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQrCWJLuEXcCU4I6sEagFGgoIwYyETv6hP36w&usqp=CAU" alt="">
-                                </div>
-                                <a href="{{route('categoryclient','brands')}}"><figure><img src="{{asset('laraecomm/assets/images/xiaomi-redmi-note10-pro.jpg')}}" alt=""></figure></a>
-                                <div class="fig_title_countdouen">Samsung Galaxy S21 5G</div>
-                                <div class="new_price">&#2547; 1,11,000</div>
-                                <div class="old_price"><del>&#2547; 1,39,000</del></div>
-                            </div>
-                            <div class="one">
-                                <div class="fire">
-                                    <img src="https://t3.ftcdn.net/jpg/02/84/46/60/360_F_284466038_lOHcM8pRGyigojkyV2M9CSQpimCTcqeD.jpg" alt="">
-                                </div>
-                                <div class="off">
-                                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQrCWJLuEXcCU4I6sEagFGgoIwYyETv6hP36w&usqp=CAU" alt="">
-                                </div>
-                                <a href="{{route('categoryclient','brands')}}"><figure><img src="{{asset('laraecomm/assets/images/samsung-galaxy-s21-5g-r.jpg')}}" alt=""></figure></a>
-                                <div class="fig_title_countdouen">Samsung Galaxy S21 5G</div>
-                                <div class="new_price">&#2547; 1,11,000</div>
-                                <div class="old_price"><del>&#2547; 1,39,000</del></div>
-                            </div>
-                            <div class="one">
-                                <div class="fire">
-                                    <img src="https://t3.ftcdn.net/jpg/02/84/46/60/360_F_284466038_lOHcM8pRGyigojkyV2M9CSQpimCTcqeD.jpg" alt="">
-                                </div>
-                                <div class="off">
-                                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQrCWJLuEXcCU4I6sEagFGgoIwYyETv6hP36w&usqp=CAU" alt="">
-                                </div>
-                                <a href="{{route('categoryclient','brands')}}"><figure><img src="{{asset('laraecomm/assets/images/xiaomi-redmi-note10-pro.jpg')}}" alt=""></figure></a>
-                                <div class="fig_title_countdouen">Samsung Galaxy S21 5G</div>
-                                <div class="new_price">&#2547; 1,11,000</div>
-                                <div class="old_price"><del>&#2547; 1,39,000</del></div>
-                            </div>
+                        <div>
+                            <div class="uk-countdown-number uk-countdown-hours"></div>
+                            <div class="d">Hour</div>
                         </div>
-                        {{-- <!-- <a href="{{route('category','brands')}}"><div class="view_all"><span>View All</span></div></a> --> --}}
+                        <div>
+                            <div class="uk-countdown-number uk-countdown-minutes"></div>
+                            <div class="d">Min</div>
+                        </div>
+                        <div>
+                            <div class="uk-countdown-number uk-countdown-seconds"></div>
+                            <div class="d">Sec</div>
+                        </div>
                     </div>
+                </div>                    
+            </div>
+            <div class="best_sell6">
+                <div class="sell-sliderBrand">
+                    <div class="owl-carousel owl-theme" id="owl-carousel2">
+                        @if (count($offerProdcutsArray))
+                            @foreach ($offerProdcutsArray as $k => $offer)
+                                @php
+                                    $offerProductImg = json_decode($offer->pimage)[0];
+                                @endphp
+                                <div class="one">
+                                    <div class="fire">
+                                        <img src="https://t3.ftcdn.net/jpg/02/84/46/60/360_F_284466038_lOHcM8pRGyigojkyV2M9CSQpimCTcqeD.jpg" alt="">
+                                    </div>
+                                    {{-- <div class="off">
+                                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQrCWJLuEXcCU4I6sEagFGgoIwYyETv6hP36w&usqp=CAU" alt="">
+                                    </div> --}}
+                                    <a href="{{route('categoryclient','brands')}}"><figure><img src="{{asset('laraecomm'.$offerProductImg)}}" alt=""></figure></a>
+                                    <div class="fig_title_countdouen">{{$offer->name}}</div>
+                                    <div class="new_price">&#2547; {{number_format($offer->discount_price)}}</div>
+                                    <div class="old_price"><del>&#2547; {{number_format($offer->price)}}</del></div>
+                                </div>
+                            @endforeach
+                        @endif
+                    </div>
+                    {{-- <!-- <a href="{{route('category','brands')}}"><div class="view_all"><span>View All</span></div></a> --> --}}
                 </div>
             </div>
         </div>
     </div>
+</div>
+    
+@endif
 
 
 
@@ -311,21 +266,88 @@
                     @php
                         $countReview = 0;
                         $reviewArray = json_decode($products->review);
+                        $ratingTotal = 0;
                         if ($reviewArray) {
                             for ($i=0; $i <count($reviewArray) ; $i++) { 
+                                // how many people review it
                                 $countReview += 1;
+                                //total review count from above people
+                                $ratingTotal += $reviewArray[$i]->ratingCount;
                             }
                         }
-                        echo $countReview;
+                        // var_dump($reviewArray);
+                        // echo $countReview;
+                        //final review calculate avg
+                        //this condition for by zero division issue
+                        if ($countReview == 0) {
+                            $countingReview = round($ratingTotal / 1);
+                        } else {
+                            $countingReview = round($ratingTotal / $countReview);
+                        }
                     @endphp
-                    <div class="rating">
+                    @if ($countingReview == 0)
+                        <div class="rating">
+                            <span class="spanrating">(0)</span>
+                            <span class="far fa-star checked"></span>
+                            <span class="far fa-star checked"></span>
+                            <span class="far fa-star checked"></span>
+                            <span class="far fa-star checked"></span>
+                            <span class="far fa-star checked"></span>
+                        </div>                      
+                    @elseif ($countingReview == 1)
+                        <div class="rating">
+                            <span class="spanrating">(1)</span>
+                            <span class="far fa-star checked"></span>
+                            <span class="far fa-star checked"></span>
+                            <span class="far fa-star checked"></span>
+                            <span class="far fa-star checked"></span>
+                            <span><i class="fas fa-star"></i></span>
+                        </div>
+                    @elseif ($countingReview == 2)
+                        <div class="rating">
+                            <span class="spanrating">(2)</span>
+                            <span class="far fa-star checked"></span>
+                            <span class="far fa-star checked"></span>
+                            <span class="far fa-star checked"></span>
+                            <span><i class="fas fa-star"></i></span>
+                            <span><i class="fas fa-star"></i></span>
+                        </div>
+                    @elseif ($countingReview == 3)
+                        <div class="rating">
+                            <span class="spanrating">(3)</span>
+                            <span class="far fa-star checked"></span>
+                            <span class="far fa-star checked"></span>
+                            <span><i class="fas fa-star"></i></span>
+                            <span><i class="fas fa-star"></i></span>
+                            <span><i class="fas fa-star"></i></span>
+                        </div>
+                    @elseif ($countingReview == 4)
+                        <div class="rating">
+                            <span class="spanrating">(4)</span>
+                            <span class="far fa-star checked"></span>
+                            <span><i class="fas fa-star"></i></span>
+                            <span><i class="fas fa-star"></i></span>
+                            <span><i class="fas fa-star"></i></span>
+                            <span><i class="fas fa-star"></i></span>
+                        </div>
+                    @elseif ($countingReview == 5)
+                        <div class="rating">
+                            <span class="spanrating">(5)</span>
+                            <span><i class="fas fa-star"></i></span>
+                            <span><i class="fas fa-star"></i></span>
+                            <span><i class="fas fa-star"></i></span>
+                            <span><i class="fas fa-star"></i></span>
+                            <span><i class="fas fa-star"></i></span>
+                        </div>
+                    @endif
+                    {{-- <div class="rating">
                         <span class="spanrating">(0)</span>
                         <span class="far fa-star checked"></span>
                         <span class="far fa-star checked"></span>
                         <span class="far fa-star checked"></span>
                         <span class="far fa-star checked"></span>
                         <span><i class="fas fa-star"></i></span>
-                    </div>
+                    </div> --}}
                     @if (!$products->discount_price)
                         <br>
                     @endif

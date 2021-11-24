@@ -39,7 +39,28 @@
 </div> --}}
 
 
-
+@php
+    $countReview = 0;
+    $reviewArray = json_decode($single_product->review);
+    $ratingTotal = 0;
+    if ($reviewArray) {
+        for ($i=0; $i <count($reviewArray) ; $i++) { 
+            // how many people review it
+            $countReview += 1;
+            //total review count from above people
+            $ratingTotal += $reviewArray[$i]->ratingCount;
+        }
+    }
+    // var_dump($reviewArray);
+    // echo $countReview;
+    //final review calculate avg
+    //this condition for by zero division issue
+    if ($countReview == 0) {
+        $countingReview = round($ratingTotal / 1);
+    } else {
+        $countingReview = round($ratingTotal / $countReview);
+    }
+@endphp
 
 <div class="top_fixed_for_pc_only" id="fixed_show">
     <div class="row">
@@ -53,13 +74,62 @@
                     {{$single_product->name}}
                 </div>
                 <div class="details_sticky">
-                    <div class="rating4">
+                    @if ($countingReview == 0)
+                        <div class="rating3">
+                            <span class="far fa-star checked"></span>
+                            <span class="far fa-star checked"></span>
+                            <span class="far fa-star checked"></span>
+                            <span class="far fa-star checked"></span>
+                            <span class="far fa-star checked"></span><span class="spanrating2">({{$countReview}} Reviews)</span><span class="spancolmargin"><span class="spancol3">sold:</span> {{$single_product->sold}}</span>
+                        </div>                    
+                    @elseif ($countingReview == 1)
+                        <div class="rating3">
+                            <span class="fas fa-star"></span>
+                            <span class="far fa-star checked"></span>
+                            <span class="far fa-star checked"></span>
+                            <span class="far fa-star checked"></span>
+                            <span class="far fa-star checked"></span><span class="spanrating2">({{$countReview}} Reviews)</span><span class="spancolmargin"><span class="spancol3">sold:</span> {{$single_product->sold}}</span>
+                        </div>
+                    @elseif ($countingReview == 2)
+                        <div class="rating3">
+                            <span class="fas fa-star"></span>
+                            <span class="fas fa-star"></span>
+                            <span class="far fa-star checked"></span>
+                            <span class="far fa-star checked"></span>
+                            <span class="far fa-star checked"></span><span class="spanrating2">({{$countReview}} Reviews)</span><span class="spancolmargin"><span class="spancol3">sold:</span> {{$single_product->sold}}</span>
+                        </div>
+                    @elseif ($countingReview == 3)
+                        <div class="rating3">
+                            <span class="fas fa-star"></span>
+                            <span class="fas fa-star"></span>
+                            <span class="fas fa-star"></span>
+                            <span class="far fa-star checked"></span>
+                            <span class="far fa-star checked"></span><span class="spanrating2">({{$countReview}} Reviews)</span><span class="spancolmargin"><span class="spancol3">sold:</span> {{$single_product->sold}}</span>
+                        </div>
+                    @elseif ($countingReview == 4)
+                        <div class="rating3">
+                            <span class="fas fa-star"></span>
+                            <span class="fas fa-star"></span>
+                            <span class="fas fa-star"></span>
+                            <span class="fas fa-star"></span>
+                            <span class="far fa-star checked"></span><span class="spanrating2">({{$countReview}} Reviews)</span><span class="spancolmargin"><span class="spancol3">sold:</span> {{$single_product->sold}}</span>
+                        </div>
+                    @elseif ($countingReview == 5)
+                        <div class="rating3">
+                            <span class="fas fa-star"></span>
+                            <span class="fas fa-star"></span>
+                            <span class="fas fa-star"></span>
+                            <span class="fas fa-star"></span>
+                            <span class="fas fa-star"></span><span class="spanrating2">({{$countReview}} Reviews)</span><span class="spancolmargin"><span class="spancol3">sold:</span> {{$single_product->sold}}</span>
+                        </div>
+                    @endif
+                    {{-- <div class="rating4">
                         <span class="far fa-star checked"></span>
                         <span class="far fa-star checked"></span>
                         <span class="far fa-star checked"></span>
                         <span class="far fa-star checked"></span>
                         <span class="far fa-star checked"></span><span class="spanrating2">(0 Reviews)</span><span class="spancolmargin"><span class="spancol3">|  sold:</span> {{$single_product->sold}}</span>
-                    </div>    
+                    </div>     --}}
                 </div>
             </div>
         </div>
@@ -98,13 +168,62 @@
         <ul>
             <li class="ifontsize">{{$single_product->name}}</li>
             <li class="limargin">
-                <div class="rating3">
+                    @if ($countingReview == 0)
+                        <div class="rating3">
+                            <span class="far fa-star checked"></span>
+                            <span class="far fa-star checked"></span>
+                            <span class="far fa-star checked"></span>
+                            <span class="far fa-star checked"></span>
+                            <span class="far fa-star checked"></span><span class="spanrating2">({{$countReview}} Reviews)</span><span class="spancolmargin"><span class="spancol3">sold:</span> {{$single_product->sold}}</span>
+                        </div>                    
+                    @elseif ($countingReview == 1)
+                        <div class="rating3">
+                            <span class="fas fa-star"></span>
+                            <span class="far fa-star checked"></span>
+                            <span class="far fa-star checked"></span>
+                            <span class="far fa-star checked"></span>
+                            <span class="far fa-star checked"></span><span class="spanrating2">({{$countReview}} Reviews)</span><span class="spancolmargin"><span class="spancol3">sold:</span> {{$single_product->sold}}</span>
+                        </div>
+                    @elseif ($countingReview == 2)
+                        <div class="rating3">
+                            <span class="fas fa-star"></span>
+                            <span class="fas fa-star"></span>
+                            <span class="far fa-star checked"></span>
+                            <span class="far fa-star checked"></span>
+                            <span class="far fa-star checked"></span><span class="spanrating2">({{$countReview}} Reviews)</span><span class="spancolmargin"><span class="spancol3">sold:</span> {{$single_product->sold}}</span>
+                        </div>
+                    @elseif ($countingReview == 3)
+                        <div class="rating3">
+                            <span class="fas fa-star"></span>
+                            <span class="fas fa-star"></span>
+                            <span class="fas fa-star"></span>
+                            <span class="far fa-star checked"></span>
+                            <span class="far fa-star checked"></span><span class="spanrating2">({{$countReview}} Reviews)</span><span class="spancolmargin"><span class="spancol3">sold:</span> {{$single_product->sold}}</span>
+                        </div>
+                    @elseif ($countingReview == 4)
+                        <div class="rating3">
+                            <span class="fas fa-star"></span>
+                            <span class="fas fa-star"></span>
+                            <span class="fas fa-star"></span>
+                            <span class="fas fa-star"></span>
+                            <span class="far fa-star checked"></span><span class="spanrating2">({{$countReview}} Reviews)</span><span class="spancolmargin"><span class="spancol3">sold:</span> {{$single_product->sold}}</span>
+                        </div>
+                    @elseif ($countingReview == 5)
+                        <div class="rating3">
+                            <span class="fas fa-star"></span>
+                            <span class="fas fa-star"></span>
+                            <span class="fas fa-star"></span>
+                            <span class="fas fa-star"></span>
+                            <span class="fas fa-star"></span><span class="spanrating2">({{$countReview}} Reviews)</span><span class="spancolmargin"><span class="spancol3">sold:</span> {{$single_product->sold}}</span>
+                        </div>
+                    @endif
+                {{-- <div class="rating3">
                     <span class="far fa-star checked"></span>
                     <span class="far fa-star checked"></span>
                     <span class="far fa-star checked"></span>
                     <span class="far fa-star checked"></span>
                     <span class="far fa-star checked"></span><span class="spanrating2">(0 Reviews)</span><span class="spancolmargin"><span class="spancol3">sold:</span> {{$single_product->sold}}</span>
-                </div>
+                </div> --}}
             </li>
             @if ($single_product->discount_price)
                 <li class="taka" style="margin-top:0px !important;">৳ {{number_format($single_product->discount_price)}}</li>
@@ -511,7 +630,7 @@
                 <div class="add_buy_but">
                     <div class="add_but" onclick="orderplace()">Add to cart</div>
                     <div class="buy_but" onclick="buynow()">Buy Now</div>
-                    <div class="wish_icon"><i class="far fa-heart"></i></div>
+                    <div class="wish_icon" id="wish_icon" onclick="addFav()"><i class="far fa-heart" id="iconBg"></i></div>
                 </div>
             </li>
             <li style="margin-top:5px;">
@@ -668,7 +787,7 @@
                 <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Description</button>
             </li>
             <li class="nav-item" role="presentation">
-                <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Reviews (0)</button>
+                <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Reviews ({{$countReview}})</button>
             </li>
         </ul>
         <div class="tab-content" id="myTabContent">
@@ -716,14 +835,17 @@
                 <div class="review">
                     <div class="rhead">Reviews</div>
                     <br>
-                    <div class="rdetails">
-                        There are no reviews yet.
-                    </div>
-                    <br>
-                    <br>
-                    <div class="befirst">
-                        Be the first to review “Samsung Galaxy M02s 4GB/64GB”
-                    </div>
+                    @if ($countReview == 0)
+                        <div class="rdetails">
+                            There are no reviews yet.
+                        </div>
+                        <br>
+                        <br>
+                        <div class="befirst">
+                            Be the first to review “{{$single_product->name}}”
+                        </div>  
+                    @endif
+
                     <div class="befirst_sub">
                         Your email address will not be published. Required fields are marked <span class="spanstarcolor">*</span>
                     </div>
@@ -1027,6 +1149,20 @@
 .dfontp {
     font-size:15px;
 }
+.selectNone{
+    user-select: none !important;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+}
+.wish_icon2 {
+    margin-left: 13px;
+    font-size: 18px;
+    color: var(--orange);
+    cursor: default;
+    margin-top: 10px;
+    transition: .4s;
+    user-select: none;
+}
 </style>
 <div class="bottom_fixed_buy_cart visibility_hide">
     <a href="javascript:history.back()">
@@ -1067,6 +1203,24 @@
         await axios.post('/laraecomm/api/v1/singleproductbyslug',formdata).then(res=>{
             productShipping = res.data.shipping_charge;
             currentProduct = res.data;
+            userId = localStorage.getItem('userID');
+            let formdata = new FormData();
+            formdata.append('userId',userId);
+            let wishlist = '';
+            axios.post('/laraecomm/api/wishlist/check',formdata).then(res=> {
+                if (res.data) {
+                    wishlist = JSON.parse(res.data);
+                    wishTrue = wishlist.findIndex(res=> res.id == currentProduct.id);
+                    if (wishTrue != -1) {
+                        document.getElementById('iconBg').classList.add('fas');
+                        document.getElementById('wish_icon').classList.remove('wish_icon');
+                        document.getElementById('wish_icon').classList.add('wish_icon2');
+                        document.getElementById('wish_icon').style.pointerEvents = 'none';
+                    }
+                }
+
+            });
+
         });
 
         axios.get('/laraecomm/api/V1/location').then( res=> {
@@ -1101,7 +1255,16 @@
         shipcost = (parseInt(getitem,10) + parseInt(productShipping,10))+' Taka';
     }
 
-    
+    function addFav() {
+        userId = localStorage.getItem('userID');
+        productDetails = JSON.stringify(currentProduct);
+        let formdata = new FormData();
+        formdata.append('userId',userId);
+        formdata.append('productDetails',productDetails);
+        axios.post('/laraecomm/api/wishlist/insert',formdata).then(res=> {
+            window.location.reload();
+        });
+    }
 
 </script>
 @endsection

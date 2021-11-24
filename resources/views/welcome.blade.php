@@ -261,15 +261,10 @@
 
 
 
-
-
-
-
-
                 <a href="{{route('wich')}}">
                     <div class="cart">
                         <i class="far fa-heart fa-color"></i>
-                        <span class='badge badge-warning lblCartCount' id='lblCartCount1'> 5 </span>
+                        <span class='badge badge-warning lblCartCount' id='lblCartCount1'></span>
                     </div>
                 </a>
                 <div class="cart cart_offcanvas"   data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight" >
@@ -776,7 +771,23 @@
         <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/js/iziToast.min.js" integrity="sha512-Zq9o+E00xhhR/7vJ49mxFNJ0KQw1E1TMWkPTxrWcnpfEFDEXgUiwJHIKit93EW/XxE31HSI5GEOW06G6BF1AtA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
+        <script>
+            function listwish() {
+                let userId = localStorage.getItem('userID');
+                if (userId) {
+                    let formdata = new FormData();
+                    formdata.append('userId',userId);
+                    let all= '';
+                    axios.post('/laraecomm/api/wishlist/check',formdata).then(res=> {
+                        let listLength = JSON.parse(res.data).length;
+                        document.getElementById('lblCartCount1').innerHTML = listLength;
+                    });
+                } else{
+                    document.getElementById('lblCartCount1').innerHTML = 0;
+                }
+            }
+            listwish();
+        </script>
         <script>
             let signupbtn = document.getElementById('signupbtn');
             signupbtn.addEventListener('click',function () {

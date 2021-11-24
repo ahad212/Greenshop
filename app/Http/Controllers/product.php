@@ -6,7 +6,9 @@ use Illuminate\Http\Request;
 use App\Models\products;
 use App\Models\brandModel;
 use App\Models\location;
+use App\Models\offerModel;
 use Carbon\Carbon;
+use DB;
 class product extends Controller
 {
     public function storeproduct (Request $request) {
@@ -310,8 +312,7 @@ public function updateProduct(Request $request) {
         $single_product = products::join('brands','brands.id','=','products.category')->select('products.*','brands.cname','brands.parent')->where('slug',$product_name)->first();
         $location = location::all();
         $images = json_decode($single_product->pimage);
-
-        return view('product_view',compact('single_product'),['image'=> $images,'location' => $location],);
+        return view('product_view',compact('single_product'),['image'=> $images,'location' => $location]);
     }
 
 
@@ -319,7 +320,8 @@ public function updateProduct(Request $request) {
     public function home(){
         $all_products = products::where('pstatus','active')->join('brands','products.category','=','brands.id')->select('products.*','brands.cname','brands.parent')->get();
         $f_products = products::where('pstatus','active')->get();
-        return view('home',['allProducts'=> $all_products,'featuredProducts'=> $f_products]);
+        $offer = offerModel::orderBy('id','desc')->limit(1)->get();
+        return view('home',['allProducts'=> $all_products,'featuredProducts'=> $f_products,'offer'=> $offer]);
     }
 
 
@@ -394,7 +396,48 @@ public function updateProduct(Request $request) {
                 'message' => 'Thanks for your review :)'
             ],201);
         }
-        return response()->json();
     }
+
+    public function wishlistAdd(Request $request)  {
+        $productDetails = json_decode($request->productDetails);
+        $user = DB::table('users')->where('id',$request->userId)->first();
+        $existingWishlist = json_decode($user->wishlist);
+        if ($existingWishlist) {
+            array_push($existingWishlist ,$productDetails);
+            DB::table('users')->where('id',$request->userId)->update([
+                'wishlist' => $existingWishlist
+            ]);
+            return response()->json([
+                'message' => 'Product added your wishlist',
+            ],201);
+        } 
+        else {
+            $array = array();
+            array_push($array,$productDetails);
+            DB::table('users')->where('id',$request->userId)->update([
+                'wishlist' => json_encode($array)
+            ]);
+            return response()->json([
+                'message' => 'Product added your wishlist'
+            ],201);
+        }
+        // return response()->json($request);
+    }
+    public function wishlistCheck(Request $request) {
+        $userId = $request->userId;
+        $userDetails = DB::table('users')->where('id',$userId)->first();
+        $wishlist = $userDetails->wishlist;
+        return response()->json($wishlist,200);
+    }
+    public function wishlistupdate(Request $request) {
+        $userId = $request->userId;
+        $productArray = $request->productArray;
+        $userDetails = DB::table('users')->where('id',$userId)->update([
+            'wishlist' => $productArray
+        ]);
+        return response()->json('Item delted from wishlist',200);
+    }
+
+
 
 }
