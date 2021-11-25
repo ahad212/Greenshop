@@ -46,9 +46,9 @@
         }
     </style>
     <body>
-    {{-- <div id="loader">
+    <div id="loader">
         <img src="{{asset('laraecomm/images/loader.gif')}}" alt="">
-    </div> --}}
+    </div>
 
 
     {{-- login modal start --}}

@@ -1207,19 +1207,21 @@
             let formdata = new FormData();
             formdata.append('userId',userId);
             let wishlist = '';
-            axios.post('/laraecomm/api/wishlist/check',formdata).then(res=> {
-                if (res.data) {
-                    wishlist = JSON.parse(res.data);
-                    wishTrue = wishlist.findIndex(res=> res.id == currentProduct.id);
-                    if (wishTrue != -1) {
-                        document.getElementById('iconBg').classList.add('fas');
-                        document.getElementById('wish_icon').classList.remove('wish_icon');
-                        document.getElementById('wish_icon').classList.add('wish_icon2');
-                        document.getElementById('wish_icon').style.pointerEvents = 'none';
+            if (userId) {
+                axios.post('/laraecomm/api/wishlist/check',formdata).then(res=> {
+                    if (res.data) {
+                        wishlist = JSON.parse(res.data);
+                        wishTrue = wishlist.findIndex(res=> res.id == currentProduct.id);
+                        if (wishTrue != -1) {
+                            document.getElementById('iconBg').classList.add('fas');
+                            document.getElementById('wish_icon').classList.remove('wish_icon');
+                            document.getElementById('wish_icon').classList.add('wish_icon2');
+                            document.getElementById('wish_icon').style.pointerEvents = 'none';
+                        }
                     }
-                }
 
-            });
+                });
+            }
 
         });
 
@@ -1256,6 +1258,25 @@
     }
 
     function addFav() {
+        let token = localStorage.getItem('usertoken');
+        if (!token) {
+
+            //open login screen
+            background.classList.add('shadowopen');
+            model.classList.add('shadowopen');
+            document.body.classList.add('bodyblur');
+            document.getElementById('main_warp').classList.add('main-warp');
+            //end login screen
+
+            //showing error message
+            iziToast.error({
+                title: 'Error',
+                message: 'Please Login First',
+                position: 'topCenter',
+            });
+            //end error message
+            return;       
+        }
         userId = localStorage.getItem('userID');
         productDetails = JSON.stringify(currentProduct);
         let formdata = new FormData();

@@ -131,6 +131,7 @@
                 }
                 if (all == '') {
                     document.getElementById('divfornowish').style.display = 'flex';
+                    document.getElementById('carosoul').innerHTML = '';
 
                 } else {
                     document.getElementById('carosoul').innerHTML = all;
@@ -147,23 +148,27 @@
         let formdata = new FormData();
         formdata.append('userId',userId);
         // formdata.append('productId',productId);
-        axios.post('/laraecomm/api/wishlist/check',formdata).then(res=> {
-            let data = JSON.parse(res.data);
-            let indCheck = data.findIndex(res => res.id == productId);
-            data.splice(indCheck,1);
-            let formdata1 =new FormData();
-            formdata1.append('userId',userId);
-            formdata1.append('productArray',JSON.stringify(data));
-            axios.post('/laraecomm/api/wishlist/update',formdata1).then(res=>{
-                iziToast.success({
-                    title: 'Success',
-                    message: res.data,
-                    position: 'topCenter',
+        if (userId) {
+            axios.post('/laraecomm/api/wishlist/check',formdata).then(res=> {
+                let data = JSON.parse(res.data);
+                let indCheck = data.findIndex(res => res.id == productId);
+                data.splice(indCheck,1);
+                let formdata1 =new FormData();
+                formdata1.append('userId',userId);
+                formdata1.append('productArray',JSON.stringify(data));
+                axios.post('/laraecomm/api/wishlist/update',formdata1).then(res=>{
+                    renderWishlist();
+                    listwish();
+                    iziToast.success({
+                        title: 'Success',
+                        message: res.data,
+                        position: 'topCenter',
+                    });
+
+                    // location.reload();
                 });
-                renderWishlist();
-                listwish();
             });
-        });
+        }
     }
 </script>
 @endsection
