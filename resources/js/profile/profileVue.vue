@@ -1,15 +1,20 @@
 <template>
-    <div class="prfile">
-        
+    <div class="profile">
+        {{msg}}
+        <router-link to="/edit_profile">edit</router-link>
     </div>
 </template>
 
 <script>
+import boxComponent from './profileComponent/boxComponent.vue'
 
-export default{
+export default {
+    components:{
+        boxComponent
+    },
     data(){
         return{
-            'msg':'profile'
+            msg:'profile'
         }
     },
     mounted(){
@@ -17,3 +22,6 @@ export default{
     }
 }
 </script>
+<style scoped>
+
+</style>

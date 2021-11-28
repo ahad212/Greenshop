@@ -524,10 +524,10 @@ footer{
     border-radius: 9px;
     }
 
-    .label-warning[href],
+    /* .label-warning[href],
     .badge-warning[href] {
     background-color: #c67605;
-    }
+    } */
     .lblCartCount {
         font-size: 12px;
         background: #ff0000;
@@ -980,7 +980,7 @@ footer{
     .afterloginvisible{
         display: block;
     }
-    .logoutbtn{
+    .logoutbtn, .profilebtn{
         height:26px;
         display: flex;
         align-items: center;
@@ -989,6 +989,9 @@ footer{
         user-select: none;
         -webkit-user-select:none;
         -moz-user-select: none;
+    }
+    .logoutbtn:hover, .profilebtn:hover{
+        color:var(--orange);
     }
     /* login modal end */
 

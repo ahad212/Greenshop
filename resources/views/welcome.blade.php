@@ -104,16 +104,16 @@
             <div class="subtitlelog">Welcome! Register for an account</div>
             <div class="formdiv2">
                 <div class="form-floating mb-2">
+                    <input type="text" class="form-control" id="floatingInput2" placeholder="Phone">
+                    <label for="floatingInput2">Phone*</label>
+                </div>
+                <div class="form-floating mb-2">
                     <input type="text" class="form-control" id="floatingInput0" placeholder="Username">
                     <label for="floatingInput0">Name*</label>
                 </div>
                 <div class="form-floating mb-2">
                     <input type="email" class="form-control" id="floatingInput1"  placeholder="Email">
                     <label for="floatingInput1">Email</label>
-                </div>
-                <div class="form-floating mb-2">
-                    <input type="text" class="form-control" id="floatingInput2" placeholder="Phone">
-                    <label for="floatingInput2">Phone*</label>
                 </div>
                 <div class="form-floating  mb-2 passwordeye">
                     <input type="password" class="form-control" id="floatingPassword0" placeholder="Password">
@@ -169,6 +169,8 @@
                             <i class="far fa-user fa-color"></i>
                         </div>
                         <div class="afterlogin" id="afterlogin">
+                            <a href="/laraecomm/profile" class="profilebtn">Profile</a>
+                            <a class="profilebtn">Orders</a>
                             <div class="logoutbtn">Log Out</div>
                         </div>
                     </div>

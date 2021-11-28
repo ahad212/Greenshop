@@ -114,7 +114,7 @@ Route::prefix('laraecomm')->group(function () {
     });
 
 });
-Route::get('/laraecomm/profile/{vue?}', function ($search) {
-    return view('profile');
-})->where('vue', '.*?');
+Route::get('/laraecomm/{vue}', function () {
+    return view('profile',['name'=>'ahad']);
+})->where('all', '.*');
 Route::redirect('/laraecomm/','/laraecomm/home');

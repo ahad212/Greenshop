@@ -9,12 +9,20 @@
  window.Vue = require('vue').default;
  import 'bootstrap'
  import 'bootstrap/dist/css/bootstrap.min.css'
+import {routes} from './router'
+ Vue.component('profileCover', require('./profile/profileCover.vue').default);
+ import VueRouter from 'vue-router'
 
- Vue.component('profileVue', require('./profile/profileVue.vue').default);
- 
-
+ Vue.use(VueRouter)
+  
+ const router = new VueRouter({
+    routes,
+    mode:'history',
+    base:'laraecomm'
+  })
  
  const app = new Vue({
-     el: '#app',
+     el: '#profile-vue',
+     router
  });
  
