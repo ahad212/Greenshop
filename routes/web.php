@@ -109,6 +109,12 @@ Route::prefix('laraecomm')->group(function () {
     Route::get('/admin/offer',function () {
         return view('admin.sellOffer.offer');
     })->name('offer');
+    Route::get('/profile',function() {
+        return view('profile');
+    });
 
 });
+Route::get('/laraecomm/profile/{vue?}', function ($search) {
+    return view('profile');
+})->where('vue', '.*?');
 Route::redirect('/laraecomm/','/laraecomm/home');
