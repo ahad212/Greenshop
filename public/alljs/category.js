@@ -1,29 +1,25 @@
- $( function() {
-    $( "#slider-range" ).slider({
-      range: true,
-      min: 13000,
-      max: 43500,
-      values: [ 13000, 43500 ],
-      slide: function( event, ui ) {
-        $( "#amount" ).val( "৳" + ui.values[ 0 ] + " - ৳" + ui.values[ 1 ] );
-        console.log(ui.values[ 0 ],ui.values[ 1 ]);
-      }
-    });
-    $( "#amount" ).val( "৳" + $( "#slider-range" ).slider( "values", 0 ) +
-      " - ৳" + $( "#slider-range" ).slider( "values", 1 ) );
-  } );
+// const { default: axios } = require("axios");
+
+
 
 //   for off-canvas
 
   $( function() {
     $( "#slider-range2" ).slider({
       range: true,
-      min: 13000,
-      max: 43500,
-      values: [ 13000, 43500 ],
+      min: 0,
+      max: 200000,
+      values: [ 0, 200000 ],
       slide: function( event, ui ) {
         $( "#amount2" ).val( "৳" + ui.values[ 0 ] + " - ৳" + ui.values[ 1 ] );
-        console.log(ui.values[ 0 ],ui.values[ 1 ]);
+        // console.log(ui.values[ 0 ],ui.values[ 1 ]);
+        //laraecomm will be removed
+        let formData = new FormData();
+        formData.append('min',ui.values[ 0 ]);
+        formData.append('max',ui.values[ 1 ]);
+        axios.post('/laraecomm/api/product/filter',formData).then(res=>{
+          console.log(res);
+        });
       }
     });
     $( "#amount2" ).val( "৳" + $( "#slider-range2" ).slider( "values", 0 ) +

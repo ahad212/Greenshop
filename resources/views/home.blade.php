@@ -171,7 +171,7 @@
                                     {{-- <div class="off">
                                         <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQrCWJLuEXcCU4I6sEagFGgoIwYyETv6hP36w&usqp=CAU" alt="">
                                     </div> --}}
-                                    <a href="{{route('categoryclient','brands')}}"><figure><img src="{{asset('laraecomm'.$offerProductImg)}}" alt=""></figure></a>
+                                    <a href="{{route('product_details', $offer->slug)}}"><figure><img src="{{asset('laraecomm'.$offerProductImg)}}" alt=""></figure></a>
                                     <div class="fig_title_countdouen">{{$offer->name}}</div>
                                     <div class="new_price">&#2547; {{number_format($offer->discount_price)}}</div>
                                     <div class="old_price"><del>&#2547; {{number_format($offer->price)}}</del></div>

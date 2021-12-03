@@ -60,4 +60,8 @@ Route::post('/wishlist/check','product@wishlistCheck');
 
 Route::post('/wishlist/update','product@wishlistupdate');
 
+//filter api
+
+Route::post('/product/filter','product@filter');
+
 

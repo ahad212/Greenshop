@@ -2,7 +2,6 @@
 @section('content')
 <link rel="stylesheet" href="{{asset('laraecomm/allcss/nice-select.css')}}">
 <link rel="stylesheet" href="{{asset('laraecomm/allcss/category.css')}}">
-
 {{-- <div class="second">
     <div class="smain">
         <div class="cathead">
@@ -48,7 +47,7 @@
                         <div id="slider-range" class="slmargintop"></div>
                         <p>
                         <label for="amount">Price:
-                        <input  class="slider_input slinput" type="text" id="amount" readonly >
+                        <input class="slider_input slinput" type="text" id="amount" readonly >
                         </label></p>
                     </div>
                     <div class="price_range"></div>
@@ -65,7 +64,7 @@
                         <li>Xiaomi (MI) <span> (0)</span></li>
                     </ul>
                 </div>
-                <hr class="hrclass"/>
+                {{-- <hr class="hrclass"/>
                 <div class="product_tag">
                     <div class="ctitle">
                         Product Tags
@@ -80,7 +79,7 @@
                         <li>Ear piece <span> (0)</span></li>
                         <li>Medical <span> (0)</span></li>
                     </ul>
-                </div>
+                </div> --}}
                 <hr class="hrclass"/>
                 <div class="product_color">
                     <div class="ctitle">
@@ -144,7 +143,7 @@
 
 
 <div class="container grid-container cgc">
-    <div class="row">
+    <div class="row"  id="main_card">
         @foreach ($allProducts as $k => $products)
             <div class="col-6 col-md-6 col-lg-4">
                 @php
@@ -158,22 +157,106 @@
                 @endphp
                 <div class="card">
                     <div class="one class_for_list">
-                        <div class="icon_group">
+                        {{-- <div class="icon_group">
                             <div class="heart"><i class="far fa-heart"></i></div>
                             <div class="eye emargin"><i class="far fa-eye"></i></div>
-                        </div>
+                        </div> --}}
                         <div class="product_image">
                         <a href="{{route('product_details',$products->slug)}}"><img class="p_img" src="{{asset('laraecomm/'.$image)}}" alt=""></a></div>
                         <div class="apart_for_list">
                             <a href="{{route('product_details',$products->slug)}}"><div class="product_title">{{$products->name}}</div></a>
+                            @php
+                            $countReview = 0;
+                            $reviewArray = json_decode($products->review);
+                            $ratingTotal = 0;
+                            if ($reviewArray) {
+                                for ($i=0; $i <count($reviewArray) ; $i++) { 
+                                    // how many people review it
+                                    $countReview += 1;
+                                    //total review count from above people
+                                    $ratingTotal += $reviewArray[$i]->ratingCount;
+                                }
+                            }
+                            // var_dump($reviewArray);
+                            // echo $countReview;
+                            //final review calculate avg
+                            //this condition for by zero division issue
+                            if ($countReview == 0) {
+                                $countingReview = round($ratingTotal / 1);
+                            } else {
+                                $countingReview = round($ratingTotal / $countReview);
+                            }
+                        @endphp
+                        @if ($countingReview == 0)
                             <div class="rating">
                                 <span class="far fa-star checked"></span>
                                 <span class="far fa-star checked"></span>
                                 <span class="far fa-star checked"></span>
                                 <span class="far fa-star checked"></span>
-                                <span class="far fa-star checked"></span><span class="ratingcolor9">(0)</span>
+                                <span class="far fa-star checked"></span>
+                                <span class="spanrating">(0)</span>
+                            </div>                      
+                        @elseif ($countingReview == 1)
+                            <div class="rating">
+                                <span><i class="fas fa-star"></i></span>
+                                <span class="far fa-star checked"></span>
+                                <span class="far fa-star checked"></span>
+                                <span class="far fa-star checked"></span>
+                                <span class="far fa-star checked"></span>
+                                <span class="spanrating">(1)</span>
                             </div>
-                            <div class="taka"><div class="triangle-left"></div><div class="circle_trns disinline1"></div> <div class="t_icon">&#2547;</div> {{number_format($products->price)}}</div>
+                        @elseif ($countingReview == 2)
+                            <div class="rating">
+                                <span><i class="fas fa-star"></i></span>
+                                <span><i class="fas fa-star"></i></span>
+                                <span class="far fa-star checked"></span>
+                                <span class="far fa-star checked"></span>
+                                <span class="far fa-star checked"></span>
+                                <span class="spanrating">(2)</span>
+                            </div>
+                        @elseif ($countingReview == 3)
+                            <div class="rating">
+                                <span><i class="fas fa-star"></i></span>
+                                <span><i class="fas fa-star"></i></span>
+                                <span><i class="fas fa-star"></i></span>
+                                <span class="far fa-star checked"></span>
+                                <span class="far fa-star checked"></span>
+                                <span class="spanrating">(3)</span>
+                            </div>
+                        @elseif ($countingReview == 4)
+                            <div class="rating">
+                                <span><i class="fas fa-star"></i></span>
+                                <span><i class="fas fa-star"></i></span>
+                                <span><i class="fas fa-star"></i></span>
+                                <span><i class="fas fa-star"></i></span>
+                                <span class="far fa-star checked"></span>
+                                <span class="spanrating">(4)</span>
+                            </div>
+                        @elseif ($countingReview == 5)
+                            <div class="rating">
+                                <span><i class="fas fa-star"></i></span>
+                                <span><i class="fas fa-star"></i></span>
+                                <span><i class="fas fa-star"></i></span>
+                                <span><i class="fas fa-star"></i></span>
+                                <span><i class="fas fa-star"></i></span>
+                                <span class="spanrating">(5)</span>
+                            </div>
+                        @endif
+                        @if ($products->discount_price)
+                            <div class="taka">৳ {{number_format($products->discount_price)}} </div>
+                        @else
+                            <div class="taka">৳ {{number_format(intval($products->price))}}</div>
+                        @endif
+                        @if ($products->discount_price)
+                            <div class="mainprice" style="text-align:center;color:rgba(0,0,0,0.4)">
+                                {{-- <span style="font-size:12px;"> {{round($parcentage)}}%- </span> --}}
+                                <del> ৳ {{number_format(intval($products->price))}}</del> 
+                            </div>
+                        @endif
+                            
+                        @if (!$products->discount_price)
+                            <br>
+                        @endif
                             <div class="list_all_text">
                                 <div class="list_all_text_title">
                                     {{$products->name}}
@@ -245,7 +328,7 @@
                 <li>Xiaomi (MI) <span> (0)</span></li>
             </ul>
         </div>
-        <hr class="hrclass"/>
+        {{-- <hr class="hrclass"/>
         <div class="product_tag">
             <div class="ctitle">
                 Product Tags
@@ -260,7 +343,7 @@
                 <li>Ear piece <span> (0)</span></li>
                 <li>Medical <span> (0)</span></li>
             </ul>
-        </div>
+        </div> --}}
         <hr class="hrclass"/>
         <div class="product_color">
             <div class="ctitle">
@@ -328,14 +411,49 @@
     //             // console.log(pstr);
     //         }  
     // });
+
 </script>
 
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" integrity="sha512-uto9mlQzrs59VwILcLiRYeLKPPbS/bT71da/OEBYEwcdNUk8jYIy+D176RYoop1Da+f9mvkYrmj5MCLZWEtQuA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script src="{{asset('laraecomm/alljs/jquery.nice-select.min.js')}}"></script>
 <script src="{{asset('laraecomm/alljs/category.js')}}"></script>
 <script>
     $('#select').niceSelect();
+
+
+
+    $( function() {
+        $( "#slider-range" ).slider({
+        range: true,
+        min: 0,
+        max: 200000,
+        values: [ 0, 200000 ],
+        slide: function( event, ui ) {
+            $( "#amount" ).val( "৳" + ui.values[ 0 ] + " - ৳" + ui.values[ 1 ] );
+            // console.log(ui.values[ 0 ],ui.values[ 1 ]);
+            //laraecomm will be removed
+            let min = ui.values[ 0 ];
+            let max = ui.values[ 1 ];
+            setTimeout(()=>{
+                show(min,max);
+            },500);
+        }
+        });
+        $( "#amount" ).val( "৳" + $( "#slider-range" ).slider( "values", 0 ) +
+        " - ৳" + $( "#slider-range" ).slider( "values", 1 ) );
+    });
+
+    function show(min,max) {
+        let formData = new FormData();
+        formData.append('min',min);
+        formData.append('max',max);
+        axios.post('/laraecomm/api/product/filter',formData).then(res=>{
+            console.log(res.data);
+            // document.getElementById('main_card').innerHTML = res.data;
+        });
+    }
 </script>
 @endsection
