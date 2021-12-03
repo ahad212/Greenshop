@@ -44,7 +44,7 @@
                 </div>
                     <br/>
                     <div class="slider">
-                        <div id="slider-range" class="slmargintop"></div>
+                        <div id="slider-range" onmouseup="getMaxMin()" class="slmargintop"></div>
                         <p>
                         <label for="amount">Price:
                         <input class="slider_input slinput" type="text" id="amount" readonly >
@@ -433,13 +433,7 @@
         values: [ 0, 200000 ],
         slide: function( event, ui ) {
             $( "#amount" ).val( "৳" + ui.values[ 0 ] + " - ৳" + ui.values[ 1 ] );
-            // console.log(ui.values[ 0 ],ui.values[ 1 ]);
-            //laraecomm will be removed
-            let min = ui.values[ 0 ];
-            let max = ui.values[ 1 ];
-            setTimeout(()=>{
-                show(min,max);
-            },500);
+            // show(ui.values[ 0 ],ui.values[ 1 ]);
         }
         });
         $( "#amount" ).val( "৳" + $( "#slider-range" ).slider( "values", 0 ) +
@@ -454,6 +448,14 @@
             console.log(res.data);
             // document.getElementById('main_card').innerHTML = res.data;
         });
+    }
+
+    function getMaxMin() {
+        let range = document.getElementById('amount').value;
+        let MAX_MIN_VALUE_ARRAY = range.replaceAll('৳','').split('-');
+        let min = parseInt(MAX_MIN_VALUE_ARRAY[0],10);
+        let max = parseInt(MAX_MIN_VALUE_ARRAY[1],10);
+        show(min,max);
     }
 </script>
 @endsection

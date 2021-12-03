@@ -443,9 +443,9 @@ public function updateProduct(Request $request) {
     public $min_price= 0;
     public $max_price = 400000;
     public function filter(Request $request) {
-        $this->min_price = $request->input('min');
-        $this->max_price = $request->input('max');
+        $this->min_price = intval($request->input('min'));
+        $this->max_price = intval($request->input('max'));
         $products = products::whereRaw("price >= ".$this->min_price." AND price <=".$this->max_price)->get();
-        return view('ProductCategory',['allProducts'=> $products]);
+        return response()->json($products);
     }
 }
