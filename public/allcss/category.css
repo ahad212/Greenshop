@@ -556,16 +556,51 @@
               background:white;
               margin-top:10px;
           } */
+              /* list view */
+
           .list-view .card{
             border-color:var(--green);
-            padding:10px 0px;
+            padding:2px 0px;
             display: flex;
             flex-flow: row wrap;
-            grid-column-gap:20px;
+            box-sizing: border-box;
           }
           .list-view .card img{
+            height:100px;
             display: inline-block;
             margin:10px;
+          }
+          .list-view .name{
+              font-size:20px;
+              font-weight:100;
+              margin-top:20px;
+              text-align: left;
+          }
+          .list-view .imageDiv {
+              width:20%;
+              display: flex;
+              align-items: center;
+          }
+          .list-view .cardDetails{
+              width:30%;
+              display: inline-block;
+              margin-top:10px;
+          }
+          .list-view .addbut{
+              margin-left:auto;
+              display: flex;
+              align-items: center;
+              margin-right:10px;
+          }
+          .list-view .taka{
+              font-size: 18px;
+              text-align: left;
+          }
+          .list-view .rating{
+              text-align: left;
+          }
+          .list-view .discount{
+              text-align: left;
           }
           .t_icon{
               display:inline;
@@ -648,6 +683,16 @@
               .grid-container .row{
                   overflow-x:hidden;
               }
+              .list-view .imageDiv{
+                  width: 30%;
+                }
+                .list-view .cardDetails{
+                    width:40%;
+                    margin-top:10px;
+                }
+                .list-view .name{
+                    font-size:15px;
+                }
               .product_image img{
                   height:100px;
                   width:100px;

@@ -266,67 +266,9 @@
                 </div>
             </div>
         @endforeach --}}
-        <style>
-            /* #main_card{
-                display: flex;
-                flex-flow: row wrap;
-                grid-column-gap: 30px;
-            }
-            .card{
-                flex-basis: 200px;
-                height:230px;
-                border:1px solid black;
-            } */
-            .card{
-                width:100%;
-                min-height:150px;
-                border:1px solid #d4d2d2;
-                padding:2px 0px;
-                cursor: pointer;
-            }
-            .card img{
-                height:60%;
-                width:100px;
-                object-fit: contain;
-                display: block;
-                margin: 20px auto;
-            }
-            .cardDetails{
-                height: 40%;
-            }
-            .name{
-                text-align: center;
-                font-weight: 600;
-            }
-            .name:hover{
-                color:var(--orange);
-            }
-            .discount{
-                text-align: center;
-                opacity: 0.5;
-            }
-        </style>
+        
         {{-- single product  --}}
-        <div class="col-6 col-md-6 col-lg-3" id="colChange">
-            <div class="card">
-                <img src="https://fdn2.gsmarena.com/vv/pics/apple/apple-iphone-7-red.jpg" alt="">
-            
-                <div class="cardDetails">
-                    <div class="name">Aplle iphone 8 plus</div>
-                    <div class="rating">
-                        <span><i class="fas fa-star"></i></span>
-                        <span><i class="fas fa-star"></i></span>
-                        <span><i class="fas fa-star"></i></span>
-                        <span><i class="fas fa-star"></i></span>
-                        <span class="far fa-star checked"></span>
-                        <span class="spanrating">(4)</span>
-                    </div>
-                    <div class="taka">৳ 50,000</div>
-                    <div class="discount"><del> ৳ 60,000</del></div> 
-                </div>
-                <div class="add_to_cart">Add to cart</div>
-            </div>
-        </div>
+
         {{-- single product  --}}
     </div>
 </div>
@@ -461,6 +403,40 @@
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script src="{{asset('laraecomm/alljs/jquery.nice-select.min.js')}}"></script>
 <script src="{{asset('laraecomm/alljs/category.js')}}"></script>
+
+<style>
+    .card{
+        width:100%;
+        min-height:150px;
+        border:1px solid #d4d2d2;
+    }
+    .card img{
+        height:120px;
+        display: block;
+        margin: 10px auto;
+        cursor: pointer;
+    }
+    .imageDiv{
+        max-height:150px;
+    }
+    .cardDetails{
+        height: 40%;
+    }
+    .cardDetails a {
+        text-align: center;
+        display: block;
+        font-size:88%;
+        font-weight: 600;
+        cursor: pointer;
+    }
+    .cardDetails a:hover{
+        color:var(--orange);
+    }
+    .discount{
+        text-align: center;
+        opacity: 0.5;
+    }
+</style>
 <script>
     $('#select').niceSelect();
 
@@ -487,9 +463,58 @@
         formData.append('max',max);
         axios.post('/laraecomm/api/product/filter',formData).then(res=>{
             console.log(res.data);
-            // document.getElementById('main_card').innerHTML = res.data;
+            let allp = '';
+            for (let index = 0; index < res.data.length; index++) {
+                const element = res.data[index];
+                const imageFirst = JSON.parse(element.pimage);
+                let reviewArray = JSON.parse(element.review);
+                let reviewPerson = 0;
+                let reviewPointTotal = 0;
+                let unCheckedReview = 5;
+                let AVG_REVIEW = 0;
+                if (reviewArray) {
+                    reviewPerson = reviewArray.length;
+                    for (let i = 0; i < reviewArray.length; i++) {
+                        const element = reviewArray[i];
+                        reviewPointTotal += parseInt(element.ratingCount,10);
+                    }
+                    AVG_REVIEW = Math.round(reviewPointTotal/reviewPerson);
+                    unCheckedReview = unCheckedReview - AVG_REVIEW;
+                    console.log(reviewPointTotal);
+                    console.log(reviewPerson);
+                    console.log(AVG_REVIEW);
+                    console.log(unCheckedReview);
+                }
+                allp +=`
+                <div class="col-6 col-md-6 col-lg-3" id="colChange">
+                    <div class="card">
+                        <div class="imageDiv">
+                            <a href="/laraecomm/Product/${element.slug}"><img src="${'/laraecomm'+imageFirst[0]}" alt=""></a>
+                        </div>
+                        <div class="cardDetails">
+                            <a class="name" href="/laraecomm/Product/${element.slug}">${element.name}</a>
+                            <div class="rating">
+                                ${(AVG_REVIEW == 0 )? '<span class="far fa-star checked"></span><span class="far fa-star checked"></span><span class="far fa-star checked"></span><span class="far fa-star checked"></span><span class="far fa-star checked"></span><span class="spanrating">('+reviewPerson+')</span>':''}
+                                ${(AVG_REVIEW == 1 )? '<span class="fas fa-star"></span><span class="far fa-star checked"></span><span class="far fa-star checked"></span><span class="far fa-star checked"></span><span class="far fa-star checked"></span><span class="spanrating">('+reviewPerson+')</span>':''}
+                                ${(AVG_REVIEW == 2 )? '<span class="fas fa-star"></span><span class="fas fa-star"></span><span class="far fa-star checked"></span><span class="far fa-star checked"></span><span class="far fa-star checked"></span><span class="spanrating">('+reviewPerson+')</span>':''}
+                                ${(AVG_REVIEW == 3 )? '<span class="fas fa-star"></span><span class="fas fa-star"></span><span class="fas fa-star"></span><span class="far fa-star checked"></span><span class="far fa-star checked"></span><span class="spanrating">('+reviewPerson+')</span>':''}
+                                ${(AVG_REVIEW == 4 )? '<span class="fas fa-star"></span><span class="fas fa-star"></span><span class="fas fa-star"></span><span class="fas fa-star"></span><span class="far fa-star checked"></span><span class="spanrating">('+reviewPerson+')</span>':''}
+                                ${(AVG_REVIEW == 5 )? '<span class="fas fa-star"></span><span class="fas fa-star"></span><span class="fas fa-star"></span><span class="fas fa-star"></span><span class="fas fa-star"></span><span class="spanrating">('+reviewPerson+')</span>':''}
+                            </div>
+                            
+                            ${ (element.discount_price > 0) ? '<div class="taka">৳ '+element.discount_price+'</div><div class="discount"><del> ৳ '+element.price+'</del></div>': '<div class="taka">৳ '+element.price+'</div></br>'}
+                        </div>
+                        <div class="addbut">
+                            <div class="add_to_cart">Add to cart</div>
+                        </div>
+                    </div>
+                </div>                
+                `;
+            }
+            document.getElementById('main_card').innerHTML = allp;
         });
     }
+    show(0,500000);
 
     function getMaxMin() {
         let range = document.getElementById('amount').value;
