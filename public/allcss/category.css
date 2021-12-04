@@ -497,7 +497,7 @@
           .view_all span:hover{
               color:var(--green);
           }
-          .list-view{
+          /* .list-view{
               position:relative;
           }
           .list-view .card{
@@ -508,21 +508,9 @@
               display:flex;
               flex-flow:row-wrap;
           }
-          .list-view .product_image{
-              width:30%;
-              margin-top:0px;
-              display: flex;
-              align-items: center;
-              justify-content: center;
-              height:100px;
-              width:100px;
-              border:1px solid black;
-              border-radius: 3px;
-          }
-          .list-view img{
-              width:60px;
-              height:auto;
-              object-fit: contain;
+          .list-view .card img{
+            display: inline-block;
+            margin:10px;
           }
           .list-view .apart_for_list{
               width:70%;
@@ -567,19 +555,30 @@
               border-radius:50%;
               background:white;
               margin-top:10px;
+          } */
+          .list-view .card{
+            border-color:var(--green);
+            padding:10px 0px;
+            display: flex;
+            flex-flow: row wrap;
+            grid-column-gap:20px;
+          }
+          .list-view .card img{
+            display: inline-block;
+            margin:10px;
           }
           .t_icon{
               display:inline;
           }
-          .list-view .t_icon{
+          /* .list-view .t_icon{
               display: inline-block;
               margin-right:4px;
               margin-left:5px;
-          }
+          } */
           .triangle-left{
               display:none;
           }
-          .list-view .triangle-left{
+          /* .list-view .triangle-left{
               display: inline-block;
               width: 0;
               height: 0;
@@ -589,13 +588,13 @@
               position: absolute;
               left:-10px;
               top:0;
-          }
-          .list-view .add_to_cart{
+          } */
+          /* .list-view .add_to_cart{
               position: absolute;
               right:30px;
               top:25%;
-          }
-          .list_all_text{
+          } */
+          /* .list_all_text{
               display:none;
           }
           .list-view .list_all_text{
@@ -612,7 +611,7 @@
               font-size:25px;
               padding:12px 0px  12px  30px;
               display:none;
-          }
+          } */
       
           /* responsive part for this style */
       

@@ -144,7 +144,7 @@
 
 <div class="container grid-container cgc">
     <div class="row"  id="main_card">
-        @foreach ($allProducts as $k => $products)
+        {{-- @foreach ($allProducts as $k => $products)
             <div class="col-6 col-md-6 col-lg-4">
                 @php
                     $image = json_decode($products->pimage)[0];
@@ -157,10 +157,6 @@
                 @endphp
                 <div class="card">
                     <div class="one class_for_list">
-                        {{-- <div class="icon_group">
-                            <div class="heart"><i class="far fa-heart"></i></div>
-                            <div class="eye emargin"><i class="far fa-eye"></i></div>
-                        </div> --}}
                         <div class="product_image">
                         <a href="{{route('product_details',$products->slug)}}"><img class="p_img" src="{{asset('laraecomm/'.$image)}}" alt=""></a></div>
                         <div class="apart_for_list">
@@ -177,10 +173,10 @@
                                     $ratingTotal += $reviewArray[$i]->ratingCount;
                                 }
                             }
-                            // var_dump($reviewArray);
-                            // echo $countReview;
-                            //final review calculate avg
-                            //this condition for by zero division issue
+                            var_dump($reviewArray);
+                            echo $countReview;
+                            final review calculate avg
+                            this condition for by zero division issue
                             if ($countReview == 0) {
                                 $countingReview = round($ratingTotal / 1);
                             } else {
@@ -249,7 +245,6 @@
                         @endif
                         @if ($products->discount_price)
                             <div class="mainprice" style="text-align:center;color:rgba(0,0,0,0.4)">
-                                {{-- <span style="font-size:12px;"> {{round($parcentage)}}%- </span> --}}
                                 <del> ৳ {{number_format(intval($products->price))}}</del> 
                             </div>
                         @endif
@@ -262,23 +257,7 @@
                                     {{$products->name}}
                                 </div>
                                 <div class="list_all_text_description">
-                                    {{-- <ul>
-                                        <li>OS: Android 10</li>
-                                        <li>Chipset: Mediatek MT6765 Helio P35 (12nm)</li>
-                                        <li>CPU: Octa-core (4x2.35 GHz Cortex-A53 & 4x1.8 GHz Cortex-A53)</li>
-                                        <li>GPU: PowerVR GE8320</li>
-                                        <li>RAM: 4GB</li>
-                                        <li>ROM: 64GB</li>
-                                        <li>Back Camera: 48MP+5MP+2MP+2MP</li>
-                                        <li>Front Camera: 8MP</li>
-                                        <li>Display Size: 6.5” (PLS IPS Display)</li>
-                                        <li>Display Resolution: 720 x 1600 pixels, 20:9 ratio (~270 ppi Density)</li>
-                                        <li>Build: Glass Front, Plastic Back, Plastic Frame</li>
-                                        <li>Connectivity: Wi-Fi 802.11 b/g/n, Wi-Fi Direct, hotspot; Bluetooth: 5.0 A2DP, LE; GPS: Yes, with</li>
-                                        <li>A-GPS, GLONASS, GALILEO, BDS; NFC: YES; Radio: FM Radio, RDS, Recording; USB: Type-C 2.0</li>
-                                        <li>Sensors: Fingerprint (side-mounted), accelerometer</li>
-                                        <li>Battery Type: Li-Po 5000mAh, non-removable (Fast charging 15W)</li>
-                                    </ul> --}}
+                                  
                                 </div>
                             </div>
                             <div class="add_to_cart">Add to cart</div>
@@ -286,7 +265,69 @@
                     </div>
                 </div>
             </div>
-        @endforeach
+        @endforeach --}}
+        <style>
+            /* #main_card{
+                display: flex;
+                flex-flow: row wrap;
+                grid-column-gap: 30px;
+            }
+            .card{
+                flex-basis: 200px;
+                height:230px;
+                border:1px solid black;
+            } */
+            .card{
+                width:100%;
+                min-height:150px;
+                border:1px solid #d4d2d2;
+                padding:2px 0px;
+                cursor: pointer;
+            }
+            .card img{
+                height:60%;
+                width:100px;
+                object-fit: contain;
+                display: block;
+                margin: 20px auto;
+            }
+            .cardDetails{
+                height: 40%;
+            }
+            .name{
+                text-align: center;
+                font-weight: 600;
+            }
+            .name:hover{
+                color:var(--orange);
+            }
+            .discount{
+                text-align: center;
+                opacity: 0.5;
+            }
+        </style>
+        {{-- single product  --}}
+        <div class="col-6 col-md-6 col-lg-3" id="colChange">
+            <div class="card">
+                <img src="https://fdn2.gsmarena.com/vv/pics/apple/apple-iphone-7-red.jpg" alt="">
+            
+                <div class="cardDetails">
+                    <div class="name">Aplle iphone 8 plus</div>
+                    <div class="rating">
+                        <span><i class="fas fa-star"></i></span>
+                        <span><i class="fas fa-star"></i></span>
+                        <span><i class="fas fa-star"></i></span>
+                        <span><i class="fas fa-star"></i></span>
+                        <span class="far fa-star checked"></span>
+                        <span class="spanrating">(4)</span>
+                    </div>
+                    <div class="taka">৳ 50,000</div>
+                    <div class="discount"><del> ৳ 60,000</del></div> 
+                </div>
+                <div class="add_to_cart">Add to cart</div>
+            </div>
+        </div>
+        {{-- single product  --}}
     </div>
 </div>
 
