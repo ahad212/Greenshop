@@ -176,7 +176,7 @@
 
 /* second style */
 
-.select-hidden {
+/* .select-hidden {
     display: none;
     visibility: hidden;
     padding-right: 10px;
@@ -278,18 +278,21 @@
     }
     .select-options li[rel="hide"] {
     display: none;
-    }
+    } */
     .active2{
     color:var(--orange);
     }
     .for_inline{
-        position:relative;
+        display: flex;
+        grid-column-gap: 20px;
     }
     .listgridbut{
-        position:absolute;
+        /* position:absolute;
         top:10px;
-        left:250px;
+        left:250px; */
         color:#6A7180;
+        flex-basis:200px;
+        margin-top:10px;
 
     }
     .listgridbut i{
@@ -303,9 +306,8 @@
         color:var(--orange);
     }
     .item_count{
-        position:absolute;
-        top:10px;
-        right:0px;
+        margin-top:10px;
+        margin-left:auto;
     }
     .filter_button{
         display:none;

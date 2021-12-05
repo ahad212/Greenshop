@@ -63,5 +63,6 @@ Route::post('/wishlist/update','product@wishlistupdate');
 //filter api
 
 Route::post('/product/filter','product@filter');
+Route::post('/product/orderfilter','product@filterByOrder');
 
 

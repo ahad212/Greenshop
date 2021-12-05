@@ -448,4 +448,10 @@ public function updateProduct(Request $request) {
         $products = products::whereRaw("price >= ".$this->min_price." AND price <=".$this->max_price)->get();
         return response()->json($products);
     }
+
+    public function filterByOrder(Request $request) {
+        $orderBy = $request->input('orderby');
+        $products = products::orderBy('price')->get();
+        return response()->json($products);
+    }
 }

@@ -110,7 +110,7 @@
             <div class="main_page col-12 col-xl-9">
 
                 <div class="for_inline">
-                    <select id="mounth" class="select-hidden">
+                    {{-- <select id="mounth" class="select-hidden" >
                         <!-- <option value="hide">-- Month --</option> -->
                         <option value="january" rel="icon-temperature">Default sorting</option>
                         <option value="february">Sort by popularity</option>
@@ -118,13 +118,19 @@
                         <option value="april">Sort by latest</option>
                         <option value="may">price low to high</option>
                         <option value="june">price high to low</option>
-                    </select>
-                    {{-- <select name="" id="select">
-                        <option value="">a</option>
-                        <option value="">b</option>
-                        <option value="">c</option>
-                        <option value="">e</option>
                     </select> --}}
+                    <style>
+                        .nice-select .option:hover, .nice-select .option.focus, .nice-select .option.selected.focus {
+                            background-color: #b9b3b3;
+                        }
+                    </style>
+                    <select name="" id="select" onchange="filter2(this)">
+                        <option value="default-sorting">Default sorting</option>
+                        {{-- <option value="">Sort by average rating</option> --}}
+                        <option value="sort-by-letest">Sort by latest</option>
+                        <option value="price-low-to-high">Price low to high</option>
+                        <option value="price-high-to-low">Price high to low</option>
+                    </select>
                     <div class="filter_button filcolor" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
                         <img class="filter_img filcolor" src="{{asset('laraecomm/images/filter.png')}}" alt=""><span>Filter</span>
                     </div>
@@ -399,7 +405,6 @@
 
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" integrity="sha512-uto9mlQzrs59VwILcLiRYeLKPPbS/bT71da/OEBYEwcdNUk8jYIy+D176RYoop1Da+f9mvkYrmj5MCLZWEtQuA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script src="{{asset('laraecomm/alljs/jquery.nice-select.min.js')}}"></script>
 <script src="{{asset('laraecomm/alljs/category.js')}}"></script>
@@ -457,7 +462,7 @@
         " - ৳" + $( "#slider-range" ).slider( "values", 1 ) );
     });
 
-    function show(min,max) {
+    (function show(min,max) {
         let formData = new FormData();
         formData.append('min',min);
         formData.append('max',max);
@@ -480,10 +485,6 @@
                     }
                     AVG_REVIEW = Math.round(reviewPointTotal/reviewPerson);
                     unCheckedReview = unCheckedReview - AVG_REVIEW;
-                    console.log(reviewPointTotal);
-                    console.log(reviewPerson);
-                    console.log(AVG_REVIEW);
-                    console.log(unCheckedReview);
                 }
                 allp +=`
                 <div class="col-6 col-md-6 col-lg-3" id="colChange">
@@ -513,8 +514,25 @@
             }
             document.getElementById('main_card').innerHTML = allp;
         });
+    })(0,500000);
+
+
+
+
+
+
+    
+    function filter2(option) {
+        const SELECTED_VALUE = option.options[option.selectedIndex].value;
+        // let formData = new FormData();
+        // formData.append('orderby',orderby);
+        // formData.append('desc',desc);
+        // axios.post('/laraecomm/api/product/orderfilter',formData).then(res=>{
+        //     console.log(res.data);
+        // });
+        console.log(SELECTED_VALUE);
     }
-    show(0,500000);
+    // filter2();
 
     function getMaxMin() {
         let range = document.getElementById('amount').value;
