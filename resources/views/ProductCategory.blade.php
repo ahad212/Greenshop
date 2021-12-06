@@ -462,84 +462,346 @@
         " - ৳" + $( "#slider-range" ).slider( "values", 1 ) );
     });
 
-    (function show(min,max) {
+    function show(min,max) {
         let formData = new FormData();
         formData.append('min',min);
         formData.append('max',max);
         axios.post('/laraecomm/api/product/filter',formData).then(res=>{
             console.log(res.data);
-            let allp = '';
-            for (let index = 0; index < res.data.length; index++) {
-                const element = res.data[index];
-                const imageFirst = JSON.parse(element.pimage);
-                let reviewArray = JSON.parse(element.review);
-                let reviewPerson = 0;
-                let reviewPointTotal = 0;
-                let unCheckedReview = 5;
-                let AVG_REVIEW = 0;
-                if (reviewArray) {
-                    reviewPerson = reviewArray.length;
-                    for (let i = 0; i < reviewArray.length; i++) {
-                        const element = reviewArray[i];
-                        reviewPointTotal += parseInt(element.ratingCount,10);
-                    }
-                    AVG_REVIEW = Math.round(reviewPointTotal/reviewPerson);
-                    unCheckedReview = unCheckedReview - AVG_REVIEW;
-                }
-                allp +=`
-                <div class="col-6 col-md-6 col-lg-3" id="colChange">
-                    <div class="card">
-                        <div class="imageDiv">
-                            <a href="/laraecomm/Product/${element.slug}"><img src="${'/laraecomm'+imageFirst[0]}" alt=""></a>
-                        </div>
-                        <div class="cardDetails">
-                            <a class="name" href="/laraecomm/Product/${element.slug}">${element.name}</a>
-                            <div class="rating">
-                                ${(AVG_REVIEW == 0 )? '<span class="far fa-star checked"></span><span class="far fa-star checked"></span><span class="far fa-star checked"></span><span class="far fa-star checked"></span><span class="far fa-star checked"></span><span class="spanrating">('+reviewPerson+')</span>':''}
-                                ${(AVG_REVIEW == 1 )? '<span class="fas fa-star"></span><span class="far fa-star checked"></span><span class="far fa-star checked"></span><span class="far fa-star checked"></span><span class="far fa-star checked"></span><span class="spanrating">('+reviewPerson+')</span>':''}
-                                ${(AVG_REVIEW == 2 )? '<span class="fas fa-star"></span><span class="fas fa-star"></span><span class="far fa-star checked"></span><span class="far fa-star checked"></span><span class="far fa-star checked"></span><span class="spanrating">('+reviewPerson+')</span>':''}
-                                ${(AVG_REVIEW == 3 )? '<span class="fas fa-star"></span><span class="fas fa-star"></span><span class="fas fa-star"></span><span class="far fa-star checked"></span><span class="far fa-star checked"></span><span class="spanrating">('+reviewPerson+')</span>':''}
-                                ${(AVG_REVIEW == 4 )? '<span class="fas fa-star"></span><span class="fas fa-star"></span><span class="fas fa-star"></span><span class="fas fa-star"></span><span class="far fa-star checked"></span><span class="spanrating">('+reviewPerson+')</span>':''}
-                                ${(AVG_REVIEW == 5 )? '<span class="fas fa-star"></span><span class="fas fa-star"></span><span class="fas fa-star"></span><span class="fas fa-star"></span><span class="fas fa-star"></span><span class="spanrating">('+reviewPerson+')</span>':''}
-                            </div>
-                            
-                            ${ (element.discount_price > 0) ? '<div class="taka">৳ '+element.discount_price+'</div><div class="discount"><del> ৳ '+element.price+'</del></div>': '<div class="taka">৳ '+element.price+'</div></br>'}
-                        </div>
-                        <div class="addbut">
-                            <div class="add_to_cart">Add to cart</div>
-                        </div>
-                    </div>
-                </div>                
-                `;
-            }
-            document.getElementById('main_card').innerHTML = allp;
+            showingProducts(res.data);
         });
-    })(0,500000);
+    }
+    show(0,500000);
 
 
-
-
-
-
-    
     function filter2(option) {
         const SELECTED_VALUE = option.options[option.selectedIndex].value;
-        // let formData = new FormData();
-        // formData.append('orderby',orderby);
-        // formData.append('desc',desc);
-        // axios.post('/laraecomm/api/product/orderfilter',formData).then(res=>{
-        //     console.log(res.data);
-        // });
-        console.log(SELECTED_VALUE);
+        let desc = 0;
+        let orderBy = 'id';
+
+        switch (SELECTED_VALUE) {
+            case 'sort-by-letest':
+                desc = 1;
+                orderBy= 'id';
+                break;
+            case 'price-low-to-high':
+                orderBy = 'price';
+                desc = 0;
+                break;
+            case 'price-high-to-low':
+                orderBy = 'price';
+                desc = 1;
+                break;
+            default:
+                orderBy = 'id';
+                desc = 0;
+                break;
+        }
+        let formData = new FormData();
+        formData.append('orderBy',orderBy);
+        formData.append('desc',desc);
+        axios.post('/laraecomm/api/product/orderfilter',formData).then(res=>{
+            showingProducts(res.data);
+        });
     }
-    // filter2();
+
 
     function getMaxMin() {
         let range = document.getElementById('amount').value;
         let MAX_MIN_VALUE_ARRAY = range.replaceAll('৳','').split('-');
         let min = parseInt(MAX_MIN_VALUE_ARRAY[0],10);
         let max = parseInt(MAX_MIN_VALUE_ARRAY[1],10);
-        show(min,max);
+        window.show(min,max);
     }
+
+
+
+    //showing products
+
+    function showingProducts(arrayGun) {
+        let allp = '';
+        for (let index = 0; index < arrayGun.length; index++) {
+            const element = arrayGun[index];
+            const imageFirst = JSON.parse(element.pimage);
+            let reviewArray = JSON.parse(element.review);
+            let reviewPerson = 0;
+            let reviewPointTotal = 0;
+            let unCheckedReview = 5;
+            let AVG_REVIEW = 0;
+            if (reviewArray) {
+                reviewPerson = reviewArray.length;
+                for (let i = 0; i < reviewArray.length; i++) {
+                    const element = reviewArray[i];
+                    reviewPointTotal += parseInt(element.ratingCount,10);
+                }
+                AVG_REVIEW = Math.round(reviewPointTotal/reviewPerson);
+                unCheckedReview = unCheckedReview - AVG_REVIEW;
+            }
+            allp +=`
+            <div class="col-6 col-md-6 col-lg-3" id="colChange">
+                <div class="card">
+                    <div class="imageDiv">
+                        <a href="/laraecomm/Product/${element.slug}"><img src="${'/laraecomm'+imageFirst[0]}" alt=""></a>
+                    </div>
+                    <div class="cardDetails">
+                        <a class="name" href="/laraecomm/Product/${element.slug}">${element.name}</a>
+                        <div class="rating">
+                            ${(AVG_REVIEW == 0 )? '<span class="far fa-star checked"></span><span class="far fa-star checked"></span><span class="far fa-star checked"></span><span class="far fa-star checked"></span><span class="far fa-star checked"></span><span class="spanrating">('+reviewPerson+')</span>':''}
+                            ${(AVG_REVIEW == 1 )? '<span class="fas fa-star"></span><span class="far fa-star checked"></span><span class="far fa-star checked"></span><span class="far fa-star checked"></span><span class="far fa-star checked"></span><span class="spanrating">('+reviewPerson+')</span>':''}
+                            ${(AVG_REVIEW == 2 )? '<span class="fas fa-star"></span><span class="fas fa-star"></span><span class="far fa-star checked"></span><span class="far fa-star checked"></span><span class="far fa-star checked"></span><span class="spanrating">('+reviewPerson+')</span>':''}
+                            ${(AVG_REVIEW == 3 )? '<span class="fas fa-star"></span><span class="fas fa-star"></span><span class="fas fa-star"></span><span class="far fa-star checked"></span><span class="far fa-star checked"></span><span class="spanrating">('+reviewPerson+')</span>':''}
+                            ${(AVG_REVIEW == 4 )? '<span class="fas fa-star"></span><span class="fas fa-star"></span><span class="fas fa-star"></span><span class="fas fa-star"></span><span class="far fa-star checked"></span><span class="spanrating">('+reviewPerson+')</span>':''}
+                            ${(AVG_REVIEW == 5 )? '<span class="fas fa-star"></span><span class="fas fa-star"></span><span class="fas fa-star"></span><span class="fas fa-star"></span><span class="fas fa-star"></span><span class="spanrating">('+reviewPerson+')</span>':''}
+                        </div>
+                        
+                        ${ (element.discount_price > 0) ? '<div class="taka">৳ '+element.discount_price+'</div><div class="discount"><del> ৳ '+element.price+'</del></div>': '<div class="taka">৳ '+element.price+'</div></br>'}
+                    </div>
+                    <div class="addbut">
+                        <div class="add_to_cart">Add to cart</div>
+                    </div>
+                </div>
+            </div>                
+            `;
+        }
+        document.getElementById('main_card').innerHTML = allp;
+    }
+
+
+
+
+ //Order place 
+ 
+function orderplace() {
+    let tokenExist = localStorage.getItem('usertoken');
+    if (!tokenExist) {
+
+        //open login screen
+        background.classList.add('shadowopen');
+        model.classList.add('shadowopen');
+        document.body.classList.add('bodyblur');
+        document.getElementById('main_warp').classList.add('main-warp');
+        //end login screen
+
+        //showing error message
+        iziToast.error({
+            title: 'Error',
+            message: 'Please Login First',
+            position: 'topCenter',
+        });
+        //end error message
+        return;       
+    }
+    let colorId = document.getElementById('coloring');
+    let sizeId = document.getElementById('sizing');
+    if(colorId || sizeId) {
+        if (!colorId.value) {
+            iziToast.error({
+                title: 'Error',
+                message: 'Select Color is required',
+                position: 'topCenter',
+            });
+            return;
+        }
+        if (!sizeId.value) {
+            iziToast.error({
+                title: 'Error',
+                message: 'Select Size is required',
+                position: 'topCenter',
+            });
+            return;
+        } 
+    } else {
+        console.log('color or size is missing');
+    }
+
+    if (shipcost == 'abc') {
+        iziToast.error({
+            title: 'Error',
+            message: 'Select Your City',
+            position: 'topCenter',
+        });
+        return;
+    } else {
+        let quantity = document.getElementById('quantitynum').value;
+        let price = '';
+        if (currentProduct.discount_price > 0) {
+            price = currentProduct.discount_price;
+        } else {
+            price = currentProduct.price;
+        }
+        let orderObj = {id: currentProduct.id, name: currentProduct.name, quantity: quantity, price: price ,pimage : currentProduct.pimage, shipping: totalShippingCost,shipping: currentProduct.shipping_charge,totalQuantity:currentProduct.quantity, checked:true, slug: currentProduct.slug};
+        if (colorId) {
+            orderObj.color = colorId.value; 
+        } 
+        if (sizeId) {
+            orderObj.size = sizeId.value;
+        }
+        console.log(currentProduct.virtual_product);
+        if (currentProduct.virtual_product == 'yes') {
+            orderObj.virtualP = 'yes';
+        }
+        let cartExist = localStorage.getItem('cart');
+        let findingind = '';
+
+
+        if (cartExist) { 
+            let jsonArray = JSON.parse(cartExist);
+            findingind = jsonArray.findIndex(x => x.id == currentProduct.id);
+        }
+
+
+        if (!cartExist) {
+            let cartArray = [];
+            cartArray.push(orderObj);
+            localStorage.setItem('cart',JSON.stringify(cartArray));
+            iziToast.success({
+                title: 'Success',
+                message: 'Product add to cart',
+                position: 'topCenter',
+            });
+            cartLength();
+            let total = 0;
+            for (let index = 0; index < cartArray.length; index++) {
+                const element = cartArray[index];
+                let totalwithquan = parseInt(element.quantity) * parseInt(element.price);
+                total += totalwithquan;
+            }
+            let formatValue = new Intl.NumberFormat('en-IN').format(total);
+            document.getElementById('totalCart').innerHTML = formatValue;
+            document.getElementById('sub_amounRight').innerHTML = formatValue;
+
+            let totalcart = '';
+            for (let caring = 0; caring < cartArray.length; caring++) {
+                const element = cartArray[caring];
+                const imageFirst = JSON.parse(element.pimage);
+                let totalwithquanRight = parseInt(element.price);
+                let formatValueRight = new Intl.NumberFormat('en-IN').format(totalwithquanRight);
+                totalcart += `
+                <div class="cart_item_list">
+                    <div class="car_item_image">
+                        <img src="${'/laraecomm'+imageFirst[0]}" alt="">
+                    </div>
+                    <div class="item_all_info">
+                        <div class="info_name">
+                            ${element.name}
+                        </div>
+                        <div class="count_which">${element.quantity}x <span>৳ ${formatValueRight}</span></div>
+                    </div>
+                    <div class="action_items" onclick="splititem(${element.id})">
+                        <i class="far fa-trash-alt"></i>
+                    </div>
+                </div>
+                `;
+            }
+            document.getElementById('cartItemList').innerHTML = totalcart;
+            localStorage.setItem('allselect','checked');
+            
+        } else if (findingind != -1) {
+            let jsonArray = JSON.parse(cartExist);
+            let oldQuantity = jsonArray[findingind].quantity;
+            let totalQuantityNow = parseInt(orderObj.quantity) + parseInt(oldQuantity);
+            if ( totalQuantityNow > currentProduct.quantity ) {
+                orderObj.quantity = parseInt(oldQuantity);
+                iziToast.error({
+                    title: 'Failed',
+                    message: 'Exceed available quantity',
+                    position: 'topCenter',
+                });  
+                return;
+            } else {
+                orderObj.quantity = totalQuantityNow;
+            }
+            jsonArray.splice(findingind,1,orderObj);
+            localStorage.setItem('cart',JSON.stringify(jsonArray));
+            iziToast.success({
+                title: 'Success',
+                message: 'Cart Updated',
+                position: 'topCenter',
+            });
+            cartLength();
+            let total = 0;
+            for (let index = 0; index < jsonArray.length; index++) {
+                const element = jsonArray[index];
+                let totalwithquan = parseInt(element.quantity) * parseInt(element.price);
+                total += totalwithquan;
+            }
+            let formatValue = new Intl.NumberFormat('en-IN').format(total);
+            document.getElementById('totalCart').innerHTML = formatValue;
+            document.getElementById('sub_amounRight').innerHTML = formatValue;
+
+            let totalcart = '';
+            for (let caring = 0; caring < jsonArray.length; caring++) {
+                const element = jsonArray[caring];
+                const imageFirst = JSON.parse(element.pimage);
+                let totalwithquanRight = parseInt(element.price);
+                let formatValueRight = new Intl.NumberFormat('en-IN').format(totalwithquanRight);
+                totalcart += `
+                <div class="cart_item_list">
+                    <div class="car_item_image">
+                        <img src="${'/laraecomm'+imageFirst[0]}" alt="">
+                    </div>
+                    <div class="item_all_info">
+                        <div class="info_name">
+                            ${element.name}
+                        </div>
+                        <div class="count_which">${element.quantity}x <span>৳ ${formatValueRight}</span></div>
+                    </div>
+                    <div class="action_items" onclick="splititem(${element.id})">
+                        <i class="far fa-trash-alt"></i>
+                    </div>
+                </div>
+                `;
+            }
+            document.getElementById('cartItemList').innerHTML = totalcart;
+
+        } else {
+            let jsonArray = JSON.parse(cartExist);
+            jsonArray.push(orderObj);
+            localStorage.setItem('cart',JSON.stringify(jsonArray));
+            iziToast.success({
+                title: 'Success',
+                message: 'Product add to cart',
+                position: 'topCenter',
+            });
+            cartLength();
+            let total = 0;
+            for (let index = 0; index < jsonArray.length; index++) {
+                const element = jsonArray[index];
+                let totalwithquan = parseInt(element.quantity) * parseInt(element.price);
+                total += totalwithquan;
+            }
+            let formatValue = new Intl.NumberFormat('en-IN').format(total);
+            document.getElementById('totalCart').innerHTML = formatValue;
+            document.getElementById('sub_amounRight').innerHTML = formatValue;
+
+            let totalcart = '';
+            for (let caring = 0; caring < jsonArray.length; caring++) {
+                const element = jsonArray[caring];
+                const imageFirst = JSON.parse(element.pimage);
+                let totalwithquanRight = parseInt(element.price);
+                let formatValueRight = new Intl.NumberFormat('en-IN').format(totalwithquanRight);
+                totalcart += `
+                <div class="cart_item_list">
+                    <div class="car_item_image">
+                        <img src="${'/laraecomm'+imageFirst[0]}" alt="">
+                    </div>
+                    <div class="item_all_info">
+                        <div class="info_name">
+                            ${element.name}
+                        </div>
+                        <div class="count_which">${element.quantity}x <span>৳ ${formatValueRight}</span></div>
+                    </div>
+                    <div class="action_items" onclick="splititem(${element.id})">
+                        <i class="far fa-trash-alt"></i>
+                    </div>
+                </div>
+                `;
+            }
+            document.getElementById('cartItemList').innerHTML = totalcart;
+            
+        }
+    }
+
+}    
 </script>
 @endsection

@@ -450,8 +450,14 @@ public function updateProduct(Request $request) {
     }
 
     public function filterByOrder(Request $request) {
-        $orderBy = $request->input('orderby');
-        $products = products::orderBy('price')->get();
+        $orderBy = $request->input('orderBy');
+        $desc = intval($request->input('desc'));
+        if ($desc) {
+            $products = products::orderBy($orderBy,'desc')->get();
+        } else {
+            $products = products::orderBy($orderBy)->get();
+        }
+
         return response()->json($products);
     }
 }
