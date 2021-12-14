@@ -442,6 +442,7 @@ public function updateProduct(Request $request) {
 // filter api
     public $min_price= 0;
     public $max_price = 400000;
+    public $path = 'Mobile Phone';
     public function filter(Request $request) {
         $this->min_price = intval($request->input('min'));
         $this->max_price = intval($request->input('max'));
@@ -459,5 +460,21 @@ public function updateProduct(Request $request) {
         }
 
         return response()->json($products);
+    }
+
+
+    public function getCategorywithQuantity() {
+        $array = array();
+        $all_products = products::join('brands','products.category','=','brands.id')->select('products.*','brands.cname')->get();
+        $cat = DB::table('brands')->where('parent','Mobile Phone')->get();
+        foreach ($cat as $key => $category) {
+            $aall = products::where('category',$category->id)->get();
+            $arr = ['cname'=> $category->cname,'items'=> json_encode($aall)];
+            $arr2 = json_encode($arr);
+            array_push($array,$arr2);
+        }
+        // $aall = products::where('category',1)->get();
+        return response()->json($array);
+
     }
 }

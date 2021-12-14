@@ -64,5 +64,6 @@ Route::post('/wishlist/update','product@wishlistupdate');
 
 Route::post('/product/filter','product@filter');
 Route::post('/product/orderfilter','product@filterByOrder');
+Route::get('/V1/product/filter','product@getCategorywithQuantity');
 
 

@@ -287,7 +287,7 @@
                     @endphp
                     @if ($countingReview == 0)
                         <div class="rating">
-                            <span class="spanrating">(0)</span>
+                            <span class="spanrating">({{$countReview}})</span>
                             <span class="far fa-star checked"></span>
                             <span class="far fa-star checked"></span>
                             <span class="far fa-star checked"></span>
@@ -296,7 +296,7 @@
                         </div>                      
                     @elseif ($countingReview == 1)
                         <div class="rating">
-                            <span class="spanrating">(1)</span>
+                            <span class="spanrating">({{$countReview}})</span>
                             <span class="far fa-star checked"></span>
                             <span class="far fa-star checked"></span>
                             <span class="far fa-star checked"></span>
@@ -305,7 +305,7 @@
                         </div>
                     @elseif ($countingReview == 2)
                         <div class="rating">
-                            <span class="spanrating">(2)</span>
+                            <span class="spanrating">({{$countReview}})</span>
                             <span class="far fa-star checked"></span>
                             <span class="far fa-star checked"></span>
                             <span class="far fa-star checked"></span>
@@ -323,7 +323,7 @@
                         </div>
                     @elseif ($countingReview == 4)
                         <div class="rating">
-                            <span class="spanrating">(4)</span>
+                            <span class="spanrating">({{$countReview}})</span>
                             <span class="far fa-star checked"></span>
                             <span><i class="fas fa-star"></i></span>
                             <span><i class="fas fa-star"></i></span>
@@ -332,7 +332,7 @@
                         </div>
                     @elseif ($countingReview == 5)
                         <div class="rating">
-                            <span class="spanrating">(5)</span>
+                            <span class="spanrating">({{$countReview}})</span>
                             <span><i class="fas fa-star"></i></span>
                             <span><i class="fas fa-star"></i></span>
                             <span><i class="fas fa-star"></i></span>
@@ -340,14 +340,6 @@
                             <span><i class="fas fa-star"></i></span>
                         </div>
                     @endif
-                    {{-- <div class="rating">
-                        <span class="spanrating">(0)</span>
-                        <span class="far fa-star checked"></span>
-                        <span class="far fa-star checked"></span>
-                        <span class="far fa-star checked"></span>
-                        <span class="far fa-star checked"></span>
-                        <span><i class="fas fa-star"></i></span>
-                    </div> --}}
                     @if (!$products->discount_price)
                         <br>
                     @endif
@@ -357,9 +349,11 @@
         </div>
         {{-- this issue (View_all position) will be fixed when item will be grater than 6 --}}
         @php
-            if ($k < 5) {
-                echo '<br>';
-                echo '<br>';
+            if ($k) {
+                if ($k < 5) {
+                    echo '<br>';
+                    echo '<br>';
+                }
             }
         @endphp
         <a href="{{route('categoryclient','Bestsell')}}"><div class="view_all"><span>View All</span></div></a>
@@ -380,84 +374,162 @@
 
 <h1 class="h1mobile">Mobile</h1>
 <div class="best_sell2">
-    <div class="sell_left2">
-        <div class="menupartBest2">
-            <ul>
-                <a href="javascript:void(0)"><li><i  class="fas fa-mobile-alt category_icon3"></i>Mobile</li></a>
-                <a href="javascript:void(0)"><li><i  class="fas fa-headphones-alt category_icon"></i> Mobile Accessories</li></a>
-                <a href="javascript:void(0)"><li><i  class="fas fa-laptop category_icon2"></i> Laptop</li></a>
-                <a href="javascript:void(0)"><li><i  class="fas fa-mouse category_icon"></i> Laptop Accessories</li></a>
-                <a href="javascript:void(0)"><li><i  class="far fa-lightbulb category_icon"></i> Electronic</li></a>
-                <a href="javascript:void(0)"><li><i  class="fab fa-uncharted category_icon"></i> Software</li></a>
-                <a href="javascript:void(0)"><li><i  class="fas fa-shield-virus category_icon2"></i> Antivirus</li></a>
-            </ul>
+    @if ($allProducts)
+        <div class="sell_left2">
+            <div class="menupartBest2">
+                <ul>
+                    <a href="javascript:void(0)"><li><i  class="fas fa-mobile-alt category_icon3"></i>Mobile</li></a>
+                    <a href="javascript:void(0)"><li><i  class="fas fa-headphones-alt category_icon"></i> Mobile Accessories</li></a>
+                    <a href="javascript:void(0)"><li><i  class="fas fa-laptop category_icon2"></i> Laptop</li></a>
+                    <a href="javascript:void(0)"><li><i  class="fas fa-mouse category_icon"></i> Laptop Accessories</li></a>
+                    <a href="javascript:void(0)"><li><i  class="far fa-lightbulb category_icon"></i> Electronic</li></a>
+                    <a href="javascript:void(0)"><li><i  class="fab fa-uncharted category_icon"></i> Software</li></a>
+                    <a href="javascript:void(0)"><li><i  class="fas fa-shield-virus category_icon2"></i> Antivirus</li></a>
+                </ul>
+            </div>
         </div>
-    </div>
+        <div class="sell-slider">
+            <div class="owl-carousel owl-theme">
+                @foreach ($allProducts as $k => $products)
+                    @if ($products->parent == 'Mobile Phone' || $products->cname == 'Mobile Phone')
+                        @php
+                            $image = json_decode($products->pimage)[0];
 
-    <div class="sell-slider">
-        <div class="owl-carousel owl-theme">
-            @foreach ($allProducts as $k => $products)
-            @php
-                $image = json_decode($products->pimage)[0];
-
-                //discount percentage calculation
-                $price = $products->price;
-                $dis_price = $products->discount_price;
-                $subtruct = intval($price) - intval($dis_price);
-                $parcentage = ($subtruct*100)/intval($price);
-            @endphp
-                <div class="one">
-                    @if (!$products->quantity)
-                        <div class="sold_out">Out Of Stock</div>
-                    @endif
-                    @if ($products->discount_price)
-                        <div class="discountsticker">
-                            {{-- <span style="margin-left:4px;">-</span> --}}
-                            {{-- <div class="triangle-left"></div> --}}
-                            {{round($parcentage).'%'.'-'}}
+                            //discount percentage calculation
+                            $price = $products->price;
+                            $dis_price = $products->discount_price;
+                            $subtruct = intval($price) - intval($dis_price);
+                            $parcentage = ($subtruct*100)/intval($price);
+                        @endphp
+                        <div class="one">
+                            @if (!$products->quantity)
+                                <div class="sold_out">Out Of Stock</div>
+                            @endif
+                            @if ($products->discount_price)
+                                <div class="discountsticker">
+                                    {{-- <span style="margin-left:4px;">-</span> --}}
+                                    {{-- <div class="triangle-left"></div> --}}
+                                    {{round($parcentage).'%'.'-'}}
+                                </div>
+                            @endif
+                            <div class="icon_group">
+                                <div class="heart"><i class="far fa-eye"></i></div>
+                                <div class="eye"><i class="far fa-heart"></i></div>
+                            </div>
+                            <a href="{{route('product_details', $products->slug)}}"><figure><img src="{{asset('laraecomm'.$image)}}" alt=""></figure></a> 
+                            <a href="{{route('product_details', $products->slug)}}"><figcaption>{{$products->name}}</figcaption></a>
+                            @if ($products->discount_price)
+                                <div class="taka">{{number_format($products->discount_price)}} <span>৳</span></div>
+                            @else
+                                <div class="taka">{{number_format(intval($products->price))}} <span>৳</span></div>
+                            @endif
+                            @if ($products->discount_price)
+                                <div class="mainprice" style="text-align:center;">
+                                    {{-- <span style="font-size:12px;"> {{round($parcentage)}}%- </span> --}}
+                                    <del>{{number_format(intval($products->price))}}</del> 
+                                </div>
+                            @endif
+                            @php
+                                $countReview = 0;
+                                $reviewArray = json_decode($products->review);
+                                $ratingTotal = 0;
+                                if ($reviewArray) {
+                                    for ($i=0; $i <count($reviewArray) ; $i++) { 
+                                        // how many people review it
+                                        $countReview += 1;
+                                        //total review count from above people
+                                        $ratingTotal += $reviewArray[$i]->ratingCount;
+                                    }
+                                }
+                                // var_dump($reviewArray);
+                                // echo $countReview;
+                                //final review calculate avg
+                                //this condition for by zero division issue
+                                if ($countReview == 0) {
+                                    $countingReview = round($ratingTotal / 1);
+                                } else {
+                                    $countingReview = round($ratingTotal / $countReview);
+                                }
+                            @endphp
+                            @if ($countingReview == 0)
+                                <div class="rating">
+                                    <span class="spanrating">({{$countReview}})</span>
+                                    <span class="far fa-star checked"></span>
+                                    <span class="far fa-star checked"></span>
+                                    <span class="far fa-star checked"></span>
+                                    <span class="far fa-star checked"></span>
+                                    <span class="far fa-star checked"></span>
+                                </div>                      
+                            @elseif ($countingReview == 1)
+                                <div class="rating">
+                                    <span class="spanrating">({{$countReview}})</span>
+                                    <span class="far fa-star checked"></span>
+                                    <span class="far fa-star checked"></span>
+                                    <span class="far fa-star checked"></span>
+                                    <span class="far fa-star checked"></span>
+                                    <span><i class="fas fa-star"></i></span>
+                                </div>
+                            @elseif ($countingReview == 2)
+                                <div class="rating">
+                                    <span class="spanrating">({{$countReview}})</span>
+                                    <span class="far fa-star checked"></span>
+                                    <span class="far fa-star checked"></span>
+                                    <span class="far fa-star checked"></span>
+                                    <span><i class="fas fa-star"></i></span>
+                                    <span><i class="fas fa-star"></i></span>
+                                </div>
+                            @elseif ($countingReview == 3)
+                                <div class="rating">
+                                    <span class="spanrating">(3)</span>
+                                    <span class="far fa-star checked"></span>
+                                    <span class="far fa-star checked"></span>
+                                    <span><i class="fas fa-star"></i></span>
+                                    <span><i class="fas fa-star"></i></span>
+                                    <span><i class="fas fa-star"></i></span>
+                                </div>
+                            @elseif ($countingReview == 4)
+                                <div class="rating">
+                                    <span class="spanrating">({{$countReview}})</span>
+                                    <span class="far fa-star checked"></span>
+                                    <span><i class="fas fa-star"></i></span>
+                                    <span><i class="fas fa-star"></i></span>
+                                    <span><i class="fas fa-star"></i></span>
+                                    <span><i class="fas fa-star"></i></span>
+                                </div>
+                            @elseif ($countingReview == 5)
+                                <div class="rating">
+                                    <span class="spanrating">({{$countReview}})</span>
+                                    <span><i class="fas fa-star"></i></span>
+                                    <span><i class="fas fa-star"></i></span>
+                                    <span><i class="fas fa-star"></i></span>
+                                    <span><i class="fas fa-star"></i></span>
+                                    <span><i class="fas fa-star"></i></span>
+                                </div>
+                            @endif
+                            @if (!$products->discount_price)
+                                <br>
+                            @endif
+                            <div class="add_to_cart">Add to cart</div>
                         </div>
-                    @endif
-                    <div class="icon_group">
-                        <div class="heart"><i class="far fa-eye"></i></div>
-                        <div class="eye"><i class="far fa-heart"></i></div>
-                    </div>
-                    <a href="{{route('product_details', $products->slug)}}"><figure><img src="{{asset('laraecomm'.$image)}}" alt=""></figure></a> 
-                    <a href="{{route('product_details', $products->slug)}}"><figcaption>{{$products->name}}</figcaption></a>
-                    @if ($products->discount_price)
-                        <div class="taka">{{number_format($products->discount_price)}} <span>৳</span></div>
                     @else
-                        <div class="taka">{{number_format(intval($products->price))}} <span>৳</span></div>
+                        <div class="fill" style="height:280px;">
+                            {{-- <h4>No Products</h4> --}}
+                        </div> 
                     @endif
-                    @if ($products->discount_price)
-                        <div class="mainprice" style="text-align:center;">
-                            {{-- <span style="font-size:12px;"> {{round($parcentage)}}%- </span> --}}
-                            <del>{{number_format(intval($products->price))}}</del> 
-                        </div>
-                    @endif
-                    <div class="rating">
-                        <span class="spanrating">(0)</span>
-                        <span class="far fa-star checked"></span>
-                        <span class="far fa-star checked"></span>
-                        <span class="far fa-star checked"></span>
-                        <span class="far fa-star checked"></span>
-                        <span class="far fa-star checked"></span>
-                    </div>
-                    @if (!$products->discount_price)
-                        <br>
-                    @endif
-                    <div class="add_to_cart">Add to cart</div>
-                </div>
-            @endforeach
+                @endforeach
+            </div>
+            {{-- this issue (View_all position) will be fixed when item will be grater than 6 --}}
+            @php
+                if ($k) {
+                    if ($k < 5) {
+                        echo '<br>';
+                        echo '<br>';
+                    }
+                }
+            @endphp
+            <a href="{{route('categoryclient','mobile-phone')}}"><div class="view_all"><span>View All</span></div></a>
         </div>
-        {{-- this issue (View_all position) will be fixed when item will be grater than 6 --}}
-        @php
-            if ($k < 5) {
-                echo '<br>';
-                echo '<br>';
-            }
-        @endphp
-        <a href="{{route('categoryclient','Bestsell')}}"><div class="view_all"><span>View All</span></div></a>
-    </div>
+    @endif
 </div>
 
 
@@ -481,73 +553,152 @@
     <div class="sell-slider">
         <div class="owl-carousel owl-theme">
             @foreach ($allProducts as $k => $products)
-            @php
-                $image = json_decode($products->pimage)[0];
+                @if ($products->parent == 'Laptop' || $products->cname == 'Laptop')
+                    @php
+                        $image = json_decode($products->pimage)[0];
 
-                //discount percentage calculation
-                $price = $products->price;
-                $dis_price = $products->discount_price;
-                $subtruct = intval($price) - intval($dis_price);
-                $parcentage = ($subtruct*100)/intval($price);
-            @endphp
-                <div class="one">
-                    @if (!$products->quantity)
-                        <div class="sold_out">Out Of Stock</div>
-                    @endif
-                    @if ($products->discount_price)
-                        <div class="discountsticker">
-                            {{-- <span style="margin-left:4px;">-</span> --}}
-                            {{-- <div class="triangle-left"></div> --}}
-                            {{round($parcentage).'%'.'-'}}
+                        //discount percentage calculation
+                        $price = $products->price;
+                        $dis_price = $products->discount_price;
+                        $subtruct = intval($price) - intval($dis_price);
+                        $parcentage = ($subtruct*100)/intval($price);
+                    @endphp
+                    <div class="one">
+                        @if (!$products->quantity)
+                            <div class="sold_out">Out Of Stock</div>
+                        @endif
+                        @if ($products->discount_price)
+                            <div class="discountsticker">
+                                {{-- <span style="margin-left:4px;">-</span> --}}
+                                {{-- <div class="triangle-left"></div> --}}
+                                {{round($parcentage).'%'.'-'}}
+                            </div>
+                        @endif
+                        <div class="icon_group">
+                            <div class="heart"><i class="far fa-eye"></i></div>
+                            <div class="eye"><i class="far fa-heart"></i></div>
                         </div>
-                    @endif
-                    <div class="icon_group">
-                        <div class="heart"><i class="far fa-eye"></i></div>
-                        <div class="eye"><i class="far fa-heart"></i></div>
+                        <a href="{{route('product_details', $products->slug)}}"><figure><img src="{{asset('laraecomm'.$image)}}" alt=""></figure></a> 
+                        <a href="{{route('product_details', $products->slug)}}"><figcaption>{{$products->name}}</figcaption></a>
+                        @if ($products->discount_price)
+                            <div class="taka">{{number_format($products->discount_price)}} <span>৳</span></div>
+                        @else
+                            <div class="taka">{{number_format(intval($products->price))}} <span>৳</span></div>
+                        @endif
+                        @if ($products->discount_price)
+                            <div class="mainprice" style="text-align:center;">
+                                {{-- <span style="font-size:12px;"> {{round($parcentage)}}%- </span> --}}
+                                <del>{{number_format(intval($products->price))}}</del> 
+                            </div>
+                        @endif
+                        @php
+                            $countReview = 0;
+                            $reviewArray = json_decode($products->review);
+                            $ratingTotal = 0;
+                            if ($reviewArray) {
+                                for ($i=0; $i <count($reviewArray) ; $i++) { 
+                                    // how many people review it
+                                    $countReview += 1;
+                                    //total review count from above people
+                                    $ratingTotal += $reviewArray[$i]->ratingCount;
+                                }
+                            }
+                            // var_dump($reviewArray);
+                            // echo $countReview;
+                            //final review calculate avg
+                            //this condition for by zero division issue
+                            if ($countReview == 0) {
+                                $countingReview = round($ratingTotal / 1);
+                            } else {
+                                $countingReview = round($ratingTotal / $countReview);
+                            }
+                        @endphp
+                        @if ($countingReview == 0)
+                            <div class="rating">
+                                <span class="spanrating">({{$countReview}})</span>
+                                <span class="far fa-star checked"></span>
+                                <span class="far fa-star checked"></span>
+                                <span class="far fa-star checked"></span>
+                                <span class="far fa-star checked"></span>
+                                <span class="far fa-star checked"></span>
+                            </div>                      
+                        @elseif ($countingReview == 1)
+                            <div class="rating">
+                                <span class="spanrating">({{$countReview}})</span>
+                                <span class="far fa-star checked"></span>
+                                <span class="far fa-star checked"></span>
+                                <span class="far fa-star checked"></span>
+                                <span class="far fa-star checked"></span>
+                                <span><i class="fas fa-star"></i></span>
+                            </div>
+                        @elseif ($countingReview == 2)
+                            <div class="rating">
+                                <span class="spanrating">({{$countReview}})</span>
+                                <span class="far fa-star checked"></span>
+                                <span class="far fa-star checked"></span>
+                                <span class="far fa-star checked"></span>
+                                <span><i class="fas fa-star"></i></span>
+                                <span><i class="fas fa-star"></i></span>
+                            </div>
+                        @elseif ($countingReview == 3)
+                            <div class="rating">
+                                <span class="spanrating">(3)</span>
+                                <span class="far fa-star checked"></span>
+                                <span class="far fa-star checked"></span>
+                                <span><i class="fas fa-star"></i></span>
+                                <span><i class="fas fa-star"></i></span>
+                                <span><i class="fas fa-star"></i></span>
+                            </div>
+                        @elseif ($countingReview == 4)
+                            <div class="rating">
+                                <span class="spanrating">({{$countReview}})</span>
+                                <span class="far fa-star checked"></span>
+                                <span><i class="fas fa-star"></i></span>
+                                <span><i class="fas fa-star"></i></span>
+                                <span><i class="fas fa-star"></i></span>
+                                <span><i class="fas fa-star"></i></span>
+                            </div>
+                        @elseif ($countingReview == 5)
+                            <div class="rating">
+                                <span class="spanrating">({{$countReview}})</span>
+                                <span><i class="fas fa-star"></i></span>
+                                <span><i class="fas fa-star"></i></span>
+                                <span><i class="fas fa-star"></i></span>
+                                <span><i class="fas fa-star"></i></span>
+                                <span><i class="fas fa-star"></i></span>
+                            </div>
+                        @endif
+                        @if (!$products->discount_price)
+                            <br>
+                        @endif
+                        <div class="add_to_cart">Add to cart</div>
                     </div>
-                    <a href="{{route('product_details', $products->slug)}}"><figure><img src="{{asset('laraecomm'.$image)}}" alt=""></figure></a> 
-                    <a href="{{route('product_details', $products->slug)}}"><figcaption>{{$products->name}}</figcaption></a>
-                    @if ($products->discount_price)
-                        <div class="taka">{{number_format($products->discount_price)}} <span>৳</span></div>
-                    @else
-                        <div class="taka">{{number_format(intval($products->price))}} <span>৳</span></div>
-                    @endif
-                    @if ($products->discount_price)
-                        <div class="mainprice" style="text-align:center;">
-                            {{-- <span style="font-size:12px;"> {{round($parcentage)}}%- </span> --}}
-                            <del>{{number_format(intval($products->price))}}</del> 
-                        </div>
-                    @endif
-                    <div class="rating">
-                        <span class="spanrating">(0)</span>
-                        <span class="far fa-star checked"></span>
-                        <span class="far fa-star checked"></span>
-                        <span class="far fa-star checked"></span>
-                        <span class="far fa-star checked"></span>
-                        <span class="far fa-star checked"></span>
+                @else
+                    <div class="fill" style="height:280px;">
+                        {{-- <h4>No Products</h4> --}}
                     </div>
-                    @if (!$products->discount_price)
-                        <br>
-                    @endif
-                    <div class="add_to_cart">Add to cart</div>
-                </div>
+                @endif
             @endforeach
         </div>
         {{-- this issue (View_all position) will be fixed when item will be grater than 6 --}}
         @php
-            if ($k < 5) {
-                echo '<br>';
-                echo '<br>';
+            if ($k) {
+                if ($k < 5) {
+                    echo '<br>';
+                    echo '<br>';
+                }
             }
         @endphp
-        <a href="{{route('categoryclient','Bestsell')}}"><div class="view_all"><span>View All</span></div></a>
+        <a href="{{route('categoryclient','laptop')}}"><div class="view_all"><span>View All</span></div></a>
     </div>
 </div>
 
 
 
 
-
+@php
+    $electronic = '';
+@endphp
 
 <h1 class="h1electro">Electronics</h1>
 <div class="best_sell4">
@@ -568,56 +719,131 @@
     <div class="sell-slider">
         <div class="owl-carousel owl-theme">
             @foreach ($allProducts as $k => $products)
-            @php
-                $image = json_decode($products->pimage)[0];
+                @if ($products->parent == 'Electronics' ||  $products->cname == 'Electronics')
+                    @php
+                        $image = json_decode($products->pimage)[0];
 
-                //discount percentage calculation
-                $price = $products->price;
-                $dis_price = $products->discount_price;
-                $subtruct = intval($price) - intval($dis_price);
-                $parcentage = ($subtruct*100)/intval($price);
-            @endphp
-                <div class="one">
-                    @if (!$products->quantity)
-                        <div class="sold_out">Out Of Stock</div>
-                    @endif
-                    @if ($products->discount_price)
-                        <div class="discountsticker">
-                            {{-- <span style="margin-left:4px;">-</span> --}}
-                            {{-- <div class="triangle-left"></div> --}}
-                            {{round($parcentage).'%'.'-'}}
+                        //discount percentage calculation
+                        $price = $products->price;
+                        $dis_price = $products->discount_price;
+                        $subtruct = intval($price) - intval($dis_price);
+                        $parcentage = ($subtruct*100)/intval($price);
+                    @endphp
+                    <div class="one">
+                        @if (!$products->quantity)
+                            <div class="sold_out">Out Of Stock</div>
+                        @endif
+                        @if ($products->discount_price)
+                            <div class="discountsticker">
+                                {{-- <span style="margin-left:4px;">-</span> --}}
+                                {{-- <div class="triangle-left"></div> --}}
+                                {{round($parcentage).'%'.'-'}}
+                            </div>
+                        @endif
+                        <div class="icon_group">
+                            <div class="heart"><i class="far fa-eye"></i></div>
+                            <div class="eye"><i class="far fa-heart"></i></div>
                         </div>
-                    @endif
-                    <div class="icon_group">
-                        <div class="heart"><i class="far fa-eye"></i></div>
-                        <div class="eye"><i class="far fa-heart"></i></div>
+                        <a href="{{route('product_details', $products->slug)}}"><figure><img src="{{asset('laraecomm'.$image)}}" alt=""></figure></a> 
+                        <a href="{{route('product_details', $products->slug)}}"><figcaption>{{$products->name}}</figcaption></a>
+                        @if ($products->discount_price)
+                            <div class="taka">{{number_format($products->discount_price)}} <span>৳</span></div>
+                        @else
+                            <div class="taka">{{number_format(intval($products->price))}} <span>৳</span></div>
+                        @endif
+                        @if ($products->discount_price)
+                            <div class="mainprice" style="text-align:center;">
+                                {{-- <span style="font-size:12px;"> {{round($parcentage)}}%- </span> --}}
+                                <del>{{number_format(intval($products->price))}}</del> 
+                            </div>
+                        @endif
+                        @php
+                            $countReview = 0;
+                            $reviewArray = json_decode($products->review);
+                            $ratingTotal = 0;
+                            if ($reviewArray) {
+                                for ($i=0; $i <count($reviewArray) ; $i++) { 
+                                    // how many people review it
+                                    $countReview += 1;
+                                    //total review count from above people
+                                    $ratingTotal += $reviewArray[$i]->ratingCount;
+                                }
+                            }
+                            // var_dump($reviewArray);
+                            // echo $countReview;
+                            //final review calculate avg
+                            //this condition for by zero division issue
+                            if ($countReview == 0) {
+                                $countingReview = round($ratingTotal / 1);
+                            } else {
+                                $countingReview = round($ratingTotal / $countReview);
+                            }
+                        @endphp
+                        @if ($countingReview == 0)
+                            <div class="rating">
+                                <span class="spanrating">({{$countReview}})</span>
+                                <span class="far fa-star checked"></span>
+                                <span class="far fa-star checked"></span>
+                                <span class="far fa-star checked"></span>
+                                <span class="far fa-star checked"></span>
+                                <span class="far fa-star checked"></span>
+                            </div>                      
+                        @elseif ($countingReview == 1)
+                            <div class="rating">
+                                <span class="spanrating">({{$countReview}})</span>
+                                <span class="far fa-star checked"></span>
+                                <span class="far fa-star checked"></span>
+                                <span class="far fa-star checked"></span>
+                                <span class="far fa-star checked"></span>
+                                <span><i class="fas fa-star"></i></span>
+                            </div>
+                        @elseif ($countingReview == 2)
+                            <div class="rating">
+                                <span class="spanrating">({{$countReview}})</span>
+                                <span class="far fa-star checked"></span>
+                                <span class="far fa-star checked"></span>
+                                <span class="far fa-star checked"></span>
+                                <span><i class="fas fa-star"></i></span>
+                                <span><i class="fas fa-star"></i></span>
+                            </div>
+                        @elseif ($countingReview == 3)
+                            <div class="rating">
+                                <span class="spanrating">(3)</span>
+                                <span class="far fa-star checked"></span>
+                                <span class="far fa-star checked"></span>
+                                <span><i class="fas fa-star"></i></span>
+                                <span><i class="fas fa-star"></i></span>
+                                <span><i class="fas fa-star"></i></span>
+                            </div>
+                        @elseif ($countingReview == 4)
+                            <div class="rating">
+                                <span class="spanrating">({{$countReview}})</span>
+                                <span class="far fa-star checked"></span>
+                                <span><i class="fas fa-star"></i></span>
+                                <span><i class="fas fa-star"></i></span>
+                                <span><i class="fas fa-star"></i></span>
+                                <span><i class="fas fa-star"></i></span>
+                            </div>
+                        @elseif ($countingReview == 5)
+                            <div class="rating">
+                                <span class="spanrating">({{$countReview}})</span>
+                                <span><i class="fas fa-star"></i></span>
+                                <span><i class="fas fa-star"></i></span>
+                                <span><i class="fas fa-star"></i></span>
+                                <span><i class="fas fa-star"></i></span>
+                                <span><i class="fas fa-star"></i></span>
+                            </div>
+                        @endif
+                        @if (!$products->discount_price)
+                            <br>
+                        @endif
+                        <div class="add_to_cart">Add to cart</div>
                     </div>
-                    <a href="{{route('product_details', $products->slug)}}"><figure><img src="{{asset('laraecomm'.$image)}}" alt=""></figure></a> 
-                    <a href="{{route('product_details', $products->slug)}}"><figcaption>{{$products->name}}</figcaption></a>
-                    @if ($products->discount_price)
-                        <div class="taka">{{number_format($products->discount_price)}} <span>৳</span></div>
-                    @else
-                        <div class="taka">{{number_format(intval($products->price))}} <span>৳</span></div>
-                    @endif
-                    @if ($products->discount_price)
-                        <div class="mainprice" style="text-align:center;">
-                            {{-- <span style="font-size:12px;"> {{round($parcentage)}}%- </span> --}}
-                            <del>{{number_format(intval($products->price))}}</del> 
-                        </div>
-                    @endif
-                    <div class="rating">
-                        <span class="spanrating">(0)</span>
-                        <span class="far fa-star checked"></span>
-                        <span class="far fa-star checked"></span>
-                        <span class="far fa-star checked"></span>
-                        <span class="far fa-star checked"></span>
-                        <span class="far fa-star checked"></span>
+                @else
+                    <div class="fill" style="height:280px;">
+                        {{-- <h4>No Products</h4> --}}
                     </div>
-                    @if (!$products->discount_price)
-                        <br>
-                    @endif
-                    <div class="add_to_cart">Add to cart</div>
-                </div>
+                @endif
             @endforeach
         </div>
         {{-- this issue (View_all position) will be fixed when item will be grater than 6 --}}
@@ -627,7 +853,7 @@
                 echo '<br>';
             }
         @endphp
-        <a href="{{route('categoryclient','Bestsell')}}"><div class="view_all"><span>View All</span></div></a>
+        <a href="{{route('categoryclient','electronics')}}"><div class="view_all"><span>View All</span></div></a>
     </div>
 </div>
 
