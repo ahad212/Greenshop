@@ -111,7 +111,10 @@ Route::prefix('laraecomm')->group(function () {
     })->name('offer');
     Route::get('/profile',function() {
         return view('profile');
-    });
+    })->name('profile');
+        Route::get('/history',function() {
+        return view('history');
+    })->name('history');
 
 });
 Route::get('/laraecomm/{vue}', function () {

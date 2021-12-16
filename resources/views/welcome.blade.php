@@ -169,8 +169,8 @@
                             <i class="far fa-user fa-color"></i>
                         </div>
                         <div class="afterlogin" id="afterlogin">
-                            {{-- <a href="" class="profilebtn">Profile</a>
-                            <a class="profilebtn">Orders</a> --}}
+                            <a href="{{route('profile')}}" class="profilebtn">Profile</a>
+                            {{-- <a class="profilebtn">Orders</a> --}}
                             <div class="logoutbtn">Log Out</div>
                         </div>
                     </div>
