@@ -102,4 +102,53 @@ class userController extends Controller
         $addr = DB::table('users')->where('id',$request->userID)->first();
         return response()->json($addr);
     }
+
+
+    public function editProfile(Request $request) {
+        $id = $request->input('id');
+        $name = $request->input('name');
+        $email = $request->input('email');
+        $phone = $request->input('phone');
+        $update = DB::table('users')->where('id',$id)->update([
+            'username' => $name,
+            'email' => $email,
+            'phone' => $phone,
+        ]);
+        if ($update) {
+            $userDetails = DB::table('users')->where('id',$id)->first();
+            return response()->json([
+                'error' => false,
+                'message' => 'Profile updated successfully',
+                'userDetails' => $userDetails
+            ]);
+        } else {
+            return response()->json([
+                'error' => true,
+                'message' => 'Profile updated successfully',
+                'userDetails' => $userDetails
+            ]);            
+        }
+    }
+
+    public function changePassword(Request $request) {
+        $id = $request->input('id');
+        $oldPass = md5($request->input('oldPass'));
+        $newPass = md5($request->input('newPass'));
+        $verify = DB::table('users')->where('id',$id)->where('password',$oldPass)->first();
+        if ($verify) {
+            $uid = $verify->id;
+            $update = DB::table('users')->where('id',$uid)->update([
+                'password' => $newPass
+            ]);
+            return response()->json([
+                'error' => false,
+                'message' => "Password changed successfully"
+            ]);            
+        } else {
+            return response()->json([
+                'error' => true,
+                'message' => "Old password doesn't match"
+            ]);
+        }
+    }
 }

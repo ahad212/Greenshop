@@ -20,6 +20,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::any('/user/create','userController@storeuser');
 Route::any('/user/login','userController@userlogin');
+Route::any('/user/edit','userController@editProfile');
+Route::any('/user/changepass','userController@changePassword');
 Route::get('/v1/products','product@getProducts');
 Route::get('/v1/product/{product_name}','product@individualproduct');
 Route::get('/V1/location','setting@getlocation');
